@@ -53,4 +53,6 @@ Vergelijkbaar met de finance opdracht gezien het feit dat in een database voor e
 
 
 **Sketch**  
-<img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/voorbeeld_schets.png" height="50%" width="25%"/>
+<p align="center">
+     <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/voorbeeld_schets.png" height="50%" width="25%"/>
+</p>

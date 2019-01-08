@@ -1,6 +1,9 @@
 # Design
 
-
+**Schets**
+<p align="center">
+     <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/overzicht.jpg" height="80%" width="80%"/>
+</p>
 
 
 **UML**

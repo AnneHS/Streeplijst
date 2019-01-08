@@ -5,6 +5,14 @@
      <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/overzicht.jpg" height="80%" width="80%"/>
 </p>
 
+*Activities:*
+1. ProductActivity.java, activity_product.xml, product_item.xml  
+2. UserActivity.java, activity_user.xml, user_item.xml  
+5. ProfileActivity.java, activity_profile.xml  
+8. MenuActivity.java, activity_menu.xml  
+9. AddProductActiviy.java, activity_addProduct.xml
+10. AddUserActivity.java, activity_addUser.xml
+
 
 **UML**
 <p align="center">
@@ -15,5 +23,3 @@
 *streeplijst:* id, name, drawableID, costs  
 *products:* id, name, price  
 *transactions:* userID, productName, productPrice, timestamp  
-
-**Schets**

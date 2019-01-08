@@ -13,6 +13,8 @@
 9. AddProductActiviy.java, activity_addProduct.xml
 10. AddUserActivity.java, activity_addUser.xml
 
+*External Component: * SQLite
+
 
 **UML**
 <p align="center">

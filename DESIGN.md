@@ -2,9 +2,9 @@
 
 
 **Streeplijst.db**  
-streeplijst: id, name, drawableID, costs
-products: id, name, price
-transactions: userId, productname, productprice, timestamp 
+streeplijst: id, name, drawableID, costs  
+products: id, name, price  
+transactions: userId, productname, productprice, timestamp  
 
 **UML**
 <p align="center">

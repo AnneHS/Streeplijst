@@ -4,7 +4,7 @@
 **Streeplijst.db**  
 *streeplijst:* id, name, drawableID, costs  
 *products:* id, name, price  
-*transactions:* userId, productname, productprice, timestamp  
+*transactions:* userID, productName, productPrice, timestamp  
 
 **UML**
 <p align="center">

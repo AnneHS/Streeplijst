@@ -52,7 +52,5 @@ Vergelijkbaar met de finance opdracht gezien het feit dat in een database voor e
 - Moet 100% betrouwbaar zijn omdat er maandelijkses facturen op worden gebaseerd.
 
 
-**Sketch**  
-<p align="center">
-     <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/voorbeeld_schets.png" height="80%" width="80%"/>
-</p>
+**Log**  
+Startscherm is een overzicht van de producten, bij de tweede activiteit kies je de gebruiker (i.p.v. andersom). 

@@ -1,6 +1,7 @@
 package com.example.anneh.streeplijst;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,12 +33,13 @@ public class UsersActivity extends AppCompatActivity {
         userGrid.setAdapter(adapter);
 
 
-        // Set listener
-        userGrid.setOnItemClickListener(new UsersActivity.GridItemClickListener());
+        // Set listeners
+        userGrid.setOnItemClickListener(new UsersActivity.GridViewClickListener());
+        userGrid.setOnItemLongClickListener(new GridViewLongClickListener());
     }
 
     //
-    private class GridItemClickListener implements AdapterView.OnItemClickListener {
+    private class GridViewClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -45,4 +47,17 @@ public class UsersActivity extends AppCompatActivity {
             toast.show();
         }
     }
+
+    // Go to profile
+    private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+            Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
+            startActivity(intent);
+            return true;
+        }
+    }
+
+
 }

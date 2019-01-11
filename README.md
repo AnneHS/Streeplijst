@@ -49,8 +49,4 @@ Vergelijkbaar met de finance opdracht gezien het feit dat in een database voor e
 - Veel gebruikers input. Belangrijk om ervoor te zorgen dat dit de app niet in de war kan gooien. 
 - Ervoor zorgen dat elke maand een duidelijk overzicht wordt gemaild naar de persoon die de facturen opstelt.
 - Gebruiksvriendelijkheid. De app moet snel en overzichtelijk zijn, anders gebruikt iedereen liever een streeplijst.
-- Moet 100% betrouwbaar zijn omdat er maandelijkses facturen op worden gebaseerd.
-
-
-**Log**  
-Startscherm is een overzicht van de producten, bij de tweede activiteit kies je de gebruiker (i.p.v. andersom). 
+- Moet 100% betrouwbaar zijn omdat er maandelijkses facturen op worden gebaseerd. 

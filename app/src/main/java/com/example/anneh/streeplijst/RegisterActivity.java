@@ -1,12 +1,20 @@
 package com.example.anneh.streeplijst;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
+
+    Button addBtn;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +23,36 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Open AlertDialog when add button is clicked
+        // https://www.javatpoint.com/android-alert-dialog-example
+        addBtn = (Button) findViewById(R.id.addUser);
+        builder = new AlertDialog.Builder(this);
+        addBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                builder.setMessage("Gebruiker toevoegen?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                // TODO: Voeg product toe
+                                finish();
+                                Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker toegevoegd", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        })
+                        .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }) ;
+
+                // Creating dialog box
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
     }
 
 
@@ -28,7 +66,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle actian bar item clicks --> go to corresponding activity
+        // Handle action bar item clicks --> go to corresponding activity
         int id = item.getItemId();
 
         if (id == R.id.overview) {

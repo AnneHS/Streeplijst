@@ -49,10 +49,4 @@ public class ProductActivity extends AppCompatActivity {
         });
     }
 
-    public void removeClicked(View view) {
-
-        //TODO: pop-up met opties
-        Toast toast = Toast.makeText(getApplicationContext(), "Verwijder product?", Toast.LENGTH_SHORT);
-        toast.show();
-    }
 }

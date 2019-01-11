@@ -1,14 +1,20 @@
 package com.example.anneh.streeplijst;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class NewProductActivity extends AppCompatActivity {
+
+    Button addBtn;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +24,36 @@ public class NewProductActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        // Open AlertDialog when add button is clicked
+        // https://www.javatpoint.com/android-alert-dialog-example
+        addBtn = (Button) findViewById(R.id.addProduct);
+        builder = new AlertDialog.Builder(this);
+        addBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                builder.setMessage("Product toevoegen?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                // TODO: Voeg product toe
+                                finish();
+                                Toast toast = Toast.makeText(getApplicationContext(), "Product toegevoegd", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        })
+                        .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        }) ;
+
+                // Creating dialog box
+                AlertDialog alert = builder.create();
+                alert.show();
+            }
+        });
     }
 
     @Override
@@ -51,12 +87,5 @@ public class NewProductActivity extends AppCompatActivity {
         }
 
         return true;
-    }
-
-    // Add Product and confirm
-    public void addProductClicked(View view) {
-
-        Toast toast = Toast.makeText(getApplicationContext(), "Product toegevoegd!", Toast.LENGTH_SHORT);
-        toast.show();
     }
 }

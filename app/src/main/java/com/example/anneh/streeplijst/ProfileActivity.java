@@ -1,14 +1,20 @@
 package com.example.anneh.streeplijst;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
+
+    Button removeBtn;
+    AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +23,38 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Open AlertDialog when remove button is clicked
+        // https://www.javatpoint.com/android-alert-dialog-example
+        removeBtn = (Button) findViewById(R.id.remove);
+        builder = new AlertDialog.Builder(this);
+        removeBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                builder.setMessage("Verwijder gebruiker?")
+                         .setCancelable(false)
+                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                             public void onClick(DialogInterface dialog, int id) {
+
+                                 // TODO: Verwijder gebruiker
+                                 finish();
+                                 Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker verwijderd", Toast.LENGTH_SHORT);
+                                 toast.show();
+                             }
+                         })
+                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                             public void onClick(DialogInterface dialog, int id) {
+                                 dialog.cancel();
+                             }
+                         }) ;
+
+                 // Creating dialog box
+                 AlertDialog alert = builder.create();
+                 alert.show();
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,12 +87,5 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
         return true;
-    }
-
-    public void removeClicked(View view) {
-
-        //TODO: pop-up met opties
-        Toast toast = Toast.makeText(getApplicationContext(), "Verwijder gebruiker?", Toast.LENGTH_SHORT);
-        toast.show();
     }
 }

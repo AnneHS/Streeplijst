@@ -17,6 +17,7 @@ public class NewProductActivity extends AppCompatActivity {
 
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override
@@ -29,7 +30,7 @@ public class NewProductActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle actian bar item clicks --> go to corresponding activity
+        // Handle action bar item clicks --> go to corresponding activity
         int id = item.getItemId();
 
         if (id == R.id.overview) {

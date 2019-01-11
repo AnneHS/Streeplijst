@@ -24,7 +24,12 @@ public class UsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_users);
 
         // Enable home button
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        android.support.v7.app.ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeButtonEnabled(true);
+
+        // TODO:  home icon veranderen
+        // actionbar.setNavigationIcon(R.drawable.home);
 
         // Create users
         User vermee = new User("Vermee");

@@ -5,23 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ProfileActivity">
+    tools:context=".ProductActivity">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profiel"
+        android:text="Product Profiel"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/transactions"
+        android:id="@+id/price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Transacties"
+        android:text="Prijs"
         android:textAlignment="center" />
 
     <Button
@@ -29,7 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="removeClicked"
-        android:text="Remove Profile"
+        android:text="Remove Product"
         android:textAllCaps="false"
         android:textStyle="bold" />
+
 </LinearLayout>

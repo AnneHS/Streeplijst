@@ -38,7 +38,7 @@ public class UsersActivity extends AppCompatActivity {
         userGrid.setOnItemLongClickListener(new GridViewLongClickListener());
     }
 
-    //
+    // Streep
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -48,7 +48,7 @@ public class UsersActivity extends AppCompatActivity {
         }
     }
 
-    // Go to profile
+    // LongClick --> Go to profile
     private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -58,6 +58,5 @@ public class UsersActivity extends AppCompatActivity {
             return true;
         }
     }
-
 
 }

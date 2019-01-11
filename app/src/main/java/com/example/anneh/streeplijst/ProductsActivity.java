@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,11 +32,12 @@ public class ProductsActivity extends AppCompatActivity {
         productGrid.setAdapter(adapter);
 
         // set listener
-        productGrid.setOnItemClickListener(new GridItemClickListener());
+        productGrid.setOnItemClickListener(new GridViewClickListener());
+        productGrid.setOnItemLongClickListener(new ProductsActivity.GridViewLongClickListener());
     }
 
     // Go to UserActivity when product is clicked
-    private class GridItemClickListener implements AdapterView.OnItemClickListener {
+    private class GridViewClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -43,6 +45,18 @@ public class ProductsActivity extends AppCompatActivity {
             // Product clickedProduct = (Product) parent.getItemAtPosition(position);
             Intent intent = new Intent(ProductsActivity.this, UsersActivity.class);
             startActivity(intent);
+        }
+    }
+
+    // LongClick --> Product Profile
+    private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+            //TODO: toast met opties
+            Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
+            startActivity(intent);
+            return true;
         }
     }
 }

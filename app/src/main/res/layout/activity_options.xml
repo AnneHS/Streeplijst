@@ -5,31 +5,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ProfileActivity">
+    tools:context=".OptionsActivity">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/options"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profiel"
+        android:text="Options"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/transactions"
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Transacties"
+        android:text="Kostenoverzicht"
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/remove"
+        android:id="@+id/transactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="removeClicked"
-        android:text="Remove Profile"
-        android:textAllCaps="false"
+        android:text="Transacties"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/addProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Product"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/addUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add User"
+        android:textSize="18sp"
         android:textStyle="bold" />
 </LinearLayout>

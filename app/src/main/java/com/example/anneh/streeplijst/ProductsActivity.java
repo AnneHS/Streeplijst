@@ -39,6 +39,7 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
 
+    // TODO: zorgen dat dit niet elke activiteit opnieuw moet
     // https://www.youtube.com/watch?v=o4WeEitmF9E
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

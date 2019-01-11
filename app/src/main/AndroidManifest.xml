@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".UsersActivity" />
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".OptionsActivity" />
         <activity android:name=".ProductActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".NewProductActivity" />

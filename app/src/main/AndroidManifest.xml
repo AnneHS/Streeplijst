@@ -22,6 +22,7 @@
         <activity android:name=".ProductActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".NewProductActivity" />
+        <activity android:name=".OverviewActivity"></activity>
     </application>
 
 </manifest>

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -35,6 +37,39 @@ public class ProductsActivity extends AppCompatActivity {
         productGrid.setOnItemClickListener(new GridViewClickListener());
         productGrid.setOnItemLongClickListener(new ProductsActivity.GridViewLongClickListener());
     }
+
+
+    // https://www.youtube.com/watch?v=o4WeEitmF9E
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds itemts to the action bar if it is present
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle actian bar item clicks --> go to corresponding activity
+        int id = item.getItemId();
+
+        if (id == R.id.overview) {
+            Intent intent = new Intent(ProductsActivity.this, OverviewActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.addProduct) {
+            Intent intent = new Intent(ProductsActivity.this, NewProductActivity.class);
+            startActivity(intent);
+        }
+        else if (id == R.id.addUser) {
+            Intent intent = new Intent(ProductsActivity.this, RegisterActivity.class);
+            startActivity(intent);
+        }
+
+        return true;
+    }
+
+
 
     // Go to UserActivity when product is clicked
     private class GridViewClickListener implements AdapterView.OnItemClickListener {

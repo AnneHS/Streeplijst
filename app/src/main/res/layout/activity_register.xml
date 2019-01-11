@@ -5,31 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ProfileActivity">
+    tools:context=".RegisterActivity">
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profiel"
+        android:text="Nieuwe Gebruiker"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/transactions"
+    <EditText
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Transacties"
-        android:textAlignment="center" />
+        android:ems="10"
+        android:hint="Naam"
+        android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/remove"
+        android:id="@+id/addUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="removeClicked"
-        android:text="Verwijder Gebruiker"
-        android:textAllCaps="false"
-        android:textStyle="bold" />
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="Maak aan" />
 </LinearLayout>

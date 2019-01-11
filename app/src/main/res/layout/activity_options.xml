@@ -28,14 +28,15 @@
         android:id="@+id/transactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Transacties"
+        android:text="Transactieoverzicht"
         android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/addProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="addProductClicked"
         android:text="Add Product"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -44,6 +45,7 @@
         android:id="@+id/addUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="addUserClicked"
         android:text="Add User"
         android:textSize="18sp"
         android:textStyle="bold" />

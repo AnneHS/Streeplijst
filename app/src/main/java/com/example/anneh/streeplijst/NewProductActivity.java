@@ -9,10 +9,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class NewProductActivity extends AppCompatActivity {
 
+    EditText nameET;
+    EditText priceET;
+    String productName;
+    float productPrice;
     Button addBtn;
     AlertDialog.Builder builder;
 
@@ -24,7 +29,11 @@ public class NewProductActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Get reference to EditTexts
+        nameET = (EditText) findViewById(R.id.name);
+        priceET = (EditText) findViewById(R.id.price);
 
+        // TODO: Ask for pin
         // Open AlertDialog when add button is clicked
         // https://www.javatpoint.com/android-alert-dialog-example
         addBtn = (Button) findViewById(R.id.addProduct);
@@ -32,12 +41,32 @@ public class NewProductActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                // Get product name if entered, else return
+                if (!nameET.getText().toString().equals("") && nameET.getText().toString().length() > 0) {
+                    productName = nameET.getText().toString();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Geef productnaam", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Get price if entered, else return
+                if(!nameET.getText().toString().equals("") && nameET.getText().toString().length() > 0) {
+                    productPrice = Float.valueOf(priceET.getText().toString());
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Geef prijs", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 builder.setMessage("Product toevoegen?")
                         .setCancelable(false)
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // TODO: Voeg product toe
+                                // TODO: Voeg product toe,
+                                Product newProduct = new Product(productName, productPrice);
+                                // products.add(newProduct);
+
                                 finish();
                                 Toast toast = Toast.makeText(getApplicationContext(), "Product toegevoegd", Toast.LENGTH_SHORT);
                                 toast.show();

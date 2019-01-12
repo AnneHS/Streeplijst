@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Prijs"
-        android:inputType="textPersonName" />
+        android:inputType="numberDecimal|numberSigned"/>
 
     <Button
         android:id="@+id/addProduct"

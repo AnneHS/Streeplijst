@@ -24,6 +24,8 @@ public class ProfileActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        //TODO: Ask for pin
         // Open AlertDialog when remove button is clicked
         // https://www.javatpoint.com/android-alert-dialog-example
         removeBtn = (Button) findViewById(R.id.remove);

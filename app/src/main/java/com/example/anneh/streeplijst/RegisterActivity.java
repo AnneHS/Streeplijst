@@ -24,6 +24,8 @@ public class RegisterActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        // TODO: Ask for pin
         // Open AlertDialog when add button is clicked
         // https://www.javatpoint.com/android-alert-dialog-example
         addBtn = (Button) findViewById(R.id.addUser);

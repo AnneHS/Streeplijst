@@ -9,10 +9,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    EditText usernameET;
+    String username;
     Button addBtn;
     AlertDialog.Builder builder;
 
@@ -24,6 +27,9 @@ public class RegisterActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Get reference to EditText
+        usernameET = findViewById(R.id.username);
+
 
         // TODO: Ask for pin
         // Open AlertDialog when add button is clicked
@@ -33,12 +39,24 @@ public class RegisterActivity extends AppCompatActivity {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                // Get username if entered, else return
+                if (!usernameET.getText().toString().equals("") && usernameET.getText().toString().length() > 0) {
+                    username = usernameET.getText().toString();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Geef naam", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 builder.setMessage("Gebruiker toevoegen?")
                         .setCancelable(false)
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // TODO: Voeg product toe
+                                // TODO: Voeg gebruiker toe
+                                User newUser = new User(username);
+                                // users.add(newUser);
+
                                 finish();
                                 Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker toegevoegd", Toast.LENGTH_SHORT);
                                 toast.show();

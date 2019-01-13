@@ -18,8 +18,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ProductAdapter extends ResourceCursorAdapter {
-//    private ArrayList products;
-//    Product product;
 
     // Constructor
     public ProductAdapter(Context context, Cursor cursor) {
@@ -36,7 +34,6 @@ public class ProductAdapter extends ResourceCursorAdapter {
 
         // Extract properties from cursor
         String productName = cursor.getString(cursor.getColumnIndex("name"));
-        Log.d("Product name: ", productName);
 
         // Populate fields with extracted properties
         productTV.setText(productName);

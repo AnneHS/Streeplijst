@@ -3,6 +3,7 @@ package com.example.anneh.streeplijst;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +18,11 @@ import java.util.ArrayList;
 
 public class UsersActivity extends AppCompatActivity {
 
-    ArrayList<User> users = new ArrayList<>();
+    private StreepDatabase db;
+    Cursor usersCursor;
+    private UserAdapter adapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,16 +36,12 @@ public class UsersActivity extends AppCompatActivity {
         // TODO:  home icon veranderen
         // actionbar.setNavigationIcon(R.drawable.home);
 
-        // Create users
-        User vermee = new User("Vermee");
-        users.add(vermee);
-        User paard = new User("de Whâle");
-        users.add(paard);
-        User sjon = new User("Sjan");
-        users.add(sjon);
+        // Get cursor for users table from StreepDatabase
+        db = StreepDatabase.getInstance(getApplicationContext());
+        usersCursor = db.selectUsers();
 
-        // Instantiate adapter for gridview
-        UserAdapter adapter = new UserAdapter(this, R.layout.user, users);
+        // Set adapter to productGrid
+        adapter = new UserAdapter(this, usersCursor);
         GridView userGrid = (GridView) findViewById(R.id.userGrid);
         userGrid.setAdapter(adapter);
 

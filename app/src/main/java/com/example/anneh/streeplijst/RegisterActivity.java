@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    StreepDatabase db;
+
     EditText usernameET;
     String username;
     Button addBtn;
@@ -26,6 +28,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Get db
+        db = StreepDatabase.getInstance(getApplicationContext());
 
         // Get reference to EditText
         usernameET = findViewById(R.id.username);
@@ -55,11 +60,14 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 // TODO: Voeg gebruiker toe
                                 User newUser = new User(username);
-                                // users.add(newUser);
+                                db.insertUser(newUser);
 
-                                finish();
                                 Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker toegevoegd", Toast.LENGTH_SHORT);
                                 toast.show();
+
+                                // Return to ProductsActivity
+                                Intent intent = new Intent(RegisterActivity.this, ProductsActivity.class);
+                                startActivity(intent);
                             }
                         })
                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {

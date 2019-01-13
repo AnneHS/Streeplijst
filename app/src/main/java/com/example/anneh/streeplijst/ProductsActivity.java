@@ -29,14 +29,6 @@ public class ProductsActivity extends AppCompatActivity {
         db = StreepDatabase.getInstance(getApplicationContext());
         productsCursor = db.selectProducts();
 
-
-//        Product bier = new Product("bier", 1);
-//        products.add(bier);
-//        Product fris = new Product("fris", 2);
-//        products.add(fris);
-//        Product wijn = new Product("wijn", 3);
-//        products.add(wijn);
-
         // Set adapter to productGrid
         adapter = new ProductAdapter(this, productsCursor);
         GridView productGrid = (GridView) findViewById(R.id.productGrid);
@@ -52,6 +44,7 @@ public class ProductsActivity extends AppCompatActivity {
     // https://www.youtube.com/watch?v=o4WeEitmF9E
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds itemts to the action bar if it is present
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -86,7 +79,7 @@ public class ProductsActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Pass Product object to UserActivity
+            // TODO: Pass product object to UsersActivity
             // Product clickedProduct = (Product) parent.getItemAtPosition(position);
             Intent intent = new Intent(ProductsActivity.this, UsersActivity.class);
             startActivity(intent);

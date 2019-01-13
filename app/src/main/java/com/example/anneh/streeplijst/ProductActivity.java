@@ -1,16 +1,21 @@
 package com.example.anneh.streeplijst;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProductActivity extends AppCompatActivity {
 
+    StreepDatabase db;
+    Cursor productsCursor;
     Button removeBtn;
     AlertDialog.Builder builder;
 
@@ -18,6 +23,16 @@ public class ProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+        Intent intent = getIntent();
+        String productName = (String) intent.getSerializableExtra("product_name");
+        float productPrice = (float) intent.getSerializableExtra("product_price");
+
+        TextView nameTV = (TextView) findViewById(R.id.productName);
+        TextView priceTV = (TextView) findViewById(R.id.price);
+
+        nameTV.setText(productName);
+        priceTV.setText(Float.toString(productPrice));
 
         //TODO: Ask for pin
         // Open AlertDialog when remove button is clicked

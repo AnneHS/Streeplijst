@@ -1,6 +1,8 @@
 package com.example.anneh.streeplijst;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     String name;
     float price;
 

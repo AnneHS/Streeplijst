@@ -69,6 +69,16 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
     }
 
+    // Return cursor for product with given id
+    public Cursor selectProduct(int id) {
+
+        String productID = Integer.toString(id);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor productCursor = db.rawQuery("SELECT * FROM products WHERE _id = ?", new String[] {productID});
+        return productCursor;
+
+    }
+
     // Get cursor for users table
     public Cursor selectUsers() {
         SQLiteDatabase db = this.getReadableDatabase();

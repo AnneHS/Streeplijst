@@ -73,7 +73,6 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
 
-
     // Go to UserActivity when product is clicked
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
         @Override
@@ -86,13 +85,16 @@ public class ProductsActivity extends AppCompatActivity {
         }
     }
 
-    // LongClick --> Product Profile
+    // Go to product (profile) page (ProductActivity)
     private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            //TODO: toast met opties
+            // Get selected product id (products table) and pass to ProductActivity
             Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
+            Cursor clickedProduct = (Cursor) parent.getItemAtPosition(position);
+            intent.putExtra("product_name", clickedProduct.getString(clickedProduct.getColumnIndex("name")));
+            intent.putExtra("product_price", clickedProduct.getFloat(clickedProduct.getColumnIndex("price")));
             startActivity(intent);
             return true;
         }

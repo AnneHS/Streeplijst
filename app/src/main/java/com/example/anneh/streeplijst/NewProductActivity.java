@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 public class NewProductActivity extends AppCompatActivity {
 
+    StreepDatabase db;
+
+
     EditText nameET;
     EditText priceET;
     String productName;
@@ -29,9 +32,13 @@ public class NewProductActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Get db
+        db = StreepDatabase.getInstance(getApplicationContext());
+
         // Get reference to EditTexts
         nameET = (EditText) findViewById(R.id.name);
         priceET = (EditText) findViewById(R.id.price);
+
 
         // TODO: Ask for pin
         // Open AlertDialog when add button is clicked
@@ -63,13 +70,17 @@ public class NewProductActivity extends AppCompatActivity {
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // TODO: Voeg product toe,
+                                // Add product to products table (StreepDatabase)
                                 Product newProduct = new Product(productName, productPrice);
-                                // products.add(newProduct);
+                                db.insertProduct(newProduct);
 
-                                finish();
                                 Toast toast = Toast.makeText(getApplicationContext(), "Product toegevoegd", Toast.LENGTH_SHORT);
                                 toast.show();
+
+                                // Return to ProductsActivity
+                                Intent intent = new Intent(NewProductActivity.this, ProductsActivity.class);
+                                startActivity(intent);
+
                             }
                         })
                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {

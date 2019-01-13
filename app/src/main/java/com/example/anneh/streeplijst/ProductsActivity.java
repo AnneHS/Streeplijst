@@ -1,6 +1,7 @@
 package com.example.anneh.streeplijst;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,21 +16,29 @@ import java.util.ArrayList;
 
 public class ProductsActivity extends AppCompatActivity {
 
-    ArrayList<Product> products = new ArrayList<>();
+    private StreepDatabase db;
+    Cursor productsCursor;
+    private ProductAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
 
-        Product bier = new Product("bier", 1);
-        products.add(bier);
-        Product fris = new Product("fris", 2);
-        products.add(fris);
-        Product wijn = new Product("wijn", 3);
-        products.add(wijn);
+        // Get cursor for products table from StreepDatabase
+        db = StreepDatabase.getInstance(getApplicationContext());
+        productsCursor = db.selectProducts();
 
-        // Instantiate adapter for gridview
-        ProductAdapter adapter = new ProductAdapter(this, R.layout.product, products);
+
+//        Product bier = new Product("bier", 1);
+//        products.add(bier);
+//        Product fris = new Product("fris", 2);
+//        products.add(fris);
+//        Product wijn = new Product("wijn", 3);
+//        products.add(wijn);
+
+        // Set adapter to productGrid
+        adapter = new ProductAdapter(this, productsCursor);
         GridView productGrid = (GridView) findViewById(R.id.productGrid);
         productGrid.setAdapter(adapter);
 

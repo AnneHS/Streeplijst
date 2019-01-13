@@ -1,9 +1,12 @@
 package com.example.anneh.streeplijst;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.ResourceCursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,37 +17,29 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ProductAdapter extends ArrayAdapter<Product> {
-    private ArrayList products;
-    Product product;
+public class ProductAdapter extends ResourceCursorAdapter {
+//    private ArrayList products;
+//    Product product;
 
     // Constructor
-    public ProductAdapter(@NonNull Context context, int resource, ArrayList<Product> productsList) {
-        super(context, resource, productsList);
-        products = productsList;
+    public ProductAdapter(Context context, Cursor cursor) {
+        super(context, R.layout.product, cursor);
     }
 
-    @NonNull
+
+    // DB --> product.xml
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public void bindView(View view, Context context, Cursor cursor) {
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.product, parent, false);
-        }
+        // Get reference to TextViews
+        TextView productTV = (TextView) view.findViewById(R.id.product);
 
-        // Get reference to button
-        TextView productTV = (TextView) convertView.findViewById(R.id.product);
+        // Extract properties from cursor
+        String productName = cursor.getString(cursor.getColumnIndex("name"));
+        Log.d("Product name: ", productName);
 
-        // Get product info for given position
-        Product product = (Product) products.get(position);
-        String name = product.getName();
-        float price = product.getPrice();
-
-        // Set text for button
-        productTV.setText(product.getName());
-
-
-        // Return view
-        return convertView;
+        // Populate fields with extracted properties
+        productTV.setText(productName);
     }
+
 }

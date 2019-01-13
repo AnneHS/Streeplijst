@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -23,6 +24,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Get username
+        Intent intent = getIntent();
+        String username = (String) intent.getSerializableExtra("user_name");
+
+        // Set username
+        TextView nameTV = (TextView) findViewById(R.id.username);
+        nameTV.setText(username);
 
 
         //TODO: Ask for pin

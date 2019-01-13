@@ -90,7 +90,7 @@ public class ProductsActivity extends AppCompatActivity {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Get selected product id (products table) and pass to ProductActivity
+            // Get selected product name & price and pass to ProductActivity
             Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
             Cursor clickedProduct = (Cursor) parent.getItemAtPosition(position);
             intent.putExtra("product_name", clickedProduct.getString(clickedProduct.getColumnIndex("name")));

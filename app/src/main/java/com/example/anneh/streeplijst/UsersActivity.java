@@ -98,7 +98,10 @@ public class UsersActivity extends AppCompatActivity {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
+            // Get selected user name and pass to ProfileActivity
             Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
+            Cursor clickedUser = (Cursor) parent.getItemAtPosition(position);
+            intent.putExtra("user_name", clickedUser.getString(clickedUser.getColumnIndex("name")));
             startActivity(intent);
             return true;
         }

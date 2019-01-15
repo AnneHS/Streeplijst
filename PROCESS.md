@@ -22,13 +22,11 @@ te doen maar gewoon een uitschuif menu te gebruiken. Daarnaast is in de Actionba
 die de gebruiker terug brengt naar het productenoverzicht.
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/AlertDialog.PNG" height="5%" width="25%"/> <img
-  src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ActionbarMenu.PNG" height="5%" width="25%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/AlertDialog.PNG" height="5%" width="40%"/> <img
+  src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ActionbarMenu.PNG" height="5%" width="40%"/>  
 </p>
 
- ** foto actionbar **
- ** foto AlertDialog **
- 
+
  **Dag 4 (12-01-2019)**   
  De database en de eerste twee tabellen zijn aangemaakt: één voor producten en één voor de gebruikers. Producten en gebruikers
 kunnen nu handmatig worden toegevoegd. Het toevoegen moet wederom worden bevestigd d.m.v. een AlertDialog. Daarnaast besloten om te 'strepen' door gebruikers aan te klikken en vervolgens middels een knop te bevestigen als de bestelling compleet is. Oorspronkelijk was het idee dat de gebruiker maar één keer geselecteerd kon worden. Dit maakt het echter onmogelijk om meerdere keren op één gebruiker te strepen. Daarom is nu het idee dat je een gebruiker meerdere keren aan kan klikken. Naast het gebruikersoverzicht zal dan in een 

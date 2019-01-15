@@ -7,12 +7,12 @@ het kiezen van de gebruiker, en daarna het product te kiezen. Reden hiervoor is 
 is dat gebruiker bij één bestelling/streep verschillende producten streept, maar het wel mogelijk moet zijn om in één
 keer hetzelfde product voor meerdere gebruikers te strepen.
 
-**Dag 2 (10-01-2019)**
+**Dag 2 (10-01-2019)**   
 De eerste activiteiten en classes (Product & User) zijn gemaakt. Via het productenoverzicht kan je doorklikken
 naar het gebruikersoverzicht. Door een producten of gebruiker lang ingedrukt te houden kan je ze verwijderen. Het strepen en/of 
 verwijderen van een product/gebruiker wordt bevestigd met een Toast.
 
-**Dag 3 (11-01-2019)**
+**Dag 3 (11-01-2019)**   
 Activiteiten toegevoegd voor het registreren van nieuwe gebruikers en het toevoegen van producten. Deze werken nog niet.
 Daarnaast een overzichtspagina toegevoegd die in de toekomst een overzicht moet geven van de totale kosten en transacties.
 De toasts voor het verwijderen van producten en gebruikers zijn vervangen door AlertDialog's. Hierdoor moet de gebruiker
@@ -24,12 +24,12 @@ die de gebruiker terug brengt naar het productenoverzicht.
  ** foto actionbar **
  ** foto AlertDialog **
  
- **Dag 4 (12-01-2019)**
-De database en de eerste twee tabellen zijn aangemaakt: één voor producten en één voor de gebruikers. Producten en gebruikers
+ **Dag 4 (12-01-2019)**   
+ De database en de eerste twee tabellen zijn aangemaakt: één voor producten en één voor de gebruikers. Producten en gebruikers
 kunnen nu handmatig worden toegevoegd. Het toevoegen moet wederom worden bevestigd d.m.v. een AlertDialog. Daarnaast besloten om te 'strepen' door gebruikers aan te klikken en vervolgens middels een knop te bevestigen als de bestelling compleet is. Oorspronkelijk was het idee dat de gebruiker maar één keer geselecteerd kon worden. Dit maakt het echter onmogelijk om meerdere keren op één gebruiker te strepen. Daarom is nu het idee dat je een gebruiker meerdere keren aan kan klikken. Naast het gebruikersoverzicht zal dan in een 
 ListView een overzicht worden gegeven van de huidige bestelling.
 
-**Dag 5 (13-01-2019)**
+**Dag 5 (13-01-2019)**   
 Producten en gebruikers kunnen nu ook handmatig worden verwijderd. Oorspronkelijk was het idee dat producten en gebruikers verwijderd konden worden door ze lang ingedrukt te houden. Nu wordt de gebruiker eerst doorverwezen naar de profielpagina van de gebruiker of het product. Via deze pagina kan het product of de gebruiker dan worden verwijderd. De reden hiervoor is dat het idee al was om  profielpagina's te hebben voor producten en gebruikers zodat in de toekomst via deze pagina's transacties kunnen worden verwijderd, of prijzen kunnen worden veranderd. Over het algemeen zal van deze functies waarschijnlijk vaker gebruik worden gemaakt dan het verwijderen van producten/gebruikers, het is daarom van belang dat het eenvoudig is om op deze profielpagina's te komen.
 
 **Dag 6 (14-01-2019)**

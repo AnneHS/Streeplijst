@@ -1,6 +1,6 @@
 # Process book  
 
-**Dag 1 (08-01-2019)**
+**Dag 1 (08-01-2019)**   
 De eerste schetsen zijn gemaakt. Besloten om te beginnen met een overzicht van de producten (startscherm) en
 pas op het tweede scherm de gebruiker te kiezen. Oorspronkelijk was het idee om te beginnen met 
 het kiezen van de gebruiker, en daarna het product te kiezen. Reden hiervoor is dat het niet de bedoeling 

@@ -34,7 +34,7 @@ kunnen nu handmatig worden toegevoegd. Het toevoegen moet wederom worden bevesti
 ListView een overzicht worden gegeven van de huidige bestelling.
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/profiel.png" height="5%" width="40%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/profiel.png" height="5%" width="30%"/>  
 </p>
 
 

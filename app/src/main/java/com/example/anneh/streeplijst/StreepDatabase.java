@@ -218,6 +218,15 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.delete("products", "_id=?", new String[] {productID});
     }
 
+    public void removeTransaction(int transactionId) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String transactionID = Integer.toString(transactionId);
+        db.delete("transactions", "_id=?", new String[] {transactionID});
+
+        // TODO: Update users table
+    }
+
     // Remove user from users table
     public void removeUser(int userId) {
 

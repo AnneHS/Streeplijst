@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +22,9 @@ public class ProfileActivity extends AppCompatActivity {
     Cursor transactionCursor;
     int userID;
     Button removeBtn;
+    int transactionID;
+
+    // AlertDialog
     AlertDialog.Builder builder;
 
     @Override
@@ -48,6 +52,9 @@ public class ProfileActivity extends AppCompatActivity {
         ListView transactionLV = (ListView) findViewById(R.id.transactionsLV);
         adapter = new TransactionAdapter(this, transactionCursor);
         transactionLV.setAdapter(adapter);
+
+        // Set listener
+        transactionLV.setOnItemLongClickListener(new ProfileActivity.ListViewLongClickListener());
 
 
         //TODO: Ask for pin
@@ -88,6 +95,49 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+
+    // LongClick --> Remove transaction?
+    private class ListViewLongClickListener implements AdapterView.OnItemLongClickListener {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+            // Get transaction ID
+            Cursor clickedTransaction = (Cursor) parent.getItemAtPosition(position);
+            transactionID = clickedTransaction.getInt(clickedTransaction.getColumnIndex("_id"));
+
+            builder = new AlertDialog.Builder(ProfileActivity.this);
+            builder.setMessage("Transactie verwijderen?")
+                    .setCancelable(false)
+                    .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            // Remove transaction from database
+                            db.removeTransaction(transactionID);
+
+                            // Update user table
+
+                            // Confirm removal through toast
+                            Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker verwijderd", Toast.LENGTH_SHORT);
+                            toast.show();
+
+                            // Return to ProductsActivity
+                            Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    }) ;
+
+            // Creating dialog box
+            AlertDialog alert = builder.create();
+            alert.show();
+
+            return true;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

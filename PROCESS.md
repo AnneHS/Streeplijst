@@ -22,13 +22,11 @@ te doen maar gewoon een uitschuif menu te gebruiken. Daarnaast is in de Actionba
 die de gebruiker terug brengt naar het productenoverzicht.
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/AlertDialog.PNG" height="5%" width="25%"/> <img
-  src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ActionbarMenu.PNG" height="5%" width="25%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/AlertDialog.PNG" height="5%" width="40%"/> <img
+  src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ActionbarMenu.PNG" height="5%" width="40%"/>  
 </p>
 
- ** foto actionbar **
- ** foto AlertDialog **
- 
+
  **Dag 4 (12-01-2019)**   
  De database en de eerste twee tabellen zijn aangemaakt: één voor producten en één voor de gebruikers. Producten en gebruikers
 kunnen nu handmatig worden toegevoegd. Het toevoegen moet wederom worden bevestigd d.m.v. een AlertDialog. Daarnaast besloten om te 'strepen' door gebruikers aan te klikken en vervolgens middels een knop te bevestigen als de bestelling compleet is. Oorspronkelijk was het idee dat de gebruiker maar één keer geselecteerd kon worden. Dit maakt het echter onmogelijk om meerdere keren op één gebruiker te strepen. Daarom is nu het idee dat je een gebruiker meerdere keren aan kan klikken. Naast het gebruikersoverzicht zal dan in een 
@@ -37,7 +35,7 @@ ListView een overzicht worden gegeven van de huidige bestelling.
 **Dag 5 (13-01-2019)**   
 Producten en gebruikers kunnen nu ook handmatig worden verwijderd. Oorspronkelijk was het idee dat producten en gebruikers verwijderd konden worden door ze lang ingedrukt te houden. Nu wordt de gebruiker eerst doorverwezen naar de profielpagina van de gebruiker of het product. Via deze pagina kan het product of de gebruiker dan worden verwijderd. De reden hiervoor is dat het idee al was om  profielpagina's te hebben voor producten en gebruikers zodat in de toekomst via deze pagina's transacties kunnen worden verwijderd, of prijzen kunnen worden veranderd. Over het algemeen zal van deze functies waarschijnlijk vaker gebruik worden gemaakt dan het verwijderen van producten/gebruikers, het is daarom van belang dat het eenvoudig is om op deze profielpagina's te komen.
 
-**Dag 6 (14-01-2019)**
+**Dag 6 (14-01-2019)**   
 De tabel voor het transactieoverzicht is toegevoegd aan de StreepDatabase. Daarbij is besloten om een aparte 'Transactie-class' aan te 
 maken. De reden hiervoor is dat er momenteel veel wordt opgeslagen in de transactietabel (transactieId, gebruikerId, gebruikersnaam, productnaam, productprijs, hoeveelheid, totaalprijs, gestreept, timestamp). Het is daarom overzichtelijker om hier een aparte class voor te creëren waarbinnen bijvoorbeeld wordt uitgerekend wat de totaalprijs is. Achteraf zal het wellicht niet noodzakelijk blijken dat al deze informatie wordt opgeslagen. Het idee is, dat het waarschijnlijk eenvoudiger is om later in het proces kolommen te schrappen, dan om ze dan nog toe te voegen indien ze toch nodig blijken.
 Middels een HashMap kan nu worden bijgehouden hoevaak een gebruiker is aangeklikt. Tot slot is besloten om tijdens het strepen geen overzicht van de bestelling naast het gebruikersoverzicht weer te geven. In plaats daarvan is het de bedoeling dat geselecteerde gebruikers van kleur veranderen en er naast hun naam verschijnt hoevaak ze zijn geselecteerd.

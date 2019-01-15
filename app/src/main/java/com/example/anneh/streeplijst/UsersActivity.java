@@ -55,6 +55,7 @@ public class UsersActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -110,7 +111,7 @@ public class UsersActivity extends AppCompatActivity {
             // Update count
             selectedMap.put(userID,(count + 1));
 
-            // Change background color
+            // TODO: Change background color
         }
     }
 
@@ -138,27 +139,41 @@ public class UsersActivity extends AppCompatActivity {
         String productName = (String) intent.getSerializableExtra("product_name");
         float productPrice = (float) intent.getSerializableExtra("product_price");
 
+
         // For each key (userID) in selectedMap
         for (Map.Entry<Integer, Integer> entry : selectedMap.entrySet()) {
             int userID = entry.getKey();
             int amount = entry.getValue();
-            // String username = db.getUsername();
 
-            // Create transaction and insert into DB.
-            // Transaction transaction = new Transaction(userID, username, productName, productPrice, amount);
-            // db.insertTransaction(transaction);
+            // Check
+            System.out.println(entry.getKey() + " = " + entry.getValue());
 
-            // Update user table.
-            // db.streep(userID, transaction.getTotal());
-            // System.out.println(entry.getKey() + " = " + entry.getValue());
+            // TODO: wat doet dit?
+            // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
+            Cursor userCursor = db.selectUser(userID);
+            if (userCursor != null && userCursor.moveToFirst()) {
+
+                // Get username
+                String username = userCursor.getString(userCursor.getColumnIndex("name"));
+                userCursor.close();
+
+                // Create transaction and insert into DB.
+                Transaction transaction = new Transaction(userID, username, productName, productPrice, amount);
+                db.insertTransaction(transaction);
+
+                // Update user table.
+                db.streep(userID, transaction.getTotal());
+            }
+            else {
+                Toast toast = Toast.makeText(getApplicationContext(), "Er gaat iets fout", Toast.LENGTH_SHORT);
+                toast.show();
+
+            }
+
         }
 
-        // reset count for all users
         // reset background color
-
         Toast toast = Toast.makeText(getApplicationContext(), "Gestreept!", Toast.LENGTH_SHORT);
         toast.show();
-
-
     }
 }

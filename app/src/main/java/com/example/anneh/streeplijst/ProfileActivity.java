@@ -10,12 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
 
     StreepDatabase db;
+    private TransactionAdapter adapter;
+    Cursor transactionCursor;
     int userID;
     Button removeBtn;
     AlertDialog.Builder builder;
@@ -28,16 +31,23 @@ public class ProfileActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get DB
-        db = StreepDatabase.getInstance(getApplicationContext());
-
         // Get username and id
         Intent intent = getIntent();
         String username = (String) intent.getSerializableExtra("user_name");
         userID = (int) intent.getSerializableExtra("user_id");
+
         // Set username
         TextView nameTV = (TextView) findViewById(R.id.username);
         nameTV.setText(username);
+
+        // Get transactionCursor for given user
+        db = StreepDatabase.getInstance(getApplicationContext());
+        transactionCursor = db.selectUserTransactions(userID);
+
+        // Set adapter to transaction listview
+        ListView transactionLV = (ListView) findViewById(R.id.transactionsLV);
+        adapter = new TransactionAdapter(this, transactionCursor);
+        transactionLV.setAdapter(adapter);
 
 
         //TODO: Ask for pin

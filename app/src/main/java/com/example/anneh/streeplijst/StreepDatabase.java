@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 public class StreepDatabase extends SQLiteOpenHelper {
 
@@ -25,7 +26,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.execSQL(createProducts);
 
         // Create users table (id, name, costs)
-        String createUsers = "CREATE TABLE users(_id INTEGER PRIMARY KEY, name TEXT, costs REAL)";
+        String createUsers = "CREATE TABLE users(_id INTEGER PRIMARY KEY, name TEXT, costs FLOAT NOT NULL)";
         db.execSQL(createUsers);
 
         // Create transactions table
@@ -49,8 +50,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE users");
         onCreate(db);
 
-//        db.execSQL("DROP TABLE transactions");
-//        onCreate(db);
+        db.execSQL("DROP TABLE transactions");
+        onCreate(db);
     }
 
     // Getter: Returns instance of StreepDatabase if it exists, else creates one
@@ -85,12 +86,42 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
     // Get cursor for users table
     public Cursor selectUsers() {
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor usersCursor = db.rawQuery("SELECT * FROM users", null);
         return usersCursor;
     }
     // TODO: transactionsCursor
 
+    // Get cursor for transactions for given user ID
+    public Cursor selectUserTransactions(int userId) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String userID = Integer.toString(userId);
+        Cursor transactionCursor = db.rawQuery("SELECT * FROM transactions WHERE userID = ?",
+                new String[] {userID});
+
+        return transactionCursor;
+    }
+
+    // Get username for given id
+    public Cursor selectUser(int userId){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String userID = Integer.toString(userId);
+        Cursor userCursor = db.rawQuery("SELECT * FROM users WHERE _id = ?", new String[] {userID});
+
+        // Cursor usernameCursor = db.rawQuery("SELECT * FROM users WHERE _id = " + userID, null);
+        return userCursor;
+    }
+
+    // Get cursor for all transactions
+    public Cursor selectTransactions(){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor transactionsCursor = db.rawQuery("SELECT * FROM transactions", null);
+        return transactionsCursor;
+    }
 
     // Insert transaction into transactions table
     public void insertTransaction(Transaction transaction) {
@@ -109,6 +140,22 @@ public class StreepDatabase extends SQLiteOpenHelper {
     }
 
 
+    // Get total costs from users table
+    // https://stackoverflow.com/questions/20582320/android-get-sum-of-database-column/20582538
+    public float getTotalCosts() {
+        float total = 0;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor costsCursor = db.rawQuery("SELECT SUM(costs) FROM users", null);
+
+        if (costsCursor.moveToFirst()) {
+            return costsCursor.getFloat(0);
+        }
+        else {
+            return total;
+        }
+    }
+
     // Update costs in users table
     public void streep(int userId, float total) {
         //TODO: op handigere manier
@@ -117,14 +164,23 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         String userID = Integer.toString(userId);
 
-        Cursor usernameCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?", new String[] {userID});
-        float formerCosts = usernameCursor.getFloat(usernameCursor.getColumnIndex("costs"));
-        float updatedCosts = formerCosts + total;
+        Cursor costsCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?", new String[] {userID});
 
-        ContentValues cv = new ContentValues();
-        cv.put("costs", updatedCosts);
+        // TODO: wat doet dit?
+        // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
+        if (costsCursor != null & costsCursor.moveToFirst()) {
+            float formerCosts = costsCursor.getFloat(costsCursor.getColumnIndex("costs"));
+            float updatedCosts = formerCosts + total;
 
-        db.update("users", cv, "id = ?", new String[] {userID});
+            ContentValues cv = new ContentValues();
+            cv.put("costs", updatedCosts);
+
+            db.update("users", cv, "_id = ?", new String[] {userID});
+        }
+        else {
+            System.out.println("Er gaat iets fout");
+        }
+
     }
 
 
@@ -152,15 +208,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.insert("users", null, cv);
     }
 
-    // Get username for given id
-    public String getUsername(int userId){
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        String userID = Integer.toString(userId);
-        Cursor usernameCursor = db.rawQuery("SELECT username FROM users WHERE _id = ?", new String[] {userID});
-        String username = usernameCursor.getString(usernameCursor.getColumnIndex("name"));
-        return username;
-    }
 
     // Remove product from products table
     public void removeProduct(int productId) {

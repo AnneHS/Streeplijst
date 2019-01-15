@@ -11,10 +11,17 @@
         android:id="@+id/costs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Kostenoverzicht"
+        android:text="Totaal gestreept:"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/totalCosts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/transactions"
@@ -24,4 +31,9 @@
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <ListView
+        android:id="@+id/transactionsLV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

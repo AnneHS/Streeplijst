@@ -7,8 +7,7 @@ het kiezen van de gebruiker, en daarna het product te kiezen. Reden hiervoor is 
 is dat gebruiker bij één bestelling/streep verschillende producten streept, maar het wel mogelijk moet zijn om in één
 keer hetzelfde product voor meerdere gebruikers te strepen.
 
-
-
+   
 **Dag 2 (10-01-2019)**   
 De eerste activiteiten en classes (Product & User) zijn gemaakt. Via het productenoverzicht kan je doorklikken
 naar het gebruikersoverzicht. Door een producten of gebruiker lang ingedrukt te houden kan je ze verwijderen. Het strepen en/of 

@@ -39,11 +39,16 @@ ListView een overzicht worden gegeven van de huidige bestelling.
 
 
 **Dag 5 (13-01-2019)**   
-Producten en gebruikers kunnen nu ook handmatig worden verwijderd. Oorspronkelijk was het idee dat producten en gebruikers verwijderd konden worden door ze lang ingedrukt te houden. Nu wordt de gebruiker eerst doorverwezen naar de profielpagina van de gebruiker of het product. Via deze pagina kan het product of de gebruiker dan worden verwijderd. De reden hiervoor is dat het idee al was om  profielpagina's te hebben voor producten en gebruikers zodat in de toekomst via deze pagina's transacties kunnen worden verwijderd, of prijzen kunnen worden veranderd. Over het algemeen zal van deze functies waarschijnlijk vaker gebruik worden gemaakt dan het verwijderen van producten/gebruikers, het is daarom van belang dat het eenvoudig is om op deze profielpagina's te komen.
+Producten en gebruikers kunnen nu ook handmatig worden verwijderd. Oorspronkelijk was het idee dat producten en gebruikers verwijderd konden worden door ze lang ingedrukt te houden. Nu wordt de gebruiker eerst doorverwezen naar de profielpagina van de gebruiker of het product. Via deze pagina kan het product of de gebruiker dan worden verwijderd. De reden hiervoor is dat het idee al was om  profielpagina's te hebben voor producten en gebruikers zodat in de toekomst via deze pagina's transacties kunnen worden verwijderd, of prijzen kunnen worden veranderd. Over het algemeen zal van deze functies waarschijnlijk vaker gebruik worden gemaakt dan het verwijderen van producten/gebruikers, het belang om eenvoudig op deze pagina's te komen is daarom groter dan het belang om eenvoudig producten/gebruikers te verwijderen. 
 
 **Dag 6 (14-01-2019)**     
 De tabel voor het transactieoverzicht is toegevoegd aan de StreepDatabase. Daarbij is besloten om een aparte 'Transactie-class' aan te 
 maken. De reden hiervoor is dat er momenteel veel wordt opgeslagen in de transactietabel (transactieId, gebruikerId, gebruikersnaam, productnaam, productprijs, hoeveelheid, totaalprijs, gestreept, timestamp). Het is daarom overzichtelijker om hier een aparte class voor te creëren waarbinnen bijvoorbeeld wordt uitgerekend wat de totaalprijs is. Achteraf zal het wellicht niet noodzakelijk blijken dat al deze informatie wordt opgeslagen. Het idee is, dat het waarschijnlijk eenvoudiger is om later in het proces kolommen te schrappen, dan om ze dan nog toe te voegen indien ze toch nodig blijken.
 Middels een HashMap kan nu worden bijgehouden hoevaak een gebruiker is aangeklikt. Tot slot is besloten om tijdens het strepen geen overzicht van de bestelling naast het gebruikersoverzicht weer te geven. In plaats daarvan is het de bedoeling dat geselecteerde gebruikers van kleur veranderen en er naast hun naam verschijnt hoevaak ze zijn geselecteerd.
+
+**Dag 6 (14-01-2019)**  
+Besloten om in de toekomst ook een portfolio bij te houden in de StreepDatabase zodat de gebruiker in kan zien waar zijn of haar geld
+aan is uitgegeven. Naast een overzicht van de totale kosten en een transactieoverzicht, zal dus ook het portfolio moeten worden weer-
+gegeven op de profielpagina's.
 
 

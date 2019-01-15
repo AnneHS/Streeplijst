@@ -29,8 +29,7 @@ die de gebruiker terug brengt naar het productenoverzicht.
 
 
  **Dag 4 (12-01-2019)**   
- De database en de eerste twee tabellen zijn aangemaakt: één voor producten en één voor de gebruikers. Producten en gebruikers
-kunnen nu handmatig worden toegevoegd. Het toevoegen moet wederom worden bevestigd d.m.v. een AlertDialog. Daarnaast besloten om te 'strepen' door gebruikers aan te klikken en vervolgens middels een knop te bevestigen als de bestelling compleet is. Oorspronkelijk was het idee dat de gebruiker maar één keer geselecteerd kon worden. Dit maakt het echter onmogelijk om meerdere keren op één gebruiker te strepen. Daarom is nu het idee dat je een gebruiker meerdere keren aan kan klikken. Naast het gebruikersoverzicht zal dan in een 
+ De database (StreepDatabase) en de eerste twee tabellen zijn aangemaakt: één voor producten en één voor de gebruikers. Producten en gebruikers kunnen nu handmatig worden toegevoegd. Het toevoegen moet wederom worden bevestigd d.m.v. een AlertDialog. Daarnaast besloten om te 'strepen' door gebruikers aan te klikken en vervolgens middels een knop te bevestigen als de bestelling compleet is. Oorspronkelijk was het idee dat de gebruiker maar één keer geselecteerd kon worden. Dit maakt het echter onmogelijk om meerdere keren op één gebruiker te strepen. Daarom is nu het idee dat je een gebruiker meerdere keren aan kan klikken. Naast het gebruikersoverzicht zal dan in een 
 ListView een overzicht worden gegeven van de huidige bestelling.
 
 <p align="center">
@@ -47,8 +46,6 @@ maken. De reden hiervoor is dat er momenteel veel wordt opgeslagen in de transac
 Middels een HashMap kan nu worden bijgehouden hoevaak een gebruiker is aangeklikt. Tot slot is besloten om tijdens het strepen geen overzicht van de bestelling naast het gebruikersoverzicht weer te geven. In plaats daarvan is het de bedoeling dat geselecteerde gebruikers van kleur veranderen en er naast hun naam verschijnt hoevaak ze zijn aangeklikt.
 
 **Dag 7 (15-01-2019)**  
-Besloten om in de toekomst ook een portfolio bij te houden in de StreepDatabase zodat de gebruiker in kan zien waar zijn of haar geld
-aan is uitgegeven. Naast een overzicht van de totale kosten en een transactieoverzicht, zal dus ook het portfolio moeten worden weer-
-gegeven op de profielpagina's.
+De transacties worden nu bijgehouden in de database. Op de profielpagina van een gebruiker zijn nu de transacties van desbetreffende gebruiker weergegeven. Op de kostenoverzicht-pagina is een overzicht te vinden van alle transacties. Daarnaast wordt op deze pagina weergegeven wat de totale uitgaven zijn. Tot slot besloten om ook gebruikersportfolio's bij te houden in de StreepDatabase zodat de gebruiker in kan zien waaraan zijn of haar geld is uitgegeven (nog niet in uitvoering gebracht). Het transactieoverzicht dient met namen om het verwijderen van transacties mogelijk te maken. Naast een overzicht van de totale kosten en een transactieoverzicht, zal dus ook het portfolio moeten worden weergegeven op de profielpagina's. 
 
 

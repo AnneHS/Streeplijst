@@ -1,4 +1,4 @@
-# Process book  
+# Process book: Streeplijst  
 
 **Dag 1 (08-01-2019)**   
 De eerste schetsen zijn gemaakt. Besloten om te beginnen met een overzicht van de producten (startscherm) en
@@ -20,6 +20,11 @@ uitdrukkelijk bevestigen dat het de bedoeling is om een product te verwijderen. 
 om in de Actionbar een menuknop op te nemen die zou linken naar een 'MenuActiviteit', nu is er voor gekozen om dat niet
 te doen maar gewoon een uitschuif menu te gebruiken. Daarnaast is in de Actionbar een 'Home-knop' opgenomen
 die de gebruiker terug brengt naar het productenoverzicht.
+
+<p align="center">
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/AlertDialog.PNG" height="5%" width="25%"/> <img
+  src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ActionbarMenu.PNG" height="5%" width="25%"/>  
+</p>
 
  ** foto actionbar **
  ** foto AlertDialog **

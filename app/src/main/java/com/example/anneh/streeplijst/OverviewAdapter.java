@@ -13,6 +13,7 @@ public class OverviewAdapter extends ResourceCursorAdapter {
         super(context, R.layout.transactions_overview, cursor);
     }
 
+    // TODO: laatste transacties bovenaan
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 

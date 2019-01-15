@@ -15,7 +15,7 @@ import android.widget.Toast;
 public class ProductActivity extends AppCompatActivity {
 
     StreepDatabase db;
-    Cursor productsCursor;
+    int productID;
     Button removeBtn;
     AlertDialog.Builder builder;
 
@@ -24,7 +24,13 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        // Get db instance
+        db = StreepDatabase.getInstance(getApplicationContext());
+
+        // Get product ID, name & price
+        // TODO: alleen ID meegeven, rest ophalen uit database
         Intent intent = getIntent();
+        productID = (int) intent.getSerializableExtra("product_id");
         String productName = (String) intent.getSerializableExtra("product_name");
         float productPrice = (float) intent.getSerializableExtra("product_price");
 
@@ -47,10 +53,18 @@ public class ProductActivity extends AppCompatActivity {
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // TODO: Verwijder product
-                                finish();
+                                // Remove product from database
+                                db.removeProduct(productID);
+
+                                // Confirm removal with toast
                                 Toast toast = Toast.makeText(getApplicationContext(), "Product verwijderd", Toast.LENGTH_SHORT);
                                 toast.show();
+
+
+                                // Return to ProductsActivity
+                                Intent intent = new Intent(ProductActivity.this, ProductsActivity.class);
+                                startActivity(intent);
+
                             }
                         })
                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {

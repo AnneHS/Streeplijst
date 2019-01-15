@@ -11,6 +11,8 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="Nieuwe Gebruiker"
         android:textAlignment="center"
         android:textSize="24sp"
@@ -20,6 +22,8 @@
         android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="Naam"
         android:inputType="textPersonName" />
@@ -28,7 +32,9 @@
         android:id="@+id/addUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="Toevoegen"
         android:textSize="18sp"
-        android:textStyle="bold"
-        android:text="Maak aan" />
+        android:textStyle="bold" />
 </LinearLayout>

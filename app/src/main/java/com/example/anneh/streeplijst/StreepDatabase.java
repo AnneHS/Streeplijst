@@ -29,6 +29,12 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.execSQL(createUsers);
 
         // Create transactions table
+        String createTransactions = "CREATE TABLE transactions(_id INTEGER PRIMARY KEY, " +
+                "userID INTEGER, username TEXT, productName TEXT, productPrice REAL, amount INTEGER," +
+                " total REAL, gestreept BOOLEAN, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
+        db.execSQL(createTransactions);
+
+        // TODO: portfolio (zie finance)
 
 
     }
@@ -65,8 +71,6 @@ public class StreepDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor productsCursor = db.rawQuery("SELECT * FROM products", null);
         return productsCursor;
-
-
     }
 
     // Return cursor for product with given id
@@ -86,6 +90,43 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return usersCursor;
     }
     // TODO: transactionsCursor
+
+
+    // Insert transaction into transactions table
+    public void insertTransaction(Transaction transaction) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("userID", transaction.getUserID());
+        cv.put("username", transaction.getUsername());
+        cv.put("productName", transaction.getProductName());
+        cv.put("productPrice", transaction.getPrice());
+        cv.put("amount", transaction.getAmount());
+        cv.put("total", transaction.getTotal());
+        cv.put("gestreept", true);
+
+        db.insert("transactions", null, cv);
+    }
+
+
+    // Update costs in users table
+    public void streep(int userId, float total) {
+        //TODO: op handigere manier
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String userID = Integer.toString(userId);
+
+        Cursor usernameCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?", new String[] {userID});
+        float formerCosts = usernameCursor.getFloat(usernameCursor.getColumnIndex("costs"));
+        float updatedCosts = formerCosts + total;
+
+        ContentValues cv = new ContentValues();
+        cv.put("costs", updatedCosts);
+
+        db.update("users", cv, "id = ?", new String[] {userID});
+    }
+
 
     // Insert product into products table
     public void insertProduct(Product product) {
@@ -109,6 +150,33 @@ public class StreepDatabase extends SQLiteOpenHelper {
         cv.put("costs", 0); // New user = 0 costs
 
         db.insert("users", null, cv);
+    }
+
+    // Get username for given id
+    public String getUsername(int userId){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String userID = Integer.toString(userId);
+        Cursor usernameCursor = db.rawQuery("SELECT username FROM users WHERE _id = ?", new String[] {userID});
+        String username = usernameCursor.getString(usernameCursor.getColumnIndex("name"));
+        return username;
+    }
+
+    // Remove product from products table
+    public void removeProduct(int productId) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String productID = Integer.toString(productId);
+        db.delete("products", "_id=?", new String[] {productID});
+    }
+
+    // Remove user from users table
+    public void removeUser(int userId) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String userID = Integer.toString(userId);
+        db.delete("users", "_id=?", new String[] {userID});
+
     }
 
 

@@ -78,9 +78,12 @@ public class ProductsActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // TODO: Pass product object to UsersActivity
-            // Product clickedProduct = (Product) parent.getItemAtPosition(position);
+            // Pass product id, name and price to UsersActivity
             Intent intent = new Intent(ProductsActivity.this, UsersActivity.class);
+            Cursor clickedProduct = (Cursor) parent.getItemAtPosition(position);
+            intent.putExtra("product_id", clickedProduct.getInt(clickedProduct.getColumnIndex("_id")));
+            intent.putExtra("product_name", clickedProduct.getString(clickedProduct.getColumnIndex("name")));
+            intent.putExtra("product_price", clickedProduct.getFloat(clickedProduct.getColumnIndex("price")));
             startActivity(intent);
         }
     }
@@ -93,6 +96,7 @@ public class ProductsActivity extends AppCompatActivity {
             // Get selected product name & price and pass to ProductActivity
             Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
             Cursor clickedProduct = (Cursor) parent.getItemAtPosition(position);
+            intent.putExtra("product_id", clickedProduct.getInt(clickedProduct.getColumnIndex("_id")));
             intent.putExtra("product_name", clickedProduct.getString(clickedProduct.getColumnIndex("name")));
             intent.putExtra("product_price", clickedProduct.getFloat(clickedProduct.getColumnIndex("price")));
             startActivity(intent);

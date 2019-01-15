@@ -2,6 +2,7 @@ package com.example.anneh.streeplijst;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
 
+    StreepDatabase db;
+    int userID;
     Button removeBtn;
     AlertDialog.Builder builder;
 
@@ -25,10 +28,13 @@ public class ProfileActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get username
+        // Get DB
+        db = StreepDatabase.getInstance(getApplicationContext());
+
+        // Get username and id
         Intent intent = getIntent();
         String username = (String) intent.getSerializableExtra("user_name");
-
+        userID = (int) intent.getSerializableExtra("user_id");
         // Set username
         TextView nameTV = (TextView) findViewById(R.id.username);
         nameTV.setText(username);
@@ -47,10 +53,16 @@ public class ProfileActivity extends AppCompatActivity {
                          .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                              public void onClick(DialogInterface dialog, int id) {
 
-                                 // TODO: Verwijder gebruiker
-                                 finish();
+                                 // Remove user from database
+                                 db.removeUser(userID);
+
+                                 // Confirm removal through toast
                                  Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker verwijderd", Toast.LENGTH_SHORT);
                                  toast.show();
+
+                                 // Return to ProductsActivity
+                                 Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
+                                 startActivity(intent);
                              }
                          })
                          .setNegativeButton("Nee", new DialogInterface.OnClickListener() {

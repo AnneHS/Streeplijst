@@ -33,6 +33,11 @@ die de gebruiker terug brengt naar het productenoverzicht.
 kunnen nu handmatig worden toegevoegd. Het toevoegen moet wederom worden bevestigd d.m.v. een AlertDialog. Daarnaast besloten om te 'strepen' door gebruikers aan te klikken en vervolgens middels een knop te bevestigen als de bestelling compleet is. Oorspronkelijk was het idee dat de gebruiker maar één keer geselecteerd kon worden. Dit maakt het echter onmogelijk om meerdere keren op één gebruiker te strepen. Daarom is nu het idee dat je een gebruiker meerdere keren aan kan klikken. Naast het gebruikersoverzicht zal dan in een 
 ListView een overzicht worden gegeven van de huidige bestelling.
 
+<p align="center">
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/profiel.png" height="5%" width="40%"/>  
+</p>
+
+
 **Dag 5 (13-01-2019)**   
 Producten en gebruikers kunnen nu ook handmatig worden verwijderd. Oorspronkelijk was het idee dat producten en gebruikers verwijderd konden worden door ze lang ingedrukt te houden. Nu wordt de gebruiker eerst doorverwezen naar de profielpagina van de gebruiker of het product. Via deze pagina kan het product of de gebruiker dan worden verwijderd. De reden hiervoor is dat het idee al was om  profielpagina's te hebben voor producten en gebruikers zodat in de toekomst via deze pagina's transacties kunnen worden verwijderd, of prijzen kunnen worden veranderd. Over het algemeen zal van deze functies waarschijnlijk vaker gebruik worden gemaakt dan het verwijderen van producten/gebruikers, het is daarom van belang dat het eenvoudig is om op deze profielpagina's te komen.
 

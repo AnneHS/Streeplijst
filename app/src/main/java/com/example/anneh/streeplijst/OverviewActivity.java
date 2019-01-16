@@ -14,6 +14,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.Format;
+import java.text.NumberFormat;
+
 public class OverviewActivity extends AppCompatActivity {
 
     private StreepDatabase db;
@@ -27,11 +30,15 @@ public class OverviewActivity extends AppCompatActivity {
         // Enable home button
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Get formatter for devices default currency
+        Format format = NumberFormat.getCurrencyInstance();
+
+
         // Get total costs from database & set TV
         db = StreepDatabase.getInstance(getApplicationContext());
-        String total = Float.toString(db.getTotalCosts());
+        Float total = db.getTotalCosts();
         TextView totalCosts = (TextView) findViewById(R.id.totalCosts);
-        totalCosts.setText(total);
+        totalCosts.setText(format.format(total));
 
         // Transactions
         Cursor transactionsCursor = db.selectTransactions();

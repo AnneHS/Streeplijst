@@ -15,6 +15,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.Format;
+import java.text.NumberFormat;
+
 public class ProfileActivity extends AppCompatActivity {
 
     StreepDatabase db;
@@ -44,12 +47,14 @@ public class ProfileActivity extends AppCompatActivity {
         TextView nameTV = (TextView) findViewById(R.id.username);
         nameTV.setText(username);
 
+        // Get formatter for devices default currency
+        Format format = NumberFormat.getCurrencyInstance();
+
         // Get total costs from database & set TV
         db = StreepDatabase.getInstance(getApplicationContext());
         Float costs = db.getUserCosts(userID);
-        String userTotal = Float.toString(costs);
         TextView totalCosts = (TextView) findViewById(R.id.totalCosts);
-        totalCosts.setText(userTotal);
+        totalCosts.setText(format.format(costs));
 
         // Get transactionCursor for given user
         transactionCursor = db.selectUserTransactions(userID);

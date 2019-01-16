@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
+import java.text.Format;
+import java.text.NumberFormat;
+
 public class OverviewAdapter extends ResourceCursorAdapter {
 
     // Constructor
@@ -29,18 +32,21 @@ public class OverviewAdapter extends ResourceCursorAdapter {
         // Extract properties from cursor.
         String userName = cursor.getString(cursor.getColumnIndex("username"));
         String productName = cursor.getString(cursor.getColumnIndex("productName"));
-        String productPrice = cursor.getString(cursor.getColumnIndex("productPrice"));
+        Float productPrice = cursor.getFloat(cursor.getColumnIndex("productPrice"));
         String productAmount = cursor.getString(cursor.getColumnIndex("amount"));
-        String total = cursor.getString(cursor.getColumnIndex("total"));
+        Float total = cursor.getFloat(cursor.getColumnIndex("total"));
         String date = cursor.getString(cursor.getColumnIndex("timestamp"));
         int removed = cursor.getInt(cursor.getColumnIndex("removed"));
+
+        // Get formatter for devices default currency
+        Format format = NumberFormat.getCurrencyInstance();
 
         // Populate views with extracted properties.
         usernameTV.setText(userName);
         nameTV.setText(productName);
-        priceTV.setText(productPrice);
+        priceTV.setText(format.format(productPrice));
         amountTV.setText(productAmount);
-        totalTV.setText(total);
+        totalTV.setText(format.format(total));
         dateTV.setText(date);
 
         // Display transaction in red if removed

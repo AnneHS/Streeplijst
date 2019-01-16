@@ -41,11 +41,24 @@ public class UsersActivity extends AppCompatActivity {
         // TODO:  home icon veranderen
         // actionbar.setNavigationIcon(R.drawable.home);
 
-        // TODO: hashamp voor elk id
 
         // Get cursor for users table from StreepDatabase
         db = StreepDatabase.getInstance(getApplicationContext());
         usersCursor = db.selectUsers();
+
+        // Get all user id's
+        ArrayList<Integer> users = new ArrayList<Integer>();
+        if (usersCursor.moveToFirst()) {
+           do {
+               users.add(usersCursor.getInt(usersCursor.getColumnIndex("_id")));
+           } while (usersCursor.moveToNext());
+        }
+
+        // Initialize value to 0 for every userID = click count
+        for (int i = 0; i < users.size(); i++) {
+            int id = users.get(i);
+            selectedMap.put(id, 0);
+        }
 
         // Set adapter to productGrid
         adapter = new UserAdapter(this, usersCursor);
@@ -102,15 +115,15 @@ public class UsersActivity extends AppCompatActivity {
             int userID =  clickedUser.getInt(clickedUser.getColumnIndex("_id"));
 
             // Default value for count
-            int count = 0;
+            int count = selectedMap.get(userID);
 
-            // Get current count
-            try {
-                count = selectedMap.get(userID);
-                Log.d("Count", String.valueOf(count));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            // Get current count
+//            try {
+//                count = selectedMap.get(userID);
+//                Log.d("Count", String.valueOf(count));
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
 
             // Display how many times user is selected
             int updatedCount = count + 1;
@@ -121,7 +134,6 @@ public class UsersActivity extends AppCompatActivity {
             // Update count
             selectedMap.put(userID,(updatedCount));
 
-            // TODO: Change background color
         }
     }
 

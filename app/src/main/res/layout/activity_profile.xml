@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".ProfileActivity">
 
@@ -17,12 +17,82 @@
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/costs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Totaal gestreept"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/totalCosts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textAlignment="center" />
+
+    <TextView
         android:id="@+id/transactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:text="Transacties"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/productTitel"
+            android:layout_width="80dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Product"
+            android:textStyle="bold"
+            tools:text="Product" />
+
+        <TextView
+            android:id="@+id/prijsTitel"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Prijs"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/amountTitel"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Aantal"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/totaalTitel"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Totaal"
+            android:textStyle="bold"
+            tools:text="Totaal" />
+
+        <TextView
+            android:id="@+id/dateTitel"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Datum"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/transactionsLV"
@@ -33,7 +103,6 @@
         android:id="@+id/remove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:onClick="removeClicked"
         android:text="Verwijder Gebruiker"
         android:textAllCaps="false"

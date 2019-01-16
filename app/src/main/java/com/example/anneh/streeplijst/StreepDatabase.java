@@ -104,15 +104,32 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return transactionCursor;
     }
 
-    // Get username for given id
+    // Get cursor for given userId
     public Cursor selectUser(int userId){
 
         SQLiteDatabase db = this.getWritableDatabase();
         String userID = Integer.toString(userId);
         Cursor userCursor = db.rawQuery("SELECT * FROM users WHERE _id = ?", new String[] {userID});
 
-        // Cursor usernameCursor = db.rawQuery("SELECT * FROM users WHERE _id = " + userID, null);
         return userCursor;
+    }
+
+    public float getUserCosts(int userId) {
+
+        float costs = 0;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        String userID = Integer.toString(userId);
+        Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?", new String[] {userID});
+
+        if (userCursor != null & userCursor.moveToFirst()) {
+
+            costs = userCursor.getFloat(0);
+            return costs;
+        }
+        else {
+            return costs;
+        }
     }
 
     // Get cursor for all transactions
@@ -222,9 +239,39 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String transactionID = Integer.toString(transactionId);
-        db.delete("transactions", "_id=?", new String[] {transactionID});
 
-        // TODO: Update users table
+
+        // TODO: mand
+
+        // Remove from users table
+        Cursor cursor = db.rawQuery("SELECT userID, total FROM transactions WHERE _id = ?", new String[] {transactionID});
+
+        //
+        if (cursor != null & cursor.moveToFirst()) {
+
+            // Get user ID & transaction costs
+            int userId = cursor.getInt(cursor.getColumnIndex("userID"));
+            float transactionCosts = cursor.getFloat(cursor.getColumnIndex("total"));
+
+           //
+            String userID = Integer.toString(userId);
+            Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id =?", new String[] {userID});
+
+            if (userCursor != null & userCursor.moveToFirst()) {
+
+                // Get updated costs
+                float currentCosts = userCursor.getFloat(userCursor.getColumnIndex("costs"));
+                float updatedCosts = currentCosts - transactionCosts;
+
+                // Adjust costs in userstable
+                ContentValues cv = new ContentValues();
+                cv.put("costs", updatedCosts);
+                db.update("users", cv, "_id = ?", new String[] {userID});
+            }
+        }
+
+        // Remove from transactions table
+        db.delete("transactions", "_id=?", new String[] {transactionID});
     }
 
     // Remove user from users table

@@ -40,6 +40,7 @@ public class ProductActivity extends AppCompatActivity {
         nameTV.setText(productName);
         priceTV.setText(Float.toString(productPrice));
 
+
         //TODO: Ask for pin
         // Open AlertDialog when remove button is clicked
         // https://www.javatpoint.com/android-alert-dialog-example

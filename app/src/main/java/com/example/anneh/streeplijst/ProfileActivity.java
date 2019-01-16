@@ -44,8 +44,14 @@ public class ProfileActivity extends AppCompatActivity {
         TextView nameTV = (TextView) findViewById(R.id.username);
         nameTV.setText(username);
 
-        // Get transactionCursor for given user
+        // Get total costs from database & set TV
         db = StreepDatabase.getInstance(getApplicationContext());
+        Float costs = db.getUserCosts(userID);
+        String userTotal = Float.toString(costs);
+        TextView totalCosts = (TextView) findViewById(R.id.totalCosts);
+        totalCosts.setText(userTotal);
+
+        // Get transactionCursor for given user
         transactionCursor = db.selectUserTransactions(userID);
 
         // Set adapter to transaction listview
@@ -53,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         adapter = new TransactionAdapter(this, transactionCursor);
         transactionLV.setAdapter(adapter);
 
-        // Set listener
+        // Set listener for transactions.
         transactionLV.setOnItemLongClickListener(new ProfileActivity.ListViewLongClickListener());
 
 
@@ -114,10 +120,11 @@ public class ProfileActivity extends AppCompatActivity {
                             // Remove transaction from database
                             db.removeTransaction(transactionID);
 
-                            // Update user table
+                            // TODO: Update user table
+                            // TODO: Verwijderen weergeven in transacties
 
                             // Confirm removal through toast
-                            Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker verwijderd", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getApplicationContext(), "Transactie verwijderd", Toast.LENGTH_SHORT);
                             toast.show();
 
                             // Return to ProductsActivity

@@ -52,6 +52,14 @@ public class OverviewActivity extends AppCompatActivity {
             // Get transaction ID
             Cursor clickedTransaction = (Cursor) parent.getItemAtPosition(position);
             transactionID = clickedTransaction.getInt(clickedTransaction.getColumnIndex("_id"));
+            int removed = clickedTransaction.getInt(clickedTransaction.getColumnIndex("removed"));
+
+            // Cancel if already removed
+            if (removed == 1) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Transactie is al verwijderd", Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(OverviewActivity.this);
             builder.setMessage("Transactie verwijderen?")

@@ -111,6 +111,8 @@ public class ProfileActivity extends AppCompatActivity {
             Cursor clickedTransaction = (Cursor) parent.getItemAtPosition(position);
             transactionID = clickedTransaction.getInt(clickedTransaction.getColumnIndex("_id"));
 
+            // TODO: niet kunnen verwijderen verwijderde transacties
+
             builder = new AlertDialog.Builder(ProfileActivity.this);
             builder.setMessage("Transactie verwijderen?")
                     .setCancelable(false)
@@ -119,9 +121,6 @@ public class ProfileActivity extends AppCompatActivity {
 
                             // Remove transaction from database
                             db.removeTransaction(transactionID);
-
-                            // TODO: Update user table
-                            // TODO: Verwijderen weergeven in transacties
 
                             // Confirm removal through toast
                             Toast toast = Toast.makeText(getApplicationContext(), "Transactie verwijderd", Toast.LENGTH_SHORT);

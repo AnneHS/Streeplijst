@@ -62,7 +62,7 @@ public class OverviewActivity extends AppCompatActivity {
                             // Remove transaction from database
                             db.removeTransaction(transactionID);
 
-                            // TODO: Update user table
+
                             // TODO: Verwijderen weergeven in transacties & opslaan
 
                             // Confirm removal through toast

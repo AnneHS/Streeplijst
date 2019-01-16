@@ -32,7 +32,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         // Create transactions table
         String createTransactions = "CREATE TABLE transactions(_id INTEGER PRIMARY KEY, " +
                 "userID INTEGER, username TEXT, productName TEXT, productPrice REAL, amount INTEGER," +
-                " total REAL, gestreept BOOLEAN, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
+                " total REAL, removed BOOLEAN DEFAULT 0, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
         db.execSQL(createTransactions);
 
         // TODO: portfolio (zie finance)
@@ -151,7 +151,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         cv.put("productPrice", transaction.getPrice());
         cv.put("amount", transaction.getAmount());
         cv.put("total", transaction.getTotal());
-        cv.put("gestreept", true);
+        // cv.put("removed", false);
 
         db.insert("transactions", null, cv);
     }
@@ -241,7 +241,10 @@ public class StreepDatabase extends SQLiteOpenHelper {
         String transactionID = Integer.toString(transactionId);
 
 
-        // TODO: mand
+        // Adjust transactions table
+        ContentValues cv = new ContentValues();
+        cv.put("removed", true);
+        db.update("transactions", cv, "_id = ?", new String[] {transactionID});
 
         // Remove from users table
         Cursor cursor = db.rawQuery("SELECT userID, total FROM transactions WHERE _id = ?", new String[] {transactionID});
@@ -253,7 +256,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
             int userId = cursor.getInt(cursor.getColumnIndex("userID"));
             float transactionCosts = cursor.getFloat(cursor.getColumnIndex("total"));
 
-           //
+            //
             String userID = Integer.toString(userId);
             Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id =?", new String[] {userID});
 
@@ -264,14 +267,17 @@ public class StreepDatabase extends SQLiteOpenHelper {
                 float updatedCosts = currentCosts - transactionCosts;
 
                 // Adjust costs in userstable
-                ContentValues cv = new ContentValues();
-                cv.put("costs", updatedCosts);
-                db.update("users", cv, "_id = ?", new String[] {userID});
+                ContentValues cvUser = new ContentValues();
+                cvUser.put("costs", updatedCosts);
+                db.update("users", cvUser, "_id = ?", new String[] {userID});
             }
         }
 
+
+
         // Remove from transactions table
-        db.delete("transactions", "_id=?", new String[] {transactionID});
+        // db.delete("transactions", "_id=?", new String[] {transactionID});
+
     }
 
     // Remove user from users table

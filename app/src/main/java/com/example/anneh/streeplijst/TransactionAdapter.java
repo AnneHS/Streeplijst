@@ -2,6 +2,7 @@ package com.example.anneh.streeplijst;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class TransactionAdapter extends ResourceCursorAdapter {
         String productAmount = cursor.getString(cursor.getColumnIndex("amount"));
         String total = cursor.getString(cursor.getColumnIndex("total"));
         String date = cursor.getString(cursor.getColumnIndex("timestamp"));
+        int removed = cursor.getInt(cursor.getColumnIndex("removed"));
 
         // Populate views with extracted properties.
         nameTV.setText(productName);
@@ -37,6 +39,16 @@ public class TransactionAdapter extends ResourceCursorAdapter {
         amountTV.setText(productAmount);
         totalTV.setText(total);
         dateTV.setText(date);
+
+        // Display transaction in red if removed
+        if (removed == 1) {
+            // Populate views with extracted properties.
+            nameTV.setTextColor(Color.RED);
+            priceTV.setTextColor(Color.RED);
+            amountTV.setTextColor(Color.RED);
+            totalTV.setTextColor(Color.RED);
+            dateTV.setTextColor(Color.RED);
+        }
 
     }
 }

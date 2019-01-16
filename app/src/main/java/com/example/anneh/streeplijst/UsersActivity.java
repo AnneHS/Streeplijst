@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -38,6 +40,8 @@ public class UsersActivity extends AppCompatActivity {
 
         // TODO:  home icon veranderen
         // actionbar.setNavigationIcon(R.drawable.home);
+
+        // TODO: hashamp voor elk id
 
         // Get cursor for users table from StreepDatabase
         db = StreepDatabase.getInstance(getApplicationContext());
@@ -108,8 +112,14 @@ public class UsersActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
+            // Display how many times user is selected
+            int updatedCount = count + 1;
+            String amount = Integer.toString(updatedCount);
+            TextView amountTV = (TextView) view.findViewById(R.id.amount);
+            amountTV.setText(amount);
+
             // Update count
-            selectedMap.put(userID,(count + 1));
+            selectedMap.put(userID,(updatedCount));
 
             // TODO: Change background color
         }

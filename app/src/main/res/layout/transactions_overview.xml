@@ -5,43 +5,43 @@
 
     <TextView
         android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/productName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/productPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="20dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:text="TextView" />
 
     <TextView
         android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:layout_weight="1"
         android:text="TextView" />
 </LinearLayout>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:gravity="center"
     tools:context=".UsersActivity">
 
     <GridView
@@ -18,10 +19,19 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:onClick="streepClicked"
-        android:text="Strepen" />
+
+        android:text="Strepen"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#c79400"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+
+        android:onClick="streepClicked" />
 
 </LinearLayout>

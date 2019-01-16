@@ -47,6 +47,7 @@ public class UsersActivity extends AppCompatActivity {
         usersCursor = db.selectUsers();
 
         // Get all user id's
+        // https://stackoverflow.com/questions/12481595/how-to-get-all-ids-from-a-sqlite-database
         ArrayList<Integer> users = new ArrayList<Integer>();
         if (usersCursor.moveToFirst()) {
            do {
@@ -116,14 +117,6 @@ public class UsersActivity extends AppCompatActivity {
 
             // Default value for count
             int count = selectedMap.get(userID);
-
-//            // Get current count
-//            try {
-//                count = selectedMap.get(userID);
-//                Log.d("Count", String.valueOf(count));
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
 
             // Display how many times user is selected
             int updatedCount = count + 1;

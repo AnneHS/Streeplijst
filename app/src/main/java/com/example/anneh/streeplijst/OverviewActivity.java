@@ -33,7 +33,6 @@ public class OverviewActivity extends AppCompatActivity {
         // Get formatter for devices default currency
         Format format = NumberFormat.getCurrencyInstance();
 
-
         // Get total costs from database & set TV
         db = StreepDatabase.getInstance(getApplicationContext());
         Float total = db.getTotalCosts();
@@ -77,9 +76,6 @@ public class OverviewActivity extends AppCompatActivity {
                             // Remove transaction from database
                             db.removeTransaction(transactionID);
 
-
-                            // TODO: Verwijderen weergeven in transacties & opslaan
-
                             // Confirm removal through toast
                             Toast toast = Toast.makeText(getApplicationContext(), "Transactie verwijderd", Toast.LENGTH_SHORT);
                             toast.show();
@@ -105,6 +101,7 @@ public class OverviewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;

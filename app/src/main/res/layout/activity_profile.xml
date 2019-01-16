@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     tools:context=".ProfileActivity">
@@ -34,12 +34,30 @@
         android:text="TextView"
         android:textAlignment="center" />
 
+    <Button
+        android:id="@+id/remove"
+
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/buttonshape"
+
+        android:onClick="removeClicked"
+        android:shadowColor="#c79400"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Verwijder Gebruiker"
+        android:textAllCaps="false"
+
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/transactions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_weight="1"
         android:text="Transacties"
         android:textAlignment="center"
         android:textSize="18sp"
@@ -48,7 +66,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
@@ -98,24 +115,6 @@
     <ListView
         android:id="@+id/transactionsLV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/remove"
-
-        android:text="Verwijder Gebruiker"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#c79400"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-
-        android:onClick="removeClicked"
-        android:textAllCaps="false"
-        android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 </LinearLayout>

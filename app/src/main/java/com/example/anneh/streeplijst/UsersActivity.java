@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,8 @@ public class UsersActivity extends AppCompatActivity {
 
         // TODO:  home icon veranderen
         // actionbar.setNavigationIcon(R.drawable.home);
+
+        // TODO: save InstanceState
 
 
         // Get cursor for users table from StreepDatabase
@@ -123,6 +126,10 @@ public class UsersActivity extends AppCompatActivity {
             String amount = Integer.toString(updatedCount);
             TextView amountTV = (TextView) view.findViewById(R.id.amount);
             amountTV.setText(amount);
+
+            // Change color
+            LinearLayout user = view.findViewById(R.id.userLL);
+            user.setBackgroundResource(R.color.colorPrimaryDark);
 
             // Update count
             selectedMap.put(userID,(updatedCount));

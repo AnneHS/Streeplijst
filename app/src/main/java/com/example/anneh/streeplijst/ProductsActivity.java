@@ -69,6 +69,10 @@ public class ProductsActivity extends AppCompatActivity {
             Intent intent = new Intent(ProductsActivity.this, RegisterActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.export) {
+            Intent intent = new Intent(ProductsActivity.this, ExportActivity.class);
+            startActivity(intent);
+        }
 
         return true;
     }

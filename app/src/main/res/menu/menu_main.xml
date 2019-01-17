@@ -11,4 +11,7 @@
     <item
         android:id="@+id/addUser"
         android:title="Gebruiker toevoegen" />
+    <item
+        android:id="@+id/export"
+        android:title="Streeplijst legen" />
 </menu>

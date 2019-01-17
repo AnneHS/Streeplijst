@@ -40,6 +40,13 @@ public class TransactionAdapter extends ResourceCursorAdapter {
         // https://stackoverflow.com/questions/7131922/how-to-format-a-float-value-with-the-device-currency-format
         Format format = NumberFormat.getCurrencyInstance();
 
+        // Set text color to black
+        nameTV.setTextColor(Color.BLACK);
+        priceTV.setTextColor(Color.BLACK);
+        amountTV.setTextColor(Color.BLACK);
+        totalTV.setTextColor(Color.BLACK);
+        dateTV.setTextColor(Color.BLACK);
+
         // Populate views with extracted properties.
         nameTV.setText(productName);
         priceTV.setText(format.format(productPrice));

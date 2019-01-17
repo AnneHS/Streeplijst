@@ -41,6 +41,14 @@ public class OverviewAdapter extends ResourceCursorAdapter {
         // Get formatter for devices default currency
         Format format = NumberFormat.getCurrencyInstance();
 
+        // Set text color to black
+        usernameTV.setTextColor(Color.BLACK);
+        nameTV.setTextColor(Color.BLACK);
+        priceTV.setTextColor(Color.BLACK);
+        amountTV.setTextColor(Color.BLACK);
+        totalTV.setTextColor(Color.BLACK);
+        dateTV.setTextColor(Color.BLACK);
+
         // Populate views with extracted properties.
         usernameTV.setText(userName);
         nameTV.setText(productName);
@@ -48,6 +56,7 @@ public class OverviewAdapter extends ResourceCursorAdapter {
         amountTV.setText(productAmount);
         totalTV.setText(format.format(total));
         dateTV.setText(date);
+
 
         // Display transaction in red if removed
         if (removed == 1) {

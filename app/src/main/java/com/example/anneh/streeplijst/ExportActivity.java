@@ -37,7 +37,7 @@ public class ExportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_export);
 
-        // TODO: FileProvider i.p.v. URI & dit verwijderen
+        // TODO: FileProvider i.p.v. URI & dit verwijderen (exposed beyond app through ClipData.Item.getUri())
         // https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-exposed-beyond-app-through-clipdata-item-geturi
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
@@ -57,12 +57,13 @@ public class ExportActivity extends AppCompatActivity {
             );
         }
 
-        // WRITE CSV FILE
-        // https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel
+
 
         // Get db
         StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
 
+        // WRITE CSV FILE
+        // https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel
         File exportDir = new File(Environment.getExternalStorageDirectory(), "");
 
         if (!exportDir.exists()) {
@@ -86,17 +87,18 @@ public class ExportActivity extends AppCompatActivity {
             }
             writer.close();
             usersCSV.close();
-            Toast toast = Toast.makeText(getApplicationContext(), "Gelukt!", Toast.LENGTH_SHORT);
+
+            //
+            Toast toast = Toast.makeText(getApplicationContext(), "Csv bestand gemaakt!", Toast.LENGTH_SHORT);
             toast.show();
 
-
-            // Send e-mail
+            // SEND E-MAIL
             //  https://stackoverflow.com/questions/18415202/not-able-to-send-csv-file-with-email-in-android
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
             emailIntent.setType("application/csv");
             emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, "annehoogerduijn@gmail.com");
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Streeplijst");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Streeplijst in bijlage: ");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "Streeplijst in bijlage.");
             Uri U = Uri.fromFile(file);
             emailIntent.putExtra(Intent.EXTRA_STREAM, U);
             startActivity(Intent.createChooser(emailIntent, "Send Mail"));
@@ -106,6 +108,5 @@ public class ExportActivity extends AppCompatActivity {
             Log.e("Error: ", sqlEx.getMessage(), sqlEx);
             Toast toast = Toast.makeText(getApplicationContext(), "Niet gelukt!", Toast.LENGTH_SHORT);
         }
-
     }
 }

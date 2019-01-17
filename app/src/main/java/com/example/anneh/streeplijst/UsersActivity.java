@@ -42,7 +42,7 @@ public class UsersActivity extends AppCompatActivity {
         // TODO:  home icon veranderen
         // actionbar.setNavigationIcon(R.drawable.home);
 
-        // TODO: save InstanceState
+        // TODO: save InstanceState (amountTV.setText() & backgroundResource
 
 
         // Get cursor for users table from StreepDatabase
@@ -73,6 +73,7 @@ public class UsersActivity extends AppCompatActivity {
         userGrid.setOnItemClickListener(new UsersActivity.GridViewClickListener());
         userGrid.setOnItemLongClickListener(new GridViewLongClickListener());
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -35,7 +35,6 @@ public class RegisterActivity extends AppCompatActivity {
         // Get reference to EditText
         usernameET = findViewById(R.id.username);
 
-
         // TODO: Ask for pin
         // Open AlertDialog when add button is clicked
         // https://www.javatpoint.com/android-alert-dialog-example

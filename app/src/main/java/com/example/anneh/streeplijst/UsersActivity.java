@@ -112,7 +112,6 @@ public class UsersActivity extends AppCompatActivity {
     // https://stackoverflow.com/questions/18030384/get-listview-item-clicked-count-in-android
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
 
-
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -135,7 +134,6 @@ public class UsersActivity extends AppCompatActivity {
 
             // Update count
             selectedMap.put(userID,updatedCount);
-
         }
     }
 

@@ -35,6 +35,10 @@ public class StreepDatabase extends SQLiteOpenHelper {
                 " total REAL, removed BOOLEAN DEFAULT 0, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
         db.execSQL(createTransactions);
 
+        // Create e-mail table
+        String createMail = "CREATE TABLE mail(_id INTEGER PRIMARY KEY, address TEXT)";
+        db.execSQL(createMail);
+
         // TODO: portfolio (zie finance)
 
 
@@ -51,6 +55,9 @@ public class StreepDatabase extends SQLiteOpenHelper {
         onCreate(db);
 
         db.execSQL("DROP TABLE transactions");
+        onCreate(db);
+
+        db.execSQL("DROP TABLE mail");
         onCreate(db);
     }
 
@@ -154,6 +161,48 @@ public class StreepDatabase extends SQLiteOpenHelper {
         // cv.put("removed", false);
 
         db.insert("transactions", null, cv);
+    }
+
+    // Insert e-mailaddress into mail table.
+    public void insertMail(String address) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("address", address);
+
+        Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?", new String[] {"1"});
+
+        // TODO: "1" ????
+        if (mailCursor == null || !mailCursor.moveToFirst()) {
+            db.insert("mail", null, cv);
+        }
+        else {
+            db.update("mail", cv, "_id = ?", new String[] {"1"});
+        }
+
+        // mail(_id INTEGER PRIMARY KEY, address TEXT)";
+
+    }
+
+    // Get mail address from db
+    public String getMail() {
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?", new String[] {"1"});
+
+        //TODO: "" ????
+        String address = "";
+        if (mailCursor != null & mailCursor.moveToFirst()) {
+
+            address = mailCursor.getString(0);
+            return address;
+        }
+        else {
+            return address;
+        }
     }
 
 

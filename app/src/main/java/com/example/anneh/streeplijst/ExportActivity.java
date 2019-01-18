@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.opencsv.CSVWriter;
 
@@ -21,6 +22,8 @@ import java.io.File;
 import java.io.FileWriter;
 
 public class ExportActivity extends AppCompatActivity {
+
+    String mailAddress;
 
     // Storage Permissions
     // https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-external-storage
@@ -39,6 +42,21 @@ public class ExportActivity extends AppCompatActivity {
         // https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-exposed-beyond-app-through-clipdata-item-geturi
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+
+
+        // Get e-mailaddress from db
+        StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
+        mailAddress = db.getMail();
+
+        // Display address if given
+        if (mailAddress != "") {
+            TextView mailTV = findViewById(R.id.mail);
+            mailTV.setText(mailAddress);
+        }
+        else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Geen mail gevonden", Toast.LENGTH_SHORT);
+            toast.show();
+        }
 
     }
 
@@ -94,7 +112,7 @@ public class ExportActivity extends AppCompatActivity {
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
             emailIntent.setType("application/csv");
 
-            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]  {"thomasfranx@hotmail.com"}); // array met 1 emailadres //
+            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]  {mailAddress}); // array met 1 emailadres //
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Streeplijst");
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Streeplijst in bijlage.");
             Uri U = Uri.fromFile(file);
@@ -105,6 +123,15 @@ public class ExportActivity extends AppCompatActivity {
         catch(Exception sqlEx) {
             Log.e("Error: ", sqlEx.getMessage(), sqlEx);
             Toast toast = Toast.makeText(getApplicationContext(), "Niet gelukt!", Toast.LENGTH_SHORT);
+            toast.show();
         }
+    }
+
+
+    // Go to MailActivity
+    public void mailClicked(View view) {
+
+        Intent intent = new Intent(ExportActivity.this, MailActivity.class);
+        startActivity(intent);
     }
 }

@@ -42,9 +42,6 @@ public class UsersActivity extends AppCompatActivity {
         // TODO:  home icon veranderen
         // actionbar.setNavigationIcon(R.drawable.home);
 
-        // TODO: save InstanceState (amountTV.setText() & backgroundResource
-
-
         // Get cursor for users table from StreepDatabase
         db = StreepDatabase.getInstance(getApplicationContext());
         usersCursor = db.selectUsers();
@@ -69,6 +66,7 @@ public class UsersActivity extends AppCompatActivity {
         GridView userGrid = (GridView) findViewById(R.id.userGrid);
         userGrid.setAdapter(adapter);
 
+
         // Set listeners
         userGrid.setOnItemClickListener(new UsersActivity.GridViewClickListener());
         userGrid.setOnItemLongClickListener(new GridViewLongClickListener());
@@ -83,10 +81,11 @@ public class UsersActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle actian bar item clicks --> go to corresponding activity
+        // Handle action bar item clicks --> go to corresponding activity
         int id = item.getItemId();
 
         if (id == R.id.overview) {
@@ -112,6 +111,8 @@ public class UsersActivity extends AppCompatActivity {
     // Streep
     // https://stackoverflow.com/questions/18030384/get-listview-item-clicked-count-in-android
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
+
+
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -133,7 +134,7 @@ public class UsersActivity extends AppCompatActivity {
             user.setBackgroundResource(R.color.colorPrimaryDark);
 
             // Update count
-            selectedMap.put(userID,(updatedCount));
+            selectedMap.put(userID,updatedCount);
 
         }
     }
@@ -192,11 +193,12 @@ public class UsersActivity extends AppCompatActivity {
                 toast.show();
 
             }
-
         }
 
-        // reset background color
         Toast toast = Toast.makeText(getApplicationContext(), "Gestreept!", Toast.LENGTH_SHORT);
         toast.show();
+
+        Intent productsIntent = new Intent(UsersActivity.this, ProductsActivity.class);
+        startActivity(productsIntent);
     }
 }

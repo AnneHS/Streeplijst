@@ -12,20 +12,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ProductsActivity">
+        <activity
+            android:name=".ProductsActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UsersActivity" />
-        <activity android:name=".ProfileActivity" />
-        <activity android:name=".ProductActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".NewProductActivity" />
-        <activity android:name=".OverviewActivity" />
-        <activity android:name=".ExportActivity"></activity>
+        <activity
+            android:name=".UsersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProfileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ProductActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NewProductActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".OverviewActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ExportActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

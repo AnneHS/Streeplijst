@@ -15,8 +15,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import com.ajts.androidmads.library.SQLiteToExcel;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
@@ -57,8 +55,6 @@ public class ExportActivity extends AppCompatActivity {
             );
         }
 
-
-
         // Get db
         StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
 
@@ -80,6 +76,7 @@ public class ExportActivity extends AppCompatActivity {
             writer.writeNext(usersCSV.getColumnNames());
 
             while (usersCSV.moveToNext()) {
+
                 // 0: ID, 1: Name, 2: Costs
                 String row[] = {usersCSV.getString(0), usersCSV.getString(1),
                         usersCSV.getString(2)};
@@ -96,7 +93,8 @@ public class ExportActivity extends AppCompatActivity {
             //  https://stackoverflow.com/questions/18415202/not-able-to-send-csv-file-with-email-in-android
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
             emailIntent.setType("application/csv");
-            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, "annehoogerduijn@gmail.com");
+
+            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]  {"thomasfranx@hotmail.com"}); // array met 1 emailadres //
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Streeplijst");
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Streeplijst in bijlage.");
             Uri U = Uri.fromFile(file);

@@ -48,6 +48,8 @@ Middels een HashMap kan nu worden bijgehouden hoevaak een gebruiker is aangeklik
 **Dag 7 (15-01-2019)**  
 De transacties worden nu bijgehouden in de database. Op de profielpagina van een gebruiker zijn de transacties van desbetreffende gebruiker weergegeven, op de kostenoverzicht-pagina is een overzicht te vinden van alle transacties. Daarnaast wordt op deze pagina weergegeven wat de totale uitgaven zijn. Vanaf de profielpagina kunnen transacties worden verwijderd. Tot slot besloten om ook gebruikersportfolio's bij te houden in de StreepDatabase zodat de gebruiker in kan zien waaraan zijn of haar geld is uitgegeven (nog niet in uitvoering gebracht). Het transactieoverzicht dient met name om het verwijderen van transacties mogelijk te maken. Naast een overzicht van de totale kosten en een transactieoverzicht, zal dus ook het portfolio moeten worden weergegeven op de profielpagina's.    
 **Dag 8 (16-01-2019)**  
-De kosten in de gebruikerstabel worden nu geupdate bij het verwijderen van een transactie.
+De kosten in de gebruikerstabel worden nu aangepast bij het verwijderen van transacties. Tijdens het strepen wordt weergegeven hoevaak een gebruiker is geselecteerd. 
 
+**Dag 9 (17-01-2019)**
+Users table kan worden omgezet in csv en vervolgens worden gemaild.
 

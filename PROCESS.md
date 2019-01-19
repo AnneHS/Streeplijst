@@ -33,7 +33,7 @@ die de gebruiker terug brengt naar het productenoverzicht.
 ListView een overzicht worden gegeven van de huidige bestelling.
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/profiel.png" height="5%" width="30%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/profiel.png" height="5%" width="20%"/>  
 </p>
 
 
@@ -46,7 +46,7 @@ maken. De reden hiervoor is dat er momenteel veel wordt opgeslagen in de transac
 Middels een HashMap kan nu worden bijgehouden hoevaak een gebruiker is aangeklikt. Tot slot is besloten om tijdens het strepen geen overzicht van de bestelling naast het gebruikersoverzicht weer te geven. In plaats daarvan is het de bedoeling dat geselecteerde gebruikers van kleur veranderen en er naast hun naam verschijnt hoevaak ze zijn aangeklikt.
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/selectUsers.PNG" height="5%" width="30%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/selectUsers.PNG" height="5%" width="50%"/>  
 </p>
 
 **Dag 7 (15-01-2019)**  

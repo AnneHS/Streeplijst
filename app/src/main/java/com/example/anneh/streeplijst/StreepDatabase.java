@@ -174,15 +174,13 @@ public class StreepDatabase extends SQLiteOpenHelper {
         Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?", new String[] {"1"});
 
         // TODO: "1" ????
+        // Insert e-mail address if not yet given, else overwrite
         if (mailCursor == null || !mailCursor.moveToFirst()) {
             db.insert("mail", null, cv);
         }
         else {
             db.update("mail", cv, "_id = ?", new String[] {"1"});
         }
-
-        // mail(_id INTEGER PRIMARY KEY, address TEXT)";
-
     }
 
     // Get mail address from db

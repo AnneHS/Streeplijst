@@ -53,7 +53,7 @@ Middels een HashMap kan nu worden bijgehouden hoevaak een gebruiker is aangeklik
 De transacties worden nu bijgehouden in de database. Op de profielpagina van een gebruiker zijn de transacties van desbetreffende gebruiker weergegeven, op de kostenoverzicht-pagina is een overzicht te vinden van alle transacties. Daarnaast wordt op deze pagina weergegeven wat de totale uitgaven zijn. Vanaf de profielpagina kunnen transacties worden verwijderd. Tot slot besloten om ook gebruikersportfolio's bij te houden in de StreepDatabase zodat de gebruiker in kan zien waaraan zijn of haar geld is uitgegeven (nog niet in uitvoering gebracht). Het transactieoverzicht dient met name om het verwijderen van transacties mogelijk te maken. Naast een overzicht van de totale kosten en een transactieoverzicht, zal dus ook het portfolio moeten worden weergegeven op de profielpagina's. 
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/userTransactions.PNG" height="5%" width="30%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/userTransactions.PNG" height="5%" width="40%"/>  
 </p>
 
 **Dag 8 (16-01-2019)**  

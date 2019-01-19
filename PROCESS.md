@@ -58,5 +58,5 @@ Hoewel dit oorspronkelijk niet het plan was, staat de app nu vast in portretmodu
 
 <p align="center">
   <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/addEmail.PNG" height="5%" width="30%"/> <img
-   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ExportMail.PNG" height="5%" width="30%"/>                     </p>                                                                                                   
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ExportMail.PNG" height="5%" width="70%"/>                     </p>                                                                                                   
 

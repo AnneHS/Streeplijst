@@ -24,19 +24,21 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
-        // Get db instance
+        // Get db.
         db = StreepDatabase.getInstance(getApplicationContext());
 
-        // Get product ID, name & price
+        // Get product ID, name & price.
         // TODO: alleen ID meegeven, rest ophalen uit database
         Intent intent = getIntent();
         productID = (int) intent.getSerializableExtra("product_id");
         String productName = (String) intent.getSerializableExtra("product_name");
         float productPrice = (float) intent.getSerializableExtra("product_price");
 
+        // Get reference to TextViews.
         TextView nameTV = (TextView) findViewById(R.id.productName);
         TextView priceTV = (TextView) findViewById(R.id.price);
 
+        // Set text for TextViews.
         nameTV.setText(productName);
         priceTV.setText(Float.toString(productPrice));
 
@@ -49,32 +51,35 @@ public class ProductActivity extends AppCompatActivity {
         removeBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                // Confirm removal.
                 builder.setMessage("Verwijder product?")
                         .setCancelable(false)
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // Remove product from database
+                                // Remove product from database.
                                 db.removeProduct(productID);
 
-                                // Confirm removal with toast
+                                // Confirm removal with toast.
                                 Toast toast = Toast.makeText(getApplicationContext(), "Product verwijderd", Toast.LENGTH_SHORT);
                                 toast.show();
 
-
-                                // Return to ProductsActivity
+                                // Return to ProductsActivity.
                                 Intent intent = new Intent(ProductActivity.this, ProductsActivity.class);
                                 startActivity(intent);
 
                             }
                         })
+
+                        // Cancel if user does not want to remove product.
                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         }) ;
 
-                // Creating dialog box
+                // Create dialog box and show.
                 AlertDialog alert = builder.create();
                 alert.show();
             }

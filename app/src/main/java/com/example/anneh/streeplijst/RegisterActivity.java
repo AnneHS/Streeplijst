@@ -26,13 +26,13 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        // Enable home button
+        // Enable home button in actionbar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get db
+        // Get db.
         db = StreepDatabase.getInstance(getApplicationContext());
 
-        // Get reference to EditText
+        // Get reference to EditText.
         usernameET = findViewById(R.id.username);
 
         // TODO: Ask for pin
@@ -44,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                // Get username if entered, else return
+                // Get username if entered, else cancel.
                 if (!usernameET.getText().toString().equals("") && usernameET.getText().toString().length() > 0) {
                     username = usernameET.getText().toString();
                 }
@@ -52,30 +52,37 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Geef naam", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                // Ask for confirmation.
                 builder.setMessage("Gebruiker toevoegen?")
                         .setCancelable(false)
+
+                        // Add user when confirmed.
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // TODO: Voeg gebruiker toe
+                                // Add user to db.
                                 User newUser = new User(username);
                                 db.insertUser(newUser);
 
+                                // Confirm with toast.
                                 Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker toegevoegd", Toast.LENGTH_SHORT);
                                 toast.show();
 
-                                // Return to ProductsActivity
+                                // Return to ProductsActivity.
                                 Intent intent = new Intent(RegisterActivity.this, ProductsActivity.class);
                                 startActivity(intent);
                             }
                         })
+
+                        // Cancel if user does not want to add user.
                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         }) ;
 
-                // Creating dialog box
+                // Create dialog box & show.
                 AlertDialog alert = builder.create();
                 alert.show();
             }
@@ -85,6 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         // Inflate the menu; this adds items to the action bar if it is present
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
@@ -93,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar item clicks --> go to corresponding activity
+        // Handle action bar item clicks: go to corresponding activity.
         int id = item.getItemId();
 
         if (id == R.id.overview) {

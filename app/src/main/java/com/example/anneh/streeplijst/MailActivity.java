@@ -23,18 +23,20 @@ public class MailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mail);
 
+        // Get reference to EditText & Button.
         mailET = findViewById(R.id.mail);
         submitBtn = findViewById(R.id.submit);
 
-        // Get db
+        // Get db.
         db = StreepDatabase.getInstance(getApplicationContext());
 
+        // Open AlertDialog when button is clicked.
         builder = new AlertDialog.Builder(this);
         submitBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
 
-                // Get username if entered, else return
+                // Get username if entered, else quit.
                 if (!mailET.getText().toString().equals("") && mailET.getText().toString().length() > 0) {
                     address = mailET.getText().toString();
                 }
@@ -42,30 +44,34 @@ public class MailActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Geef e-mailadres", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                // AlertDialog builder to confirm e-mail address.
                 builder.setMessage("Dit adres toevoegen?") //TODO: adres weergeven
                         .setCancelable(false)
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // TODO: Voeg e-mailadres toe aan database
-                                // User newUser = new User(username);
+                                // Add address to db.
                                 db.insertMail(address);
 
+                                // Confirm.
                                 Toast toast = Toast.makeText(getApplicationContext(), "E-mailadres toegevoegd", Toast.LENGTH_SHORT);
                                 toast.show();
 
-                                // Return to ProductsActivity
+                                // Return to ProductsActivity.
                                 Intent intent = new Intent(MailActivity.this, ExportActivity.class);
                                 startActivity(intent);
                             }
                         })
+
+                        // Cancel if user does not want to add the address.
                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         }) ;
 
-                // Creating dialog box
+                // Creating dialog box & show.
                 AlertDialog alert = builder.create();
                 alert.show();
             }

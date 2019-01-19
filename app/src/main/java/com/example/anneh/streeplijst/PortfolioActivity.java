@@ -45,6 +45,5 @@ public class PortfolioActivity extends AppCompatActivity {
         ListView portfolioLV = (ListView) findViewById(R.id.portfolioList);
         adapter = new PortfolioAdapter(this, portfolioCursor);
         portfolioLV.setAdapter(adapter);
-
     }
 }

@@ -38,10 +38,10 @@ public class OverviewAdapter extends ResourceCursorAdapter {
         String date = cursor.getString(cursor.getColumnIndex("timestamp"));
         int removed = cursor.getInt(cursor.getColumnIndex("removed"));
 
-        // Get formatter for devices default currency
+        // Get formatter for devices default currency.
         Format format = NumberFormat.getCurrencyInstance();
 
-        // Set text color to black
+        // Set text color to black.
         usernameTV.setTextColor(Color.BLACK);
         nameTV.setTextColor(Color.BLACK);
         priceTV.setTextColor(Color.BLACK);
@@ -58,9 +58,9 @@ public class OverviewAdapter extends ResourceCursorAdapter {
         dateTV.setText(date);
 
 
-        // Display transaction in red if removed
+        // Display transaction in red if removed.
         if (removed == 1) {
-            // Populate views with extracted properties.
+
             usernameTV.setTextColor(Color.RED);
             nameTV.setTextColor(Color.RED);
             priceTV.setTextColor(Color.RED);
@@ -68,6 +68,5 @@ public class OverviewAdapter extends ResourceCursorAdapter {
             totalTV.setTextColor(Color.RED);
             dateTV.setTextColor(Color.RED);
         }
-
     }
 }

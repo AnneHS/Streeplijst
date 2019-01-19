@@ -23,18 +23,16 @@ public class UserAdapter extends ResourceCursorAdapter {
         super(context, R.layout.user, cursor);
     }
 
-    // DB --> user.xml
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        // Get reference to views
+        // Get reference to views from user.xml.
         TextView userTV = view.findViewById(R.id.user);
 
-        // Extract properties from cursor
+        // Get username from users table.
         String userName = cursor.getString(cursor.getColumnIndex("name"));
 
-        // Populate fields with extracted properties
+        // Set text for TextView.
         userTV.setText(userName);
     }
-
 }

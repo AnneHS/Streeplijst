@@ -25,17 +25,16 @@ public class ProductAdapter extends ResourceCursorAdapter {
     }
 
 
-    // DB --> product.xml
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        // Get reference to TextViews
+        // Get reference to TextView from product.xml.
         TextView productTV = (TextView) view.findViewById(R.id.product);
 
-        // Extract properties from cursor
+        // Get productName from database.
         String productName = cursor.getString(cursor.getColumnIndex("name"));
 
-        // Populate fields with extracted properties
+        // Set text.
         productTV.setText(productName);
     }
 

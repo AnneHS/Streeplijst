@@ -26,16 +26,16 @@ public class ProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
 
-        // Get cursor for products table from StreepDatabase
+        // Get cursor for products table.
         db = StreepDatabase.getInstance(getApplicationContext());
         productsCursor = db.selectProducts();
 
-        // Set adapter to productGrid
+        // Set adapter to productGrid.
         adapter = new ProductAdapter(this, productsCursor);
         GridView productGrid = (GridView) findViewById(R.id.productGrid);
         productGrid.setAdapter(adapter);
 
-        // set listener
+        // Set listeners for producrGrid.
         productGrid.setOnItemClickListener(new GridViewClickListener());
         productGrid.setOnItemLongClickListener(new ProductsActivity.GridViewLongClickListener());
     }
@@ -54,7 +54,7 @@ public class ProductsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle actian bar item clicks --> go to corresponding activity
+        // Handle action bar item clicka: go to corresponding activity.
         int id = item.getItemId();
 
         if (id == R.id.overview) {
@@ -78,7 +78,7 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
 
-    // Go to UserActivity when product is clicked
+    // Go to UsersActivity when product is clicked
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,7 +87,7 @@ public class ProductsActivity extends AppCompatActivity {
             LinearLayout product = view.findViewById(R.id.productLL);
             product.setBackgroundResource(R.color.colorPrimaryDark);
 
-            // Pass product id, name and price to UsersActivity
+            // Pass product id, name and price to UsersActivity.
             Intent intent = new Intent(ProductsActivity.this, UsersActivity.class);
             Cursor clickedProduct = (Cursor) parent.getItemAtPosition(position);
             intent.putExtra("product_id", clickedProduct.getInt(clickedProduct.getColumnIndex("_id")));
@@ -97,7 +97,7 @@ public class ProductsActivity extends AppCompatActivity {
         }
     }
 
-    // Go to product (profile) page (ProductActivity)
+    // Long Click product: Go to product page (ProductActivity).
     private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {

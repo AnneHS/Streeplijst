@@ -27,49 +27,57 @@ public class OverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overview);
 
-        // Enable home button
+        // Enable home button in actionbar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get formatter for devices default currency
+        // Get formatter for devices default currency.
         Format format = NumberFormat.getCurrencyInstance();
 
-        // Get total costs from database & set TV
+        // Get total costs from database & set TV's.
         db = StreepDatabase.getInstance(getApplicationContext());
         Float total = db.getTotalCosts();
         TextView totalCosts = (TextView) findViewById(R.id.totalCosts);
         totalCosts.setText(format.format(total));
 
-        // Transactions
+        // Set TransactionAdapter for ListView.
         Cursor transactionsCursor = db.selectTransactions();
         ListView transactionsLV = (ListView) findViewById(R.id.transactionsLV);
         OverviewAdapter adapter = new OverviewAdapter(this, transactionsCursor);
         transactionsLV.setAdapter(adapter);
 
-        // Set listener for transactions.
+        // Set listener for transactions in ListView.
         transactionsLV.setOnItemLongClickListener(new OverviewActivity.ListViewLongClickListener());
 
     }
 
-    // LongClick --> Remove transaction?
+    // LongClick transaction: Ask if user wants to remove the transaction.
     private class ListViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Get transaction ID
+            // Get ID of clicked transaction.
             Cursor clickedTransaction = (Cursor) parent.getItemAtPosition(position);
+
+            // Check if transaction has already been removed.
             transactionID = clickedTransaction.getInt(clickedTransaction.getColumnIndex("_id"));
             int removed = clickedTransaction.getInt(clickedTransaction.getColumnIndex("removed"));
 
-            // Cancel if already removed
+            // Cancel if already removed and display toast.
             if (removed == 1) {
+
                 Toast toast = Toast.makeText(getApplicationContext(), "Transactie is al verwijderd", Toast.LENGTH_SHORT);
                 toast.show();
                 return false;
             }
 
+            // Create AlertDialog builder.
             AlertDialog.Builder builder = new AlertDialog.Builder(OverviewActivity.this);
+
+            // Ask for confirmation.
             builder.setMessage("Transactie verwijderen?")
                     .setCancelable(false)
+
+                    // Remove transaction when user confirms.
                     .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
@@ -85,13 +93,15 @@ public class OverviewActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                     })
+
+                    // Cancel AlertDialog if user does not want to remove transaction.
                     .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
                     }) ;
 
-            // Creating dialog box
+            // Creating dialog box & show.
             AlertDialog alert = builder.create();
             alert.show();
 
@@ -110,9 +120,8 @@ public class OverviewActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar item clicks --> go to corresponding activity
+        // Handle action bar item clicks: go to corresponding activity.
         int id = item.getItemId();
-
         if (id == R.id.overview) {
             Intent intent = new Intent(OverviewActivity.this, OverviewActivity.class);
             startActivity(intent);

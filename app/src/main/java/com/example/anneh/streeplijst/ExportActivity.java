@@ -43,12 +43,11 @@ public class ExportActivity extends AppCompatActivity {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-
-        // Get e-mailaddress from db
+        // Get e-mail address from db.
         StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
         mailAddress = db.getMail();
 
-        // Display address if given
+        // Display address if given.
         if (mailAddress != "") {
             TextView mailTV = findViewById(R.id.mail);
             mailTV.setText(mailAddress);
@@ -103,24 +102,28 @@ public class ExportActivity extends AppCompatActivity {
             writer.close();
             usersCSV.close();
 
-            //
+            // Confirm
             Toast toast = Toast.makeText(getApplicationContext(), "Csv bestand gemaakt!", Toast.LENGTH_SHORT);
             toast.show();
 
-            // SEND E-MAIL
+            // Open e-mail app to send csv file
             //  https://stackoverflow.com/questions/18415202/not-able-to-send-csv-file-with-email-in-android
             final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-            emailIntent.setType("application/csv");
 
+            // Add all info needed.
+            emailIntent.setType("application/csv");
             emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]  {mailAddress}); // array met 1 emailadres //
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Streeplijst");
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, new String[] {"Streeplijst"});
             emailIntent.putExtra(Intent.EXTRA_TEXT, "Streeplijst in bijlage.");
             Uri U = Uri.fromFile(file);
             emailIntent.putExtra(Intent.EXTRA_STREAM, U);
+
+            // Open e-mail
             startActivity(Intent.createChooser(emailIntent, "Send Mail"));
 
         }
         catch(Exception sqlEx) {
+
             Log.e("Error: ", sqlEx.getMessage(), sqlEx);
             Toast toast = Toast.makeText(getApplicationContext(), "Niet gelukt!", Toast.LENGTH_SHORT);
             toast.show();

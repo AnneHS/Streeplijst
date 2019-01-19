@@ -42,11 +42,11 @@ public class UsersActivity extends AppCompatActivity {
         // TODO:  home icon veranderen
         // actionbar.setNavigationIcon(R.drawable.home);
 
-        // Get cursor for users table from StreepDatabase
+        // Get cursor for users table from StreepDatabase.
         db = StreepDatabase.getInstance(getApplicationContext());
         usersCursor = db.selectUsers();
 
-        // Get all user id's
+        // Get all user id's.
         // https://stackoverflow.com/questions/12481595/how-to-get-all-ids-from-a-sqlite-database
         ArrayList<Integer> users = new ArrayList<Integer>();
         if (usersCursor.moveToFirst()) {
@@ -55,19 +55,18 @@ public class UsersActivity extends AppCompatActivity {
            } while (usersCursor.moveToNext());
         }
 
-        // Initialize value to 0 for every userID = click count
+        // Put user id's in selectedMap to keep track of click count.
         for (int i = 0; i < users.size(); i++) {
             int id = users.get(i);
             selectedMap.put(id, 0);
         }
 
-        // Set adapter to productGrid
+        // Set UserAdapter to userGrid.
         adapter = new UserAdapter(this, usersCursor);
         GridView userGrid = (GridView) findViewById(R.id.userGrid);
         userGrid.setAdapter(adapter);
 
-
-        // Set listeners
+        // Set listeners for userGrid.
         userGrid.setOnItemClickListener(new UsersActivity.GridViewClickListener());
         userGrid.setOnItemLongClickListener(new GridViewLongClickListener());
     }
@@ -85,9 +84,8 @@ public class UsersActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar item clicks --> go to corresponding activity
+        // Handle action bar item clicks: go to corresponding activity.
         int id = item.getItemId();
-
         if (id == R.id.overview) {
             Intent intent = new Intent(UsersActivity.this, OverviewActivity.class);
             startActivity(intent);
@@ -108,41 +106,41 @@ public class UsersActivity extends AppCompatActivity {
         return true;
     }
 
-    // Streep
+    // Keep track of selected users.
     // https://stackoverflow.com/questions/18030384/get-listview-item-clicked-count-in-android
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Get user ID
+            // Get userID of clicked user.
             Cursor clickedUser = (Cursor) parent.getItemAtPosition(position);
             int userID =  clickedUser.getInt(clickedUser.getColumnIndex("_id"));
 
-            // Default value for count
+            // Get current count for clicked user.
             int count = selectedMap.get(userID);
 
-            // Display how many times user is selected
+            // Update count.
             int updatedCount = count + 1;
+            selectedMap.put(userID,updatedCount);
+
+            // Display count.
             String amount = Integer.toString(updatedCount);
             TextView amountTV = (TextView) view.findViewById(R.id.amount);
             amountTV.setText(amount);
 
-            // Change color
+            // Change background color for clicked user.
             LinearLayout user = view.findViewById(R.id.userLL);
             user.setBackgroundResource(R.color.colorPrimaryDark);
-
-            // Update count
-            selectedMap.put(userID,updatedCount);
         }
     }
 
-    // LongClick --> Go to profile
+    // LongClick: Go to user profile (ProfileActivity).
     private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Get selected user name and pass to ProfileActivity
+            // Get selected username & ID and pass to ProfileActivity
             Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
             Cursor clickedUser = (Cursor) parent.getItemAtPosition(position);
             intent.putExtra("user_id", clickedUser.getInt(clickedUser.getColumnIndex("_id")));
@@ -152,35 +150,29 @@ public class UsersActivity extends AppCompatActivity {
         }
     }
 
-    // Strepen
+    // Add when streepBtn clicked.
     public void streepClicked(View view) {
 
-        // Get product id, name & price
+        // Get product id, name & price from intent.
         Intent intent = getIntent();
         int productID = (int) intent.getSerializableExtra("product_id");
         String productName = (String) intent.getSerializableExtra("product_name");
         float productPrice = (float) intent.getSerializableExtra("product_price");
 
-
-        // For each key (userID) in selectedMap
+        // Get userID('s) & selected count from selectedMap.
         for (Map.Entry<Integer, Integer> entry : selectedMap.entrySet()) {
             int userID = entry.getKey();
             int amount = entry.getValue();
 
-            // Check
-            System.out.println(entry.getKey() + " = " + entry.getValue());
-
-            // TODO: wat doet dit?
+            // Update tables for current userID.
             // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
             Cursor userCursor = db.selectUser(userID);
             if (userCursor != null && userCursor.moveToFirst()) {
 
-                // Get username
+                // Get username from db.
                 String username = userCursor.getString(userCursor.getColumnIndex("name"));
                 userCursor.close();
 
-
-                // TODO: in één keer?
                 // Update transactions table.
                 Transaction transaction = new Transaction(userID, username, productName, productPrice, amount);
                 db.insertTransaction(transaction);
@@ -190,8 +182,6 @@ public class UsersActivity extends AppCompatActivity {
 
                 // Update users table.
                 db.streep(userID, transaction.getTotal());
-
-
             }
             else {
                 Toast toast = Toast.makeText(getApplicationContext(), "Er gaat iets fout", Toast.LENGTH_SHORT);
@@ -200,9 +190,11 @@ public class UsersActivity extends AppCompatActivity {
             }
         }
 
+        // Confirm success with toast.
         Toast toast = Toast.makeText(getApplicationContext(), "Gestreept!", Toast.LENGTH_SHORT);
         toast.show();
 
+        // Return to ProductsActivity.
         Intent productsIntent = new Intent(UsersActivity.this, ProductsActivity.class);
         startActivity(productsIntent);
     }

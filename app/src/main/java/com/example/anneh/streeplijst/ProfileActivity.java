@@ -35,31 +35,31 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Enable home button
+        // Enable home button in actionbar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get username and id
+        // Get username and id from intent.
         Intent intent = getIntent();
         String username = (String) intent.getSerializableExtra("user_name");
         userID = (int) intent.getSerializableExtra("user_id");
 
-        // Set username
+        // Set username.
         TextView nameTV = (TextView) findViewById(R.id.username);
         nameTV.setText(username);
 
-        // Get formatter for devices default currency
+        // Get formatter for devices default currency.
         Format format = NumberFormat.getCurrencyInstance();
 
-        // Get total costs from database & set TV
+        // Get total costs from database & set TV.
         db = StreepDatabase.getInstance(getApplicationContext());
         Float costs = db.getUserCosts(userID);
         TextView totalCosts = (TextView) findViewById(R.id.totalCosts);
         totalCosts.setText(format.format(costs));
 
-        // Get transactionCursor for given user
+        // Get cursor for transactions from given user.
         transactionCursor = db.selectUserTransactions(userID);
 
-        // Set adapter to transaction listview
+        // Set adapter to transaction ListView.
         ListView transactionLV = (ListView) findViewById(R.id.transactionsLV);
         adapter = new TransactionAdapter(this, transactionCursor);
         transactionLV.setAdapter(adapter);
@@ -67,21 +67,24 @@ public class ProfileActivity extends AppCompatActivity {
         // Set listener for transactions.
         transactionLV.setOnItemLongClickListener(new ProfileActivity.ListViewLongClickListener());
 
-
         //TODO: Ask for pin
-        // Open AlertDialog when remove button is clicked
+        // Open AlertDialog when remove button is clicked.
         // https://www.javatpoint.com/android-alert-dialog-example
         removeBtn = (Button) findViewById(R.id.remove);
         builder = new AlertDialog.Builder(this);
         removeBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+
+                // Ask for confirmation,
                 builder.setMessage("Verwijder gebruiker?")
                          .setCancelable(false)
+
+                         // Remove user when user confirms.
                          .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                              public void onClick(DialogInterface dialog, int id) {
 
-                                 // Remove user from database
+                                 // Remove user from database.
                                  db.removeUser(userID);
 
                                  // Confirm removal through toast
@@ -93,28 +96,31 @@ public class ProfileActivity extends AppCompatActivity {
                                  startActivity(intent);
                              }
                          })
-                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+
+                        // Cancel if user does not want to remove user.
+                        .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
                              public void onClick(DialogInterface dialog, int id) {
                                  dialog.cancel();
                              }
                          }) ;
 
-                 // Creating dialog box
+                 // Create dialog box & show.
                  AlertDialog alert = builder.create();
                  alert.show();
             }
         });
     }
 
-    // Go to PortfolioActivity when portfolioBtn clicked
+    // Go to PortfolioActivity when portfolioBtn clicked.
     public void portfolioClicked(View view) {
 
+        // Pass user ID to PortfolioActivity
         Intent portfolioIntent = new Intent(ProfileActivity.this, PortfolioActivity.class);
         portfolioIntent.putExtra("user_id", userID);
         startActivity(portfolioIntent);
     }
 
-    // LongClick --> Remove transaction?
+    // LongClick transaction: Remove transaction?
     private class ListViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -124,14 +130,14 @@ public class ProfileActivity extends AppCompatActivity {
             transactionID = clickedTransaction.getInt(clickedTransaction.getColumnIndex("_id"));
             int removed = clickedTransaction.getInt(clickedTransaction.getColumnIndex("removed"));
 
-            // Cancel if already removed
+            // Cancel if transaction already removed.
             if (removed == 1) {
                 Toast toast = Toast.makeText(getApplicationContext(), "Transactie is al verwijderd", Toast.LENGTH_SHORT);
                 toast.show();
                 return false;
             }
 
-            // Check
+            // Confirm removal with AlertDialog.
             builder = new AlertDialog.Builder(ProfileActivity.this);
             builder.setMessage("Transactie verwijderen?")
                     .setCancelable(false)
@@ -156,7 +162,7 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     }) ;
 
-            // Creating dialog box.
+            // Create dialog box & show.
             AlertDialog alert = builder.create();
             alert.show();
 
@@ -175,7 +181,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar item clicks --> go to corresponding activity.
+        // Handle action bar item clicks: go to corresponding activity.
         int id = item.getItemId();
 
         if (id == R.id.overview) {

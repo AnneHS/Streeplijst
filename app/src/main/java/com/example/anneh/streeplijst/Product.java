@@ -17,7 +17,6 @@ public class Product implements Serializable {
     public String getName() {
         return name;
     }
-
     public float getPrice() {
         return price;
     }

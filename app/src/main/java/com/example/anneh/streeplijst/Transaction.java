@@ -21,48 +21,36 @@ public class Transaction {
     public int getUserID() {
         return userID;
     }
-
     public String getUsername() {
         return username;
     }
-
     public String getProductName() {
         return productName;
     }
-
     public float getPrice() {
         return price;
     }
-
     public int getAmount() {
         return amount;
     }
-
     public float getTotal() {
         return total;
     }
 
     // Setters
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
-
+    public void setUserID(int userID) { this.userID = userID; }
     public void setUsername(String username) {
         this.username = username;
     }
-
     public void setProductName(String productName) {
         this.productName = productName;
     }
-
     public void setPrice(float price) {
         this.price = price;
     }
-
     public void setAmount(int amount) {
         this.amount = amount;
     }
-
     public void setTotal(float total) {
         this.total = total;
     }

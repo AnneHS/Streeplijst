@@ -185,11 +185,11 @@ public class StreepDatabase extends SQLiteOpenHelper {
         String userID = Integer.toString(transaction.getUserID());
         String productName = transaction.getProductName();
 
-        // Get cursor for given userID & product.
+        // Get portfolio cursor for given userID & product.
         Cursor portfolioCursor = db.rawQuery("SELECT * FROM portfolio WHERE userID = ?" +
                 "AND productName = ?", new String[] {userID, productName});
 
-        // Update if product in portfolio, else insert.
+        // Update portfolio if product already in portfolio.
         if (portfolioCursor != null & portfolioCursor.moveToFirst()) {
 
             // Get former amount & total for given product.
@@ -210,32 +210,33 @@ public class StreepDatabase extends SQLiteOpenHelper {
                     new String[] {userID, productName});
 
         }
+
+        // Else insert product in users portfolio.
         else {
 
-            // Insert product into portfolio
             ContentValues cv = new ContentValues();
             cv.put("userID", transaction.getUserID());
             cv.put("productName", transaction.getProductName());
             cv.put("productPrice", transaction.getPrice());
             cv.put("amount", transaction.getAmount());
             cv.put("total", transaction.getTotal());
-
             db.insert("portfolio", null, cv);
         }
     }
 
-    // Insert e-mailaddress into mail table.
+    // Insert e-mail address into mail table.
     public void insertMail(String address) {
 
+        // Get db & cursor for mail table.
         SQLiteDatabase db = this.getWritableDatabase();
+        Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?", new String[] {"1"});
 
+        // Add mail address to ContentValues.
         ContentValues cv = new ContentValues();
         cv.put("address", address);
 
-        Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?", new String[] {"1"});
-
         // TODO: "1" ????
-        // Insert e-mail address if not yet given, else overwrite
+        // Insert e-mail address if not yet given, else overwrite current address.
         if (mailCursor == null || !mailCursor.moveToFirst()) {
             db.insert("mail", null, cv);
         }
@@ -247,12 +248,12 @@ public class StreepDatabase extends SQLiteOpenHelper {
     // Get mail address from db
     public String getMail() {
 
-
+        // Get db & cursor for mail table.
         SQLiteDatabase db = this.getReadableDatabase();
-
         Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?", new String[] {"1"});
 
         //TODO: "" ????
+        // Return address if given, else return "".
         String address = "";
         if (mailCursor != null & mailCursor.moveToFirst()) {
 
@@ -264,15 +265,16 @@ public class StreepDatabase extends SQLiteOpenHelper {
         }
     }
 
-
-    // Get total costs from users table
+    // Get total costs from users table.
     // https://stackoverflow.com/questions/20582320/android-get-sum-of-database-column/20582538
     public float getTotalCosts() {
         float total = 0;
 
+        // Get db & cursor for costs from users table.
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor costsCursor = db.rawQuery("SELECT SUM(costs) FROM users", null);
 
+        // Return total if available, else return 0 (no entry yet).
         if (costsCursor.moveToFirst()) {
             return costsCursor.getFloat(0);
         }
@@ -281,23 +283,26 @@ public class StreepDatabase extends SQLiteOpenHelper {
         }
     }
 
-    // Update costs in users table
+    // Update costs in users table.
     public void streep(int userId, float total) {
         //TODO: op handigere manier
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
+        // Convert given id to string.
         String userID = Integer.toString(userId);
 
+        // Get db & cursor for costs from users table.
+        SQLiteDatabase db = this.getWritableDatabase();
         Cursor costsCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?", new String[] {userID});
 
-        // TODO: wat doet dit?
+        // Update costs.
         // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
         if (costsCursor != null & costsCursor.moveToFirst()) {
+
+            // Add given total to former costs.
             float formerCosts = costsCursor.getFloat(costsCursor.getColumnIndex("costs"));
             float updatedCosts = formerCosts + total;
 
-            // Update users table.
+            // Update costs in users table.
             ContentValues cv = new ContentValues();
             cv.put("costs", updatedCosts);
             db.update("users", cv, "_id = ?", new String[] {userID});
@@ -309,33 +314,27 @@ public class StreepDatabase extends SQLiteOpenHelper {
     }
 
 
-    // Insert product into products table
+    // Insert product into products table.
     public void insertProduct(Product product) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues cv = new ContentValues();
         cv.put("name", product.getName());
         cv.put("price", product.getPrice());
-
         db.insert("products", null, cv);
     }
 
-    // Insert user into users table
+    // Insert user into users table.
     public void insertUser(User user) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues cv = new ContentValues();
         cv.put("name", user.getName());
         cv.put("costs", 0); // New user = 0 costs
-
         db.insert("users", null, cv);
     }
 
-
-
-    // Remove product from products table
+    // Remove product from products table.
     public void removeProduct(int productId) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -343,18 +342,19 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.delete("products", "_id=?", new String[] {productID});
     }
 
+    // Remove transaction.
     public void removeTransaction(int transactionId) {
 
+        // Get db.
         SQLiteDatabase db = this.getWritableDatabase();
-        String transactionID = Integer.toString(transactionId);
 
-        // UPDATE TRANSACTIONS TABLE (removed = true)
+        // Mark transaction as removed in transaction table.
+        String transactionID = Integer.toString(transactionId);
         ContentValues cv = new ContentValues();
         cv.put("removed", true);
         db.update("transactions", cv, "_id = ?", new String[] {transactionID});
 
-
-        // ADJUST PORTFOLIO & USERS TABLE
+        // Adjust portfolio & users table.
         Cursor cursor = db.rawQuery("SELECT * FROM transactions WHERE _id = ?", new String[] {transactionID});
         if (cursor != null & cursor.moveToFirst()) {
 
@@ -365,7 +365,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
             int amount = cursor.getInt(cursor.getColumnIndex("amount"));
             float transactionTotal = cursor.getFloat(cursor.getColumnIndex("total"));
 
-            // UPDATE PORTFOLIO
+            // Update portfolio.
             Cursor portfolioCursor = db.rawQuery("SELECT * FROM portfolio WHERE userID = ? " +
                             "AND productName = ?", new String[] {userID, productName});
             if (portfolioCursor != null & portfolioCursor.moveToFirst()) {
@@ -387,7 +387,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
             }
 
-            // UPDATE USERS TABLE
+            // Update users table.
             Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id =?", new String[] {userID});
             if (userCursor != null & userCursor.moveToFirst()) {
 
@@ -403,14 +403,11 @@ public class StreepDatabase extends SQLiteOpenHelper {
         }
     }
 
-    // Remove user from users table
+    // Remove user from users table.
     public void removeUser(int userId) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String userID = Integer.toString(userId);
         db.delete("users", "_id=?", new String[] {userID});
-
     }
-
-
 }

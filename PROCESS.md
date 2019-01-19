@@ -33,7 +33,7 @@ die de gebruiker terug brengt naar het productenoverzicht.
 ListView een overzicht worden gegeven van de huidige bestelling.
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/profiel.png" height="5%" width="30%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/profiel.png" height="5%" width="20%"/>  
 </p>
 
 
@@ -45,18 +45,27 @@ De tabel voor het transactieoverzicht is toegevoegd aan de StreepDatabase. Daarb
 maken. De reden hiervoor is dat er momenteel veel wordt opgeslagen in de transactietabel (transactieId, gebruikerId, gebruikersnaam, productnaam, productprijs, hoeveelheid, totaalprijs, gestreept, timestamp). Het is daarom overzichtelijker om hier een aparte class voor te creëren waarbinnen bijvoorbeeld wordt uitgerekend wat de totaalprijs is. Achteraf zal het wellicht niet noodzakelijk blijken dat al deze informatie wordt opgeslagen. Het idee is, dat het waarschijnlijk eenvoudiger is om later in het proces kolommen te schrappen, dan om ze dan nog toe te voegen indien ze toch nodig blijken.
 Middels een HashMap kan nu worden bijgehouden hoevaak een gebruiker is aangeklikt. Tot slot is besloten om tijdens het strepen geen overzicht van de bestelling naast het gebruikersoverzicht weer te geven. In plaats daarvan is het de bedoeling dat geselecteerde gebruikers van kleur veranderen en er naast hun naam verschijnt hoevaak ze zijn aangeklikt.
 
+<p align="center">
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/selectUsers.PNG" height="5%" width="50%"/>  
+</p>
+
 **Dag 7 (15-01-2019)**  
-De transacties worden nu bijgehouden in de database. Op de profielpagina van een gebruiker zijn de transacties van desbetreffende gebruiker weergegeven, op de kostenoverzicht-pagina is een overzicht te vinden van alle transacties. Daarnaast wordt op deze pagina weergegeven wat de totale uitgaven zijn. Vanaf de profielpagina kunnen transacties worden verwijderd. Tot slot besloten om ook gebruikersportfolio's bij te houden in de StreepDatabase zodat de gebruiker in kan zien waaraan zijn of haar geld is uitgegeven (nog niet in uitvoering gebracht). Het transactieoverzicht dient met name om het verwijderen van transacties mogelijk te maken. Naast een overzicht van de totale kosten en een transactieoverzicht, zal dus ook het portfolio moeten worden weergegeven op de profielpagina's.    
+De transacties worden nu bijgehouden in de database. Op de profielpagina van een gebruiker zijn de transacties van desbetreffende gebruiker weergegeven, op de kostenoverzicht-pagina is een overzicht te vinden van alle transacties. Daarnaast wordt op deze pagina weergegeven wat de totale uitgaven zijn. Vanaf de profielpagina kunnen transacties worden verwijderd. Tot slot besloten om ook gebruikersportfolio's bij te houden in de StreepDatabase zodat de gebruiker in kan zien waaraan zijn of haar geld is uitgegeven (nog niet in uitvoering gebracht). Het transactieoverzicht dient met name om het verwijderen van transacties mogelijk te maken. Naast een overzicht van de totale kosten en een transactieoverzicht, zal dus ook het portfolio moeten worden weergegeven op de profielpagina's. 
+
+<p align="center">
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/userTransactions.PNG" height="5%" width="40%"/>  
+</p>
+
 **Dag 8 (16-01-2019)**  
 De kosten in de gebruikerstabel worden nu aangepast bij het verwijderen van transacties. Tijdens het strepen wordt weergegeven hoevaak een gebruiker is geselecteerd. 
 
 **Dag 9 (17-01-2019)**    
-De users table kan worden omgezet in een csv bestand en vervolgens worden gemaild. Oorspronkelijk was het plan om het csv bestand vervolgens om te zetten in een xls bestand. Nu blijkt echter dat het boekhoudprogramma dat wordt gebruikt om de tabellen om te zetten in facturen, ook csv bestanden accepteert. Converteren naar xls is daarom onnodig.
+De users table uit de StreepDatabase kan worden omgezet in een csv bestand en vervolgens worden gemaild. Oorspronkelijk was het plan om het csv bestand vervolgens om te zetten in een xls bestand. Nu blijkt echter dat het boekhoudprogramma dat wordt gebruikt om de tabellen om te zetten in facturen, ook csv bestanden accepteert. Converteren naar xls is daarom onnodig.
 
 **Dag 10 (18-01-2019)**    
 Hoewel dit oorspronkelijk niet het plan was, staat de app nu vast in portretmodus. De reden hiervoor is dat het op deze manier eenvoudiger is om te voorkomen dat het selecteren van de gebruikers niet juist wordt geregistreerd wanneer de tablet gedraaid wordt. Bovendien is het de bedoeling dat de tablet ergens op een vaste plek komt te hangen en dus ook niet in een andere modus dan portretmodus gebruikt zal worden. Daarnaast is het nu mogelijk om een standaard e-mail adres op te geven waarnaar de bestanden worden gemaild. Voor het mail adres is een aparte tabel aangemaakt in de StreepDatabase.
 
 <p align="center">
   <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/addEmail.PNG" height="5%" width="30%"/> <img
-   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ExportMail.PNG" height="5%" width="30%"/>                     </p>                                                                                                   
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ExportMail.PNG" height="5%" width="50%"/>                   </p>                                                                                                   
 

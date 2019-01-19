@@ -17,6 +17,13 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
+    <Button
+        android:id="@+id/portfolioBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="portfolioClicked"
+        android:text="Strepen" />
+
     <TextView
         android:id="@+id/costs"
         android:layout_width="match_parent"
@@ -41,7 +48,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/buttonshape"
 
-        android:onClick="removeClicked"
         android:shadowColor="#c79400"
         android:shadowDx="0"
         android:shadowDy="0"

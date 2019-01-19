@@ -35,13 +35,16 @@ public class StreepDatabase extends SQLiteOpenHelper {
                 " total REAL, removed BOOLEAN DEFAULT 0, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
         db.execSQL(createTransactions);
 
+        // Create portfolio table
+        String createPortfolio = "CREATE TABLE portfolio(_id INTEGER PRIMARY KEY, userID INTEGER, productName text, " +
+                "productPrice REAL, amount INTEGER, total REAL)";
+        db.execSQL(createPortfolio);
+
         // Create e-mail table
         String createMail = "CREATE TABLE mail(_id INTEGER PRIMARY KEY, address TEXT)";
         db.execSQL(createMail);
 
         // TODO: portfolio (zie finance)
-
-
     }
 
     // If you make changes to the schema of your database (like adding columns), you need to force a call to onUpgrade().
@@ -147,6 +150,16 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return transactionsCursor;
     }
 
+    // Get cursor for portfolio from given user ID.
+    public Cursor selectPortfolio(int userId) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor portfolioCursor = db.rawQuery("SELECT * FROM portfolio WHERE userID = ?",
+                new String[] {Integer.toString(userId)});
+
+        return portfolioCursor;
+    }
+
     // Insert transaction into transactions table
     public void insertTransaction(Transaction transaction) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -158,9 +171,57 @@ public class StreepDatabase extends SQLiteOpenHelper {
         cv.put("productPrice", transaction.getPrice());
         cv.put("amount", transaction.getAmount());
         cv.put("total", transaction.getTotal());
-        // cv.put("removed", false);
 
         db.insert("transactions", null, cv);
+
+    }
+
+    // Update portfolio
+    public void updatePortfolio(Transaction transaction) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Get userID & productname.
+        String userID = Integer.toString(transaction.getUserID());
+        String productName = transaction.getProductName();
+
+        // Get cursor for given userID & product.
+        Cursor portfolioCursor = db.rawQuery("SELECT * FROM portfolio WHERE userID = ?" +
+                "AND productName = ?", new String[] {userID, productName});
+
+        // Update if product in portfolio, else insert.
+        if (portfolioCursor != null & portfolioCursor.moveToFirst()) {
+
+            // Get former amount & total for given product.
+            int formerAmount = portfolioCursor.getInt(3);
+            float formerTotal = portfolioCursor.getFloat(4);
+
+            // Calculate updated amount & total.
+            int updatedAmount = formerAmount + transaction.getAmount();
+            float updatedTotal = formerTotal + transaction.getTotal();
+
+            // Update portfolio including productPrice to account for price changes.
+            ContentValues cv = new ContentValues();
+            cv.put("amount", updatedAmount);
+            cv.put("total", updatedTotal);
+            cv.put("productPrice", transaction.getPrice());
+
+            db.update("portfolio", cv, "userID = ? AND productName =?",
+                    new String[] {userID, productName});
+
+        }
+        else {
+
+            // Insert product into portfolio
+            ContentValues cv = new ContentValues();
+            cv.put("userID", transaction.getUserID());
+            cv.put("productName", transaction.getProductName());
+            cv.put("productPrice", transaction.getPrice());
+            cv.put("amount", transaction.getAmount());
+            cv.put("total", transaction.getTotal());
+
+            db.insert("portfolio", null, cv);
+        }
     }
 
     // Insert e-mailaddress into mail table.
@@ -236,9 +297,9 @@ public class StreepDatabase extends SQLiteOpenHelper {
             float formerCosts = costsCursor.getFloat(costsCursor.getColumnIndex("costs"));
             float updatedCosts = formerCosts + total;
 
+            // Update users table.
             ContentValues cv = new ContentValues();
             cv.put("costs", updatedCosts);
-
             db.update("users", cv, "_id = ?", new String[] {userID});
         }
         else {
@@ -287,44 +348,59 @@ public class StreepDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String transactionID = Integer.toString(transactionId);
 
-
-        // Adjust transactions table
+        // UPDATE TRANSACTIONS TABLE (removed = true)
         ContentValues cv = new ContentValues();
         cv.put("removed", true);
         db.update("transactions", cv, "_id = ?", new String[] {transactionID});
 
-        // Remove from users table
-        Cursor cursor = db.rawQuery("SELECT userID, total FROM transactions WHERE _id = ?", new String[] {transactionID});
 
-        //
+        // ADJUST PORTFOLIO & USERS TABLE
+        Cursor cursor = db.rawQuery("SELECT * FROM transactions WHERE _id = ?", new String[] {transactionID});
         if (cursor != null & cursor.moveToFirst()) {
 
-            // Get user ID & transaction costs
+            // Get transaction info (userID, productName, productPrice, amount, price).
             int userId = cursor.getInt(cursor.getColumnIndex("userID"));
-            float transactionCosts = cursor.getFloat(cursor.getColumnIndex("total"));
-
-            //
             String userID = Integer.toString(userId);
-            Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id =?", new String[] {userID});
+            String productName = cursor.getString(cursor.getColumnIndex("productName"));
+            int amount = cursor.getInt(cursor.getColumnIndex("amount"));
+            float transactionTotal = cursor.getFloat(cursor.getColumnIndex("total"));
 
+            // UPDATE PORTFOLIO
+            Cursor portfolioCursor = db.rawQuery("SELECT * FROM portfolio WHERE userID = ? " +
+                            "AND productName = ?", new String[] {userID, productName});
+            if (portfolioCursor != null & portfolioCursor.moveToFirst()) {
+
+                // Get former amount & total.
+                int formerAmount = portfolioCursor.getInt(portfolioCursor.getColumnIndex("amount"));
+                float formerTotal = portfolioCursor.getFloat(portfolioCursor.getColumnIndex("total"));
+
+                // Calculate updated amount & total.
+                int updatedAmount = formerAmount - amount;
+                float updatedTotal = formerTotal - transactionTotal;
+
+                // Update portfolio table.
+                ContentValues portfolioCV = new ContentValues();
+                portfolioCV.put("amount", updatedAmount);
+                portfolioCV.put("total", updatedTotal);
+                db.update("portfolio", portfolioCV, "userID = ? AND productName = ?",
+                        new String[] {userID, productName});
+
+            }
+
+            // UPDATE USERS TABLE
+            Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id =?", new String[] {userID});
             if (userCursor != null & userCursor.moveToFirst()) {
 
-                // Get updated costs
-                float currentCosts = userCursor.getFloat(userCursor.getColumnIndex("costs"));
-                float updatedCosts = currentCosts - transactionCosts;
+                // Calculate updated costs for user.
+                float formerCosts = userCursor.getFloat(userCursor.getColumnIndex("costs"));
+                float updatedCosts = formerCosts - transactionTotal;
 
-                // Adjust costs in userstable
-                ContentValues cvUser = new ContentValues();
-                cvUser.put("costs", updatedCosts);
-                db.update("users", cvUser, "_id = ?", new String[] {userID});
+                // Update users table.
+                ContentValues usersCV = new ContentValues();
+                usersCV.put("costs", updatedCosts);
+                db.update("users", usersCV, "_id = ?", new String[] {userID});
             }
         }
-
-
-
-        // Remove from transactions table
-        // db.delete("transactions", "_id=?", new String[] {transactionID});
-
     }
 
     // Remove user from users table

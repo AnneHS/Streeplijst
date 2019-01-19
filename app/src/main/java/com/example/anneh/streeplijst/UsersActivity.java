@@ -179,12 +179,19 @@ public class UsersActivity extends AppCompatActivity {
                 String username = userCursor.getString(userCursor.getColumnIndex("name"));
                 userCursor.close();
 
-                // Create transaction and insert into DB.
+
+                // TODO: in één keer?
+                // Update transactions table.
                 Transaction transaction = new Transaction(userID, username, productName, productPrice, amount);
                 db.insertTransaction(transaction);
 
-                // Update user table.
+                // Update portfolio table.
+                db.updatePortfolio(transaction);
+
+                // Update users table.
                 db.streep(userID, transaction.getTotal());
+
+
             }
             else {
                 Toast toast = Toast.makeText(getApplicationContext(), "Er gaat iets fout", Toast.LENGTH_SHORT);

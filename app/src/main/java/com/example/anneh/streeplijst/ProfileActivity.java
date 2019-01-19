@@ -106,6 +106,13 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    // Go to PortfolioActivity when portfolioBtn clicked
+    public void portfolioClicked(View view) {
+
+        Intent portfolioIntent = new Intent(ProfileActivity.this, PortfolioActivity.class);
+        portfolioIntent.putExtra("user_id", userID);
+        startActivity(portfolioIntent);
+    }
 
     // LongClick --> Remove transaction?
     private class ListViewLongClickListener implements AdapterView.OnItemLongClickListener {
@@ -131,14 +138,14 @@ public class ProfileActivity extends AppCompatActivity {
                     .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
 
-                            // Remove transaction from database
+                            // Remove transaction from database (users, portfolio, transactions).
                             db.removeTransaction(transactionID);
 
-                            // Confirm removal through toast
+                            // Confirm removal through toast.
                             Toast toast = Toast.makeText(getApplicationContext(), "Transactie verwijderd", Toast.LENGTH_SHORT);
                             toast.show();
 
-                            // Return to ProductsActivity
+                            // Return to ProductsActivity.
                             Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
                             startActivity(intent);
                         }
@@ -149,7 +156,7 @@ public class ProfileActivity extends AppCompatActivity {
                         }
                     }) ;
 
-            // Creating dialog box
+            // Creating dialog box.
             AlertDialog alert = builder.create();
             alert.show();
 
@@ -159,7 +166,8 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present
+
+        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -167,7 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle actian bar item clicks --> go to corresponding activity
+        // Handle action bar item clicks --> go to corresponding activity.
         int id = item.getItemId();
 
         if (id == R.id.overview) {

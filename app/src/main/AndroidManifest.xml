@@ -42,7 +42,8 @@
         <activity
             android:name=".ExportActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".MailActivity"></activity>
+        <activity android:name=".MailActivity" />
+        <activity android:name=".PortfolioActivity"></activity>
     </application>
 
 </manifest>

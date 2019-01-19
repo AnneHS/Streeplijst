@@ -193,8 +193,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
         if (portfolioCursor != null & portfolioCursor.moveToFirst()) {
 
             // Get former amount & total for given product.
-            int formerAmount = portfolioCursor.getInt(3);
-            float formerTotal = portfolioCursor.getFloat(4);
+            int formerAmount = portfolioCursor.getInt(4);
+            float formerTotal = portfolioCursor.getFloat(5);
 
             // Calculate updated amount & total.
             int updatedAmount = formerAmount + transaction.getAmount();

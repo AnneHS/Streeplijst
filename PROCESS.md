@@ -50,6 +50,13 @@ De transacties worden nu bijgehouden in de database. Op de profielpagina van een
 **Dag 8 (16-01-2019)**  
 De kosten in de gebruikerstabel worden nu aangepast bij het verwijderen van transacties. Tijdens het strepen wordt weergegeven hoevaak een gebruiker is geselecteerd. 
 
-**Dag 9 (17-01-2019)**
-Users table kan worden omgezet in csv en vervolgens worden gemaild.
+**Dag 9 (17-01-2019)**    
+De users table kan worden omgezet in een csv bestand en vervolgens worden gemaild. Oorspronkelijk was het plan om het csv bestand vervolgens om te zetten in een xls bestand. Nu blijkt echter dat het boekhoudprogramma dat wordt gebruikt om de tabellen om te zetten in facturen, ook csv bestanden accepteert. Converteren naar xls is daarom onnodig.
+
+**Dag 10 (18-01-2019)**    
+Hoewel dit oorspronkelijk niet het plan was, staat de app nu vast in portretmodus. De reden hiervoor is dat het op deze manier eenvoudiger is om te voorkomen dat het selecteren van de gebruikers niet juist wordt geregistreerd wanneer de tablet gedraaid wordt. Bovendien is het de bedoeling dat de tablet ergens op een vaste plek komt te hangen en dus ook niet in een andere modus dan portretmodus gebruikt zal worden. Daarnaast is het nu mogelijk om een standaard e-mail adres op te geven waarnaar de bestanden worden gemaild. Voor het mail adres is een aparte tabel aangemaakt in de StreepDatabase.
+
+<p align="center">
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/addEmail.PNG" height="5%" width="30%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ExportMail.PNG" height="5%" width="30%"/>                     </p>                                                                                                   
 

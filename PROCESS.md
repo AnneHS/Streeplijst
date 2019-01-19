@@ -46,14 +46,14 @@ maken. De reden hiervoor is dat er momenteel veel wordt opgeslagen in de transac
 Middels een HashMap kan nu worden bijgehouden hoevaak een gebruiker is aangeklikt. Tot slot is besloten om tijdens het strepen geen overzicht van de bestelling naast het gebruikersoverzicht weer te geven. In plaats daarvan is het de bedoeling dat geselecteerde gebruikers van kleur veranderen en er naast hun naam verschijnt hoevaak ze zijn aangeklikt.
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/selectUsers.png" height="5%" width="30%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/selectUsers.PNG" height="5%" width="30%"/>  
 </p>
 
 **Dag 7 (15-01-2019)**  
 De transacties worden nu bijgehouden in de database. Op de profielpagina van een gebruiker zijn de transacties van desbetreffende gebruiker weergegeven, op de kostenoverzicht-pagina is een overzicht te vinden van alle transacties. Daarnaast wordt op deze pagina weergegeven wat de totale uitgaven zijn. Vanaf de profielpagina kunnen transacties worden verwijderd. Tot slot besloten om ook gebruikersportfolio's bij te houden in de StreepDatabase zodat de gebruiker in kan zien waaraan zijn of haar geld is uitgegeven (nog niet in uitvoering gebracht). Het transactieoverzicht dient met name om het verwijderen van transacties mogelijk te maken. Naast een overzicht van de totale kosten en een transactieoverzicht, zal dus ook het portfolio moeten worden weergegeven op de profielpagina's. 
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/userTransactions.png" height="5%" width="30%"/>  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/userTransactions.PNG" height="5%" width="30%"/>  
 </p>
 
 **Dag 8 (16-01-2019)**  

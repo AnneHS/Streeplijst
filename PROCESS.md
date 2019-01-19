@@ -69,3 +69,5 @@ Hoewel dit oorspronkelijk niet het plan was, staat de app nu vast in portretmodu
   <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/addEmail.PNG" height="5%" width="30%"/> <img
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ExportMail.PNG" height="5%" width="50%"/>                   </p>                                                                                                   
 
+**Dag 11 (19-01-2019)**   
+Voor iedere gebruiker wordt nu een portfolio bijgehouden in de StreepDatabase. Via de profielpagina kan een gebruiker doorklikken naar zijn of haar portfolio.

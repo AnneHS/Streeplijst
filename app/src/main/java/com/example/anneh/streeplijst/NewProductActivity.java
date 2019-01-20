@@ -62,20 +62,6 @@ public class NewProductActivity extends AppCompatActivity {
         nameET = (EditText) findViewById(R.id.name);
         priceET = (EditText) findViewById(R.id.price);
 
-//        // Open Gallery when upload btn clicked.
-//        // http://viralpatel.net/blogs/pick-image-from-galary-android-app/
-//        Button uploadBtn = (Button) findViewById(R.id.uploadBtn);
-//        uploadBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View arg0) {
-//
-//                // Intent to open Image Gallery.
-//                Intent uploadIntent = new Intent(Intent.ACTION_PICK,
-//                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                startActivityForResult(uploadIntent, RESULT_LOAD_IMAGE);
-//            }
-//        });
-
         // TODO: Ask for pin
         // Open AlertDialog when add button is clicked.
         // https://www.javatpoint.com/android-alert-dialog-example
@@ -115,9 +101,10 @@ public class NewProductActivity extends AppCompatActivity {
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // TODO: Save bitmap to internal storage
+                                // Save bitmap to internal storage.
                                 // https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html
-                                // Image name
+
+                                // Make image name.
                                 String imgName = productName + ".jpg";
 
                                 // Create a file to save the image.
@@ -156,6 +143,7 @@ public class NewProductActivity extends AppCompatActivity {
                                 }
                             }
                         })
+
                         // Cancel if user does not want to add the product.
                         .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
@@ -215,7 +203,7 @@ public class NewProductActivity extends AppCompatActivity {
         }
     }
 
-    // Get byte array for selected image.
+    // Get bitmap for selected image.
     // http://viralpatel.net/blogs/pick-image-from-galary-android-app/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

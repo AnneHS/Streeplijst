@@ -77,7 +77,7 @@ Voor iedere gebruiker wordt nu een portfolio bijgehouden in de StreepDatabase. V
 Bij het toevoegen van een product kan nu een foto worden toegevoegd vanuit de galerij. Deze foto's worden weergegeven in het producten overzicht (ProductsActivity).
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadProductPic.jpg" height="5%" width="30%"/> <img
-   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadedProductPic.jpg" height="5%" width="30%"/> <img
-   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/productsPictures.jpg" height="5%" width="30%"/>
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadProductPic.jpg" height="5%" width="25%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadedProductPic.jpg" height="5%" width="25%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/productsPictures.jpg" height="5%" width="25%"/>
 </p>   

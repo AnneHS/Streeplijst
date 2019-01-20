@@ -78,6 +78,6 @@ Bij het toevoegen van een product kan nu een foto worden toegevoegd vanuit de ga
 
 <p align="center">
   <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadProductPic.jpg" height="5%" width="30%"/> <img
-   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadedProductPic.jpg" height="5%" width="50%"/> <img
-   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ProductsPictures.jpg" height="5%" width="50%"/>
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadedProductPic.jpg" height="5%" width="30%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/productsPictures.jpg" height="5%" width="30%"/>
 </p>   

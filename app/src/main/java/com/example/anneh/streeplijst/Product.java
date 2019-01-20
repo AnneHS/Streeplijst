@@ -5,12 +5,16 @@ import java.io.Serializable;
 public class Product implements Serializable {
     String name;
     float price;
+    String imgPath;
+    String imgName;
 
     // Constructor
-    public Product(String productName, float productPrice) {
+    public Product(String productName, float productPrice, String path, String img) {
         super();
         this.name = productName;
         this.price = productPrice;
+        this.imgPath = path;
+        this.imgName = img;
     }
 
     // Getters
@@ -20,6 +24,8 @@ public class Product implements Serializable {
     public float getPrice() {
         return price;
     }
+    public String getImgPath() { return imgPath; }
+    public String getImgName() { return imgName; }
 
     // Setters
     public void setName(String name) {
@@ -28,4 +34,6 @@ public class Product implements Serializable {
     public void setPrice(float price) {
         this.price = price;
     }
+    public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+    public void setImgName(String imgName) { this.imgName = imgName; }
 }

@@ -21,32 +21,32 @@ public class StreepDatabase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        // Create products table (id, name, price)
-        String createProducts = "CREATE TABLE products(_id INTEGER PRIMARY KEY, name TEXT, price REAL)";
+        // Create products table.
+        String createProducts = "CREATE TABLE products(_id INTEGER PRIMARY KEY, name TEXT, " +
+                "price REAL, imgPath TEXT, imgName TEXT)";
         db.execSQL(createProducts);
 
-        // Create users table (id, name, costs)
+        // Create users table.
         String createUsers = "CREATE TABLE users(_id INTEGER PRIMARY KEY, name TEXT, costs FLOAT NOT NULL)";
         db.execSQL(createUsers);
 
-        // Create transactions table
+        // Create transactions table.
         String createTransactions = "CREATE TABLE transactions(_id INTEGER PRIMARY KEY, " +
                 "userID INTEGER, username TEXT, productName TEXT, productPrice REAL, amount INTEGER," +
                 " total REAL, removed BOOLEAN DEFAULT 0, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
         db.execSQL(createTransactions);
 
-        // Create portfolio table
+        // Create portfolio table.
         String createPortfolio = "CREATE TABLE portfolio(_id INTEGER PRIMARY KEY, userID INTEGER, productName text, " +
                 "productPrice REAL, amount INTEGER, total REAL)";
         db.execSQL(createPortfolio);
 
-        // Create e-mail table
+        // Create e-mail table.
         String createMail = "CREATE TABLE mail(_id INTEGER PRIMARY KEY, address TEXT)";
         db.execSQL(createMail);
-
-        // TODO: portfolio (zie finance)
     }
 
+    // TODO: ???
     // If you make changes to the schema of your database (like adding columns), you need to force a call to onUpgrade().
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -76,7 +76,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
     }
 
-    // Get cursor for products table
+    // Return cursor for products table.
     public Cursor selectProducts() {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -84,7 +84,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return productsCursor;
     }
 
-    // Return cursor for product with given id
+    // Return cursor for product with given id.
     public Cursor selectProduct(int id) {
 
         String productID = Integer.toString(id);
@@ -94,7 +94,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
     }
 
-    // Get cursor for users table
+    // Return cursor for users table.
     public Cursor selectUsers() {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -103,7 +103,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
     }
     // TODO: transactionsCursor
 
-    // Get cursor for transactions for given user ID
+    // Return cursor for transactions from user with given userID.
     public Cursor selectUserTransactions(int userId) {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -114,7 +114,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return transactionCursor;
     }
 
-    // Get cursor for given userId
+    // Return cursor for user with given userID.
     public Cursor selectUser(int userId){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -124,6 +124,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return userCursor;
     }
 
+    // Return total costs for user with given userID.
     public float getUserCosts(int userId) {
 
         float costs = 0;
@@ -142,7 +143,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         }
     }
 
-    // Get cursor for all transactions
+    // Return cursor for transactions table.
     public Cursor selectTransactions(){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -150,7 +151,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return transactionsCursor;
     }
 
-    // Get cursor for portfolio from given user ID.
+    // Return cursor for portfolio from user with given userID.
     public Cursor selectPortfolio(int userId) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -160,8 +161,9 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return portfolioCursor;
     }
 
-    // Insert transaction into transactions table
+    // Insert transaction into transactions table.
     public void insertTransaction(Transaction transaction) {
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
@@ -321,6 +323,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("name", product.getName());
         cv.put("price", product.getPrice());
+        cv.put("imgPath", product.getImgPath());
+        cv.put("imgName", product.getImgName());
         db.insert("products", null, cv);
     }
 

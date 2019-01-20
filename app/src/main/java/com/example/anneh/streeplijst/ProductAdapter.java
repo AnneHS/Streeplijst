@@ -2,6 +2,8 @@ package com.example.anneh.streeplijst;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +17,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ProductAdapter extends ResourceCursorAdapter {
@@ -36,6 +42,27 @@ public class ProductAdapter extends ResourceCursorAdapter {
 
         // Set text.
         productTV.setText(productName);
+
+        // Get reference to ImageView & get image name from database.
+        ImageView productImg = (ImageView) view.findViewById(R.id.productImg);
+        String imgName = cursor.getString(cursor.getColumnIndex("imgName"));
+        String imgPath = cursor.getString(cursor.getColumnIndex("imgPath"));
+
+        // Load bitmap.
+        Bitmap imgBitmap = null;
+        FileInputStream fis;
+
+        try {
+            File file = new File(imgPath, imgName);
+            imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+
+            // Set image.
+            productImg.setImageBitmap(imgBitmap);
+        }
+        catch (FileNotFoundException e) {
+            Log.d("Error: ", "file not found");
+            e.printStackTrace();
+        }
     }
 
 }

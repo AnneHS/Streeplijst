@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/productLL"
     android:layout_width="match_parent"
@@ -17,4 +18,13 @@
         android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/productImg"
+        android:layout_width="114dp"
+        android:layout_height="114dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1"
+        android:scaleType="fitXY"
+        app:srcCompat="@mipmap/streep_icon" />
 </LinearLayout>

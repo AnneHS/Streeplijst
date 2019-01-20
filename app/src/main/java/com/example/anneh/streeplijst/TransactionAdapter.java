@@ -56,7 +56,6 @@ public class TransactionAdapter extends ResourceCursorAdapter {
         // Display transaction in red if removed.
         if (removed == 1) {
 
-            // Populate views with extracted properties.
             nameTV.setTextColor(Color.RED);
             priceTV.setTextColor(Color.RED);
             amountTV.setTextColor(Color.RED);

@@ -39,11 +39,40 @@
         android:hint="Prijs"
         android:inputType="numberDecimal|numberSigned" />
 
+    <ImageView
+        android:id="@+id/uploadPic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/upload" />
+
+    <Button
+        android:id="@+id/uploadBtn"
+
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_margin="5dp"
+        android:layout_marginLeft="10dp"
+
+        android:layout_marginRight="10dp"
+        android:background="@drawable/buttonshape"
+        android:onClick="uploadClicked"
+        android:shadowColor="#c79400"
+        android:shadowDx="0"
+
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Foto Uploaden"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
     <Button
         android:id="@+id/addProduct"
 
         android:layout_width="270dp"
         android:layout_height="60dp"
+        android:layout_margin="5dp"
         android:layout_marginLeft="10dp"
 
         android:layout_marginRight="10dp"
@@ -51,8 +80,8 @@
         android:onClick="addProductClicked"
         android:shadowColor="#c79400"
         android:shadowDx="0"
-        android:shadowDy="0"
 
+        android:shadowDy="0"
         android:shadowRadius="5"
         android:text="Toevoegen"
         android:textColor="#FFFFFF"

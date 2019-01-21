@@ -19,11 +19,12 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <ImageView
+    <com.example.anneh.streeplijst.CustomImageView
         android:id="@+id/productImg"
         android:layout_width="114dp"
         android:layout_height="114dp"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:layout_weight="1"
         android:scaleType="fitXY"
         app:srcCompat="@mipmap/streep_icon" />

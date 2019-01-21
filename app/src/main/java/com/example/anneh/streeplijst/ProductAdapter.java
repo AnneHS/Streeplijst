@@ -42,7 +42,7 @@ public class ProductAdapter extends ResourceCursorAdapter {
         productTV.setText(productName);
 
         // Get reference to ImageView & get image name and path from database.
-        ImageView productImg = (ImageView) view.findViewById(R.id.productImg);
+        CustomImageView productImg = (CustomImageView) view.findViewById(R.id.productImg);
         String imgName = cursor.getString(cursor.getColumnIndex("imgName"));
         String imgPath = cursor.getString(cursor.getColumnIndex("imgPath"));
 

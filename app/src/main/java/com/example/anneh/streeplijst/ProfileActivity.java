@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         nameTV.setText(username);
 
         // Set user image.
-        ImageView userIV = (ImageView) findViewById(R.id.userImg);
+        CustomImageView userIV = (CustomImageView) findViewById(R.id.userImg);
         Bitmap imgBitmap;
         FileInputStream fis;
 
@@ -77,7 +78,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Get formatter for devices default currency.
         Format format = NumberFormat.getCurrencyInstance();
 
-        // Get total costs from database & set TV.
+        // Get total costs from database & set text.
         db = StreepDatabase.getInstance(getApplicationContext());
         Float costs = db.getUserCosts(userID);
         TextView totalCosts = (TextView) findViewById(R.id.totalCosts);

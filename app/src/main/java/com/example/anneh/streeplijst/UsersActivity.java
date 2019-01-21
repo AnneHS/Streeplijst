@@ -1,17 +1,22 @@
 package com.example.anneh.streeplijst;
 
 import android.app.ActionBar;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FilterQueryProvider;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UsersActivity extends AppCompatActivity {
+public class UsersActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private StreepDatabase db;
     Cursor usersCursor;
@@ -66,6 +71,31 @@ public class UsersActivity extends AppCompatActivity {
         GridView userGrid = (GridView) findViewById(R.id.userGrid);
         userGrid.setAdapter(adapter);
 
+        // Change GridView/Adapter based on search query.
+        // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+        userGrid.setTextFilterEnabled(true);
+        adapter.setFilterQueryProvider(new FilterQueryProvider() {
+            @Override
+            public Cursor runQuery(CharSequence constraint) {
+
+                // Show all users when search bar is empty or closed.
+                Cursor userCursor;
+                if (TextUtils.isEmpty(constraint)) {
+                    userCursor = db.selectUsers();
+                }
+
+                // Else show users with searched name (+ "%" to search substring).
+                else {
+                    SQLiteDatabase SQLdb = db.getWritableDatabase();
+                    userCursor = SQLdb.rawQuery("SELECT * FROM users WHERE name LIKE ?",
+                            new String[] {constraint.toString() + "%"});
+                }
+
+                return userCursor;
+
+            }
+        });
+
         // Set listeners for userGrid.
         userGrid.setOnItemClickListener(new UsersActivity.GridViewClickListener());
         userGrid.setOnItemLongClickListener(new GridViewLongClickListener());
@@ -75,8 +105,17 @@ public class UsersActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // Inflate the menu; this adds items to the action bar if it is present
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        // Inflate the menu; this adds a search menu to the action bar if it is present
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchItem.getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
+
         return true;
     }
 
@@ -102,6 +141,21 @@ public class UsersActivity extends AppCompatActivity {
             Intent intent = new Intent(UsersActivity.this, ProductsActivity.class);
             startActivity(intent);
         }
+
+        return true;
+    }
+
+    // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        adapter.getFilter().filter(newText);
+        adapter.notifyDataSetChanged();
 
         return true;
     }

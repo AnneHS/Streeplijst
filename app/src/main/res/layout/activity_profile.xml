@@ -17,36 +17,59 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <ImageView
+    <LinearLayout
+        android:id="@+id/totalLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/costs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="20dp"
+            android:text="Totaal gestreept: "
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/totalCosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="TextView"
+            android:textSize="16sp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <com.example.anneh.streeplijst.CustomImageView
         android:id="@+id/userImg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
+        android:scaleType="fitXY"
         app:srcCompat="@drawable/upload" />
 
     <Button
         android:id="@+id/portfolioBtn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="portfolioClicked"
-        android:text="Strepen" />
 
-    <TextView
-        android:id="@+id/costs"
-        android:layout_width="match_parent"
+        android:layout_width="270dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Totaal gestreept"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:background="@drawable/buttonshape"
 
-    <TextView
-        android:id="@+id/totalCosts"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textAlignment="center" />
+        android:shadowColor="#c79400"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Streep overzicht"
+        android:textAllCaps="false"
+
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:onClick="portfolioClicked" />
 
     <Button
         android:id="@+id/remove"

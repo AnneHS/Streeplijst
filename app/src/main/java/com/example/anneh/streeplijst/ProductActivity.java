@@ -19,6 +19,8 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.text.Format;
+import java.text.NumberFormat;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -46,11 +48,14 @@ public class ProductActivity extends AppCompatActivity {
         // Get reference to views.
         TextView nameTV = (TextView) findViewById(R.id.productName);
         TextView priceTV = (TextView) findViewById(R.id.price);
-        ImageView productIV = (ImageView) findViewById(R.id.productImg);
+        CustomImageView productIV = (CustomImageView) findViewById(R.id.productImg);
+
+        // Get formatter for devices default currency.
+        Format format = NumberFormat.getCurrencyInstance();
 
         // Set text for TextViews.
         nameTV.setText(productName);
-        priceTV.setText(Float.toString(productPrice));
+        priceTV.setText(format.format(productPrice));
 
         // Load bitmap & set image.
         Bitmap imgBitmap;

@@ -98,10 +98,10 @@ public class StreepDatabase extends SQLiteOpenHelper {
     public Cursor selectUsers() {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor usersCursor = db.rawQuery("SELECT * FROM users", null);
+        Cursor usersCursor = db.rawQuery("SELECT * FROM users ORDER BY name ASC",
+                null);
         return usersCursor;
     }
-    // TODO: transactionsCursor
 
     // Return cursor for transactions from user with given userID.
     public Cursor selectUserTransactions(int userId) {
@@ -119,7 +119,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String userID = Integer.toString(userId);
-        Cursor userCursor = db.rawQuery("SELECT * FROM users WHERE _id = ?", new String[] {userID});
+        Cursor userCursor = db.rawQuery("SELECT * FROM users WHERE _id = ?",
+                new String[] {userID});
 
         return userCursor;
     }

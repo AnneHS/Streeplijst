@@ -34,7 +34,7 @@ public class UserAdapter extends ResourceCursorAdapter {
 
         // Get reference to views from user.xml.
         TextView userTV = view.findViewById(R.id.user);
-        CustomImageView userIV = (CustomImageView) view.findViewById(R.id.userImg);
+        ImageView userIV = view.findViewById(R.id.userImg);
 
         // Get username from users table & set TextView.
         String userName = cursor.getString(cursor.getColumnIndex("name"));

@@ -81,3 +81,6 @@ Bij het toevoegen van een product kan nu een foto worden toegevoegd vanuit de ga
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadedProductPic.jpg" height="5%" width="25%"/> <img
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/productsPictures.jpg" height="5%" width="25%"/>
 </p>   
+
+**Dag 13 (21-01-2019)**   
+Bij het toevoegen van een gebruiker kan nu ook een foto worden toegevoegd die wordt weergegeven in het gebruikersoverzicht en op de profielpagina. Daarnaast besloten om het gebruikersoverzicht te sorteren op gebruikersnaam, en een zoekbalk toe te voegen zodat gebruikers gemakkelijk te vinden zijn. Dit met het oog op gebruiksvriendelijkheid bij een groot aantal gebruikers.

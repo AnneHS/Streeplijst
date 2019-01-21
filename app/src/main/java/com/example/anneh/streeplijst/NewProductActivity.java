@@ -89,11 +89,11 @@ public class NewProductActivity extends AppCompatActivity {
                     return;
                 }
 
-//                // Return if no image uploaded.
-//                if(bitmap == null) {
-//                    Toast.makeText(getApplicationContext(), "Upload afbeelding", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                // Return if no image uploaded.
+                if(bitmap == null) {
+                    Toast.makeText(getApplicationContext(), "Upload afbeelding", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // Ask for confirmation.
                 builder.setMessage("Product toevoegen?")

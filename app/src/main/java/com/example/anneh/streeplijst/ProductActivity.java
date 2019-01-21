@@ -3,14 +3,22 @@ package com.example.anneh.streeplijst;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -27,20 +35,39 @@ public class ProductActivity extends AppCompatActivity {
         // Get db.
         db = StreepDatabase.getInstance(getApplicationContext());
 
-        // Get product ID, name & price.
-        // TODO: alleen ID meegeven, rest ophalen uit database
+        // Get product info.
         Intent intent = getIntent();
         productID = (int) intent.getSerializableExtra("product_id");
         String productName = (String) intent.getSerializableExtra("product_name");
         float productPrice = (float) intent.getSerializableExtra("product_price");
+        String imgPath = (String) intent.getSerializableExtra("img_path");
+        String imgName = (String) intent.getSerializableExtra("img_name");
 
-        // Get reference to TextViews.
+        // Get reference to views.
         TextView nameTV = (TextView) findViewById(R.id.productName);
         TextView priceTV = (TextView) findViewById(R.id.price);
+        ImageView productIV = (ImageView) findViewById(R.id.productImg);
 
         // Set text for TextViews.
         nameTV.setText(productName);
         priceTV.setText(Float.toString(productPrice));
+
+        // Load bitmap & set image.
+        Bitmap imgBitmap;
+        FileInputStream fis;
+
+        try {
+
+            File file = new File(imgPath, imgName);
+            imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+
+            // Set image.
+            productIV.setImageBitmap(imgBitmap);
+        }
+        catch (FileNotFoundException e) {
+            Log.d("Error: ", "file not found");
+            e.printStackTrace();
+        }
 
 
         //TODO: Ask for pin

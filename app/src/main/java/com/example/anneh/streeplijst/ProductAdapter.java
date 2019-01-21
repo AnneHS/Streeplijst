@@ -34,25 +34,24 @@ public class ProductAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        // Get reference to TextView from product.xml.
-        TextView productTV = (TextView) view.findViewById(R.id.product);
-
         // Get productName from database.
         String productName = cursor.getString(cursor.getColumnIndex("name"));
 
-        // Set text.
+        // Set text for TextView from product.xml.
+        TextView productTV = (TextView) view.findViewById(R.id.product);
         productTV.setText(productName);
 
-        // Get reference to ImageView & get image name from database.
+        // Get reference to ImageView & get image name and path from database.
         ImageView productImg = (ImageView) view.findViewById(R.id.productImg);
         String imgName = cursor.getString(cursor.getColumnIndex("imgName"));
         String imgPath = cursor.getString(cursor.getColumnIndex("imgPath"));
 
         // Load bitmap.
-        Bitmap imgBitmap = null;
+        Bitmap imgBitmap;
         FileInputStream fis;
 
         try {
+
             File file = new File(imgPath, imgName);
             imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
 

@@ -25,6 +25,13 @@
         android:text="Prijs"
         android:textAlignment="center" />
 
+    <ImageView
+        android:id="@+id/productImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:srcCompat="@drawable/upload" />
+
     <Button
         android:id="@+id/remove"
 

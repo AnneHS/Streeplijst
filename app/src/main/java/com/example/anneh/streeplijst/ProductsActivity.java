@@ -87,12 +87,15 @@ public class ProductsActivity extends AppCompatActivity {
             LinearLayout product = view.findViewById(R.id.productLL);
             product.setBackgroundResource(R.color.colorPrimaryDark);
 
-            // Pass product id, name and price to UsersActivity.
+            // Pass product id, name, price to UsersActivity.
             Intent intent = new Intent(ProductsActivity.this, UsersActivity.class);
             Cursor clickedProduct = (Cursor) parent.getItemAtPosition(position);
-            intent.putExtra("product_id", clickedProduct.getInt(clickedProduct.getColumnIndex("_id")));
-            intent.putExtra("product_name", clickedProduct.getString(clickedProduct.getColumnIndex("name")));
-            intent.putExtra("product_price", clickedProduct.getFloat(clickedProduct.getColumnIndex("price")));
+            intent.putExtra("product_id",
+                    clickedProduct.getInt(clickedProduct.getColumnIndex("_id")));
+            intent.putExtra("product_name",
+                    clickedProduct.getString(clickedProduct.getColumnIndex("name")));
+            intent.putExtra("product_price",
+                    clickedProduct.getFloat(clickedProduct.getColumnIndex("price")));
             startActivity(intent);
         }
     }
@@ -102,12 +105,19 @@ public class ProductsActivity extends AppCompatActivity {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Get selected product name & price and pass to ProductActivity
+            // Get selected product info and pass to ProductActivity
             Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);
             Cursor clickedProduct = (Cursor) parent.getItemAtPosition(position);
-            intent.putExtra("product_id", clickedProduct.getInt(clickedProduct.getColumnIndex("_id")));
-            intent.putExtra("product_name", clickedProduct.getString(clickedProduct.getColumnIndex("name")));
-            intent.putExtra("product_price", clickedProduct.getFloat(clickedProduct.getColumnIndex("price")));
+            intent.putExtra("product_id",
+                    clickedProduct.getInt(clickedProduct.getColumnIndex("_id")));
+            intent.putExtra("product_name",
+                    clickedProduct.getString(clickedProduct.getColumnIndex("name")));
+            intent.putExtra("product_price",
+                    clickedProduct.getFloat(clickedProduct.getColumnIndex("price")));
+            intent.putExtra("img_path",
+                    clickedProduct.getString(clickedProduct.getColumnIndex("imgPath")));
+            intent.putExtra("img_name",
+                    clickedProduct.getString(clickedProduct.getColumnIndex("imgName")));
             startActivity(intent);
             return true;
         }

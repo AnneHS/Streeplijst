@@ -71,4 +71,13 @@ Hoewel dit oorspronkelijk niet het plan was, staat de app nu vast in portretmodu
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/ExportMail.PNG" height="5%" width="50%"/>                   </p>                                                                                                   
 
 **Dag 11 (19-01-2019)**   
-Voor iedere gebruiker wordt nu een portfolio bijgehouden in de StreepDatabase. Via de profielpagina kan een gebruiker doorklikken naar zijn of haar portfolio.
+Voor iedere gebruiker wordt nu een portfolio bijgehouden in de StreepDatabase. Via de profielpagina kan een gebruiker doorklikken naar zijn of haar portfolio.    
+
+**Dag 12 (20-01-2019)**   
+Bij het toevoegen van een product kan nu een foto worden toegevoegd vanuit de galerij. Deze foto's worden weergegeven in het producten overzicht (ProductsActivity).
+
+<p align="center">
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadProductPic.jpg" height="5%" width="25%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/uploadedProductPic.jpg" height="5%" width="25%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/productsPictures.jpg" height="5%" width="25%"/>
+</p>   

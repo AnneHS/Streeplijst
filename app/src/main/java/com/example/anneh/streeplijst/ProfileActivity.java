@@ -3,18 +3,25 @@ package com.example.anneh.streeplijst;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.text.Format;
 import java.text.NumberFormat;
 
@@ -38,14 +45,34 @@ public class ProfileActivity extends AppCompatActivity {
         // Enable home button in actionbar.
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Get username and id from intent.
+        // Get user info from intent
         Intent intent = getIntent();
         String username = (String) intent.getSerializableExtra("user_name");
         userID = (int) intent.getSerializableExtra("user_id");
+        String imgPath = (String) intent.getSerializableExtra("img_path");
+        String imgName = (String) intent.getSerializableExtra("img_name");
 
         // Set username.
         TextView nameTV = (TextView) findViewById(R.id.username);
         nameTV.setText(username);
+
+        // Set user image.
+        ImageView userIV = (ImageView) findViewById(R.id.userImg);
+        Bitmap imgBitmap;
+        FileInputStream fis;
+
+        try {
+
+            File file = new File(imgPath, imgName);
+            imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+
+            // Set image.
+            userIV.setImageBitmap(imgBitmap);
+        }
+        catch (FileNotFoundException e) {
+            Log.d("Error: ", "file not found");
+            e.printStackTrace();
+        }
 
         // Get formatter for devices default currency.
         Format format = NumberFormat.getCurrencyInstance();

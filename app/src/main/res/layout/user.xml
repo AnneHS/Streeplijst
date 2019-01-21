@@ -20,6 +20,12 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/userImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/upload" />
+
     <TextView
         android:id="@+id/amount"
         android:layout_width="match_parent"

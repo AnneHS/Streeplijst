@@ -17,6 +17,13 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
+    <ImageView
+        android:id="@+id/userImg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        app:srcCompat="@drawable/upload" />
+
     <Button
         android:id="@+id/portfolioBtn"
         android:layout_width="match_parent"

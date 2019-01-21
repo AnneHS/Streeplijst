@@ -143,8 +143,14 @@ public class UsersActivity extends AppCompatActivity {
             // Get selected username & ID and pass to ProfileActivity
             Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
             Cursor clickedUser = (Cursor) parent.getItemAtPosition(position);
-            intent.putExtra("user_id", clickedUser.getInt(clickedUser.getColumnIndex("_id")));
-            intent.putExtra("user_name", clickedUser.getString(clickedUser.getColumnIndex("name")));
+            intent.putExtra("user_id",
+                    clickedUser.getInt(clickedUser.getColumnIndex("_id")));
+            intent.putExtra("user_name",
+                    clickedUser.getString(clickedUser.getColumnIndex("name")));
+            intent.putExtra("img_path",
+                    clickedUser.getString(clickedUser.getColumnIndex("imgPath")));
+            intent.putExtra("img_name",
+                    clickedUser.getString(clickedUser.getColumnIndex("imgName")));
             startActivity(intent);
             return true;
         }

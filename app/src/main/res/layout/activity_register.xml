@@ -30,7 +30,7 @@
         android:inputType="textPersonName" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/uploadPic"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_margin="10dp"
@@ -46,11 +46,12 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/buttonshape"
+        android:onClick="uploadClicked"
         android:shadowColor="#c79400"
         android:shadowDx="0"
         android:shadowDy="0"
-        android:shadowRadius="5"
 
+        android:shadowRadius="5"
         android:text="Foto Uploaden"
         android:textColor="#FFFFFF"
         android:textSize="30sp"

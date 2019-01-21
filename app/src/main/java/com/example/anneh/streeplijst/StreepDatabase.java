@@ -26,7 +26,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.execSQL(createProducts);
 
         // Create users table.
-        String createUsers = "CREATE TABLE users(_id INTEGER PRIMARY KEY, name TEXT, costs FLOAT NOT NULL)";
+        String createUsers = "CREATE TABLE users(_id INTEGER PRIMARY KEY, name TEXT, " +
+                "costs FLOAT NOT NULL, imgPath TEXT, imgName TEXT)";
         db.execSQL(createUsers);
 
         // Create transactions table.
@@ -319,11 +320,13 @@ public class StreepDatabase extends SQLiteOpenHelper {
     public void insertProduct(Product product) {
 
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues cv = new ContentValues();
         cv.put("name", product.getName());
         cv.put("price", product.getPrice());
         cv.put("imgPath", product.getImgPath());
         cv.put("imgName", product.getImgName());
+
         db.insert("products", null, cv);
     }
 
@@ -331,9 +334,13 @@ public class StreepDatabase extends SQLiteOpenHelper {
     public void insertUser(User user) {
 
         SQLiteDatabase db = this.getWritableDatabase();
+
         ContentValues cv = new ContentValues();
         cv.put("name", user.getName());
         cv.put("costs", 0); // New user = 0 costs
+        cv.put("imgPath", user.getImgPath());
+        cv.put("imgName", user.getImgName());
+
         db.insert("users", null, cv);
     }
 

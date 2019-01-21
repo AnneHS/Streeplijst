@@ -40,6 +40,7 @@ public class ProductsActivity extends AppCompatActivity {
         productGrid.setOnItemLongClickListener(new ProductsActivity.GridViewLongClickListener());
     }
 
+    // TODO: Sorteer producten op meest gestreept.
 
     // TODO: zorgen dat dit niet elke activiteit opnieuw moet
     // https://www.youtube.com/watch?v=o4WeEitmF9E

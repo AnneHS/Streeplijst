@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TransactionAdapter adapter;
     Cursor transactionCursor;
     int userID;
-    Button removeBtn;
+    FloatingActionButton removeBtn;
     int transactionID;
 
     // AlertDialog
@@ -98,7 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
         //TODO: Ask for pin
         // Open AlertDialog when remove button is clicked.
         // https://www.javatpoint.com/android-alert-dialog-example
-        removeBtn = (Button) findViewById(R.id.remove);
+        removeBtn = (FloatingActionButton) findViewById(R.id.removeFloat);
         builder = new AlertDialog.Builder(this);
         removeBtn.setOnClickListener(new View.OnClickListener(){
             @Override

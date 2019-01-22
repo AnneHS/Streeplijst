@@ -25,7 +25,7 @@ public class OverviewAdapter extends ResourceCursorAdapter {
         // TODO: lichter grijs.
         int position = cursor.getPosition();
         if (position % 2 == 1){
-            view.setBackgroundColor(Color.GRAY);
+            view.setBackgroundColor(Color.parseColor("#e3f2fd"));
         }
         else {
             view.setBackgroundColor(Color.WHITE);

@@ -24,7 +24,7 @@ public class TransactionAdapter extends ResourceCursorAdapter {
         // TODO: lichter grijs.
         int position = cursor.getPosition();
         if (position % 2 == 1){
-            view.setBackgroundColor(Color.GRAY);
+            view.setBackgroundColor(Color.parseColor("#4f83cc"));
         }
         else {
             view.setBackgroundColor(Color.WHITE);

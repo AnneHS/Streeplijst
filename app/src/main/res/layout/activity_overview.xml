@@ -102,5 +102,7 @@
     <ListView
         android:id="@+id/transactionsLV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="#FF01579B"
+        android:dividerHeight="1px" />
 </LinearLayout>

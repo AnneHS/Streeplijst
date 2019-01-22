@@ -224,28 +224,31 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
             int userID = entry.getKey();
             int amount = entry.getValue();
 
-            // Update tables for current userID.
-            // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
-            Cursor userCursor = db.selectUser(userID);
-            if (userCursor != null && userCursor.moveToFirst()) {
+            // If selected at least once, add transaction.
+            if (amount > 0) {
+                // Update tables for current userID.
+                // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
+                Cursor userCursor = db.selectUser(userID);
+                if (userCursor != null && userCursor.moveToFirst()) {
 
-                // Get username from db.
-                String username = userCursor.getString(userCursor.getColumnIndex("name"));
-                userCursor.close();
+                    // Get username from db.
+                    String username = userCursor.getString(userCursor.getColumnIndex("name"));
+                    userCursor.close();
 
-                // Update transactions table.
-                Transaction transaction = new Transaction(userID, username, productName, productPrice, amount);
-                db.insertTransaction(transaction);
+                    // Update transactions table.
+                    Transaction transaction = new Transaction(userID, username, productName, productPrice, amount);
+                    db.insertTransaction(transaction);
 
-                // Update portfolio table.
-                db.updatePortfolio(transaction);
+                    // Update portfolio table.
+                    db.updatePortfolio(transaction);
 
-                // Update users table.
-                db.streep(userID, transaction.getTotal());
-            }
-            else {
-                Toast toast = Toast.makeText(getApplicationContext(), "Er gaat iets fout", Toast.LENGTH_SHORT);
-                toast.show();
+                    // Update users table.
+                    db.streep(userID, transaction.getTotal());
+                } else {
+                    Toast toast = Toast.makeText(getApplicationContext(), "Er gaat iets fout", Toast.LENGTH_SHORT);
+                    toast.show();
+
+                }
 
             }
         }

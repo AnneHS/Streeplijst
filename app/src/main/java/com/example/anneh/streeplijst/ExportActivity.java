@@ -152,6 +152,7 @@ public class ExportActivity extends AppCompatActivity {
             }
             catch(Exception sqlEx) {
 
+                //TODO: error in toast?
                 Log.e("Error: ", sqlEx.getMessage(), sqlEx);
                 Toast toast = Toast.makeText(getApplicationContext(), "Niet gelukt!", Toast.LENGTH_SHORT);
                 toast.show();
@@ -160,6 +161,7 @@ public class ExportActivity extends AppCompatActivity {
         }
         catch(Exception sqlEx) {
 
+            // TODO: error in toast?
             Log.e("Error: ", sqlEx.getMessage(), sqlEx);
             Toast toast = Toast.makeText(getApplicationContext(), "Niet gelukt!", Toast.LENGTH_SHORT);
             toast.show();

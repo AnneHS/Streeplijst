@@ -32,7 +32,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
     private StreepDatabase db;
     Cursor usersCursor;
     private UserAdapter adapter;
-    Map<Integer,Integer> selectedMap = new HashMap<Integer,Integer>();
+    HashMap<Integer,Integer> selectedMap = new HashMap<Integer,Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         }
 
         // Set UserAdapter to userGrid.
-        adapter = new UserAdapter(this, usersCursor);
+        adapter = new UserAdapter(this, usersCursor, selectedMap);
         GridView userGrid = (GridView) findViewById(R.id.userGrid);
         userGrid.setAdapter(adapter);
 
@@ -189,6 +189,8 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         }
     }
 
+
+
     // LongClick: Go to user profile (ProfileActivity).
     private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
@@ -249,7 +251,6 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
                     toast.show();
 
                 }
-
             }
         }
 

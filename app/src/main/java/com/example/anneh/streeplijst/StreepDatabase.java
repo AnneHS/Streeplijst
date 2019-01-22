@@ -41,6 +41,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
                 "productPrice REAL, amount INTEGER, total REAL)";
         db.execSQL(createPortfolio);
 
+        // innerjoin
+
         // Create e-mail table.
         String createMail = "CREATE TABLE mail(_id INTEGER PRIMARY KEY, address TEXT)";
         db.execSQL(createMail);
@@ -150,6 +152,15 @@ public class StreepDatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor transactionsCursor = db.rawQuery("SELECT * FROM transactions ORDER BY _id DESC;", null);
         return transactionsCursor;
+    }
+
+    // return cursor for portfolio table
+    public Cursor selectPortfolios() {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor portfolioCursor = db.rawQuery("SELECT userID, productName, productPrice, amount," +
+                "total FROM portfolio ORDER BY userID ASC", null);
+        return portfolioCursor;
     }
 
     // Return cursor for portfolio from user with given userID.

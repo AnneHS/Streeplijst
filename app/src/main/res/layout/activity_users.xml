@@ -17,6 +17,14 @@
 
     </GridView>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/checkbox_on_background" />
+
     <Button
         android:id="@+id/button"
 

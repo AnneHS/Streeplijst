@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +19,7 @@ import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class ExportActivity extends AppCompatActivity {
 
@@ -75,7 +75,7 @@ public class ExportActivity extends AppCompatActivity {
         // Get db
         StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
 
-        // WRITE CSV FILE
+        // WRITE CSV FILE users
         // https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel
         File exportDir = new File(Environment.getExternalStorageDirectory(), "");
 
@@ -83,43 +83,79 @@ public class ExportActivity extends AppCompatActivity {
             exportDir.mkdirs();
         }
 
-        File file = new File(exportDir, "streeplijst.csv");
+        File usersFile = new File(exportDir, "gebruikers.csv");
 
         try {
-            file.createNewFile();
-            CSVWriter writer = new CSVWriter(new FileWriter(file));
+            usersFile.createNewFile();
+            CSVWriter writer = new CSVWriter(new FileWriter(usersFile));
             SQLiteDatabase sqlDB = db.getReadableDatabase();
-            Cursor usersCSV = db.selectUsers();
-            writer.writeNext(usersCSV.getColumnNames());
+            Cursor usersDB = db.selectUsers();
+            writer.writeNext(usersDB.getColumnNames());
 
-            while (usersCSV.moveToNext()) {
+            while (usersDB.moveToNext()) {
 
                 // 0: ID, 1: Name, 2: Costs
-                String row[] = {usersCSV.getString(0), usersCSV.getString(1),
-                        usersCSV.getString(2)};
+                String row[] = {usersDB.getString(0), usersDB.getString(1),
+                        usersDB.getString(2)};
                 writer.writeNext(row);
             }
             writer.close();
-            usersCSV.close();
+            usersDB.close();
 
-            // Confirm
-            Toast toast = Toast.makeText(getApplicationContext(), "Csv bestand gemaakt!", Toast.LENGTH_SHORT);
-            toast.show();
 
-            // Open e-mail app to send csv file
-            //  https://stackoverflow.com/questions/18415202/not-able-to-send-csv-file-with-email-in-android
-            final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+            // WRITE CSV FILE PORTFOLIO
+            File portfolioFile = new File(exportDir, "portfolio.csv");
 
-            // Add all info needed.
-            emailIntent.setType("application/csv");
-            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]  {mailAddress}); // array met 1 emailadres //
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, new String[] {"Streeplijst"});
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Streeplijst in bijlage.");
-            Uri U = Uri.fromFile(file);
-            emailIntent.putExtra(Intent.EXTRA_STREAM, U);
+            try {
+                portfolioFile.createNewFile();
+                writer = new CSVWriter(new FileWriter(portfolioFile));
+                sqlDB = db.getReadableDatabase();
+                Cursor portfolioDB = db.selectPortfolios();
+                writer.writeNext(portfolioDB.getColumnNames());
 
-            // Open e-mail
-            startActivity(Intent.createChooser(emailIntent, "Send Mail"));
+                while (portfolioDB.moveToNext()) {
+
+                    // 0: userID, 1: ProductName, 2: ProductPrice, 3: amount, 4: total
+                    String row[] = {portfolioDB.getString(0),
+                            portfolioDB.getString(1), portfolioDB.getString(2),
+                            portfolioDB.getString(3), portfolioDB.getString(4)};
+                    writer.writeNext(row);
+                }
+                writer.close();
+                portfolioDB.close();
+
+                // Confirm
+                Toast toast = Toast.makeText(getApplicationContext(), "Csv bestanden gemaakt!", Toast.LENGTH_SHORT);
+                toast.show();
+
+                // Open e-mail app to send csv file
+                //  https://stackoverflow.com/questions/18415202/not-able-to-send-csv-file-with-email-in-android
+                final Intent emailIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+
+                // Add all info needed.
+                emailIntent.setType("application/csv");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]  {mailAddress}); // array met 1 emailadres //
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, new String[] {"Streeplijst"});
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Streeplijst in bijlage.");
+
+                // Add both csv files as attachments.
+                Uri U = Uri.fromFile(usersFile);
+                Uri U2 = Uri.fromFile(portfolioFile);
+                ArrayList<Uri> uris = new ArrayList<Uri>();
+                uris.add(U);
+                uris.add(U2);
+                emailIntent.putExtra(Intent.EXTRA_STREAM, uris);
+
+                // Open e-mail
+                startActivity(Intent.createChooser(emailIntent, "Send Mail"));
+
+            }
+            catch(Exception sqlEx) {
+
+                Log.e("Error: ", sqlEx.getMessage(), sqlEx);
+                Toast toast = Toast.makeText(getApplicationContext(), "Niet gelukt!", Toast.LENGTH_SHORT);
+                toast.show();
+            }
 
         }
         catch(Exception sqlEx) {

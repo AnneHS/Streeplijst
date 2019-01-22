@@ -119,7 +119,7 @@ public class NewProductActivity extends AppCompatActivity {
                                     stream = new FileOutputStream(mypath);
 
                                     // Write compressed version of the bitmap to the OutputStream.
-                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
                                     stream.flush();
                                     stream.close();
 

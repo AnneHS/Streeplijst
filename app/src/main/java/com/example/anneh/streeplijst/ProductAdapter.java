@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,26 +44,28 @@ public class ProductAdapter extends ResourceCursorAdapter {
         productTV.setText(productName);
 
         // Get reference to ImageView & get image name and path from database.
-        CustomImageView productImg = (CustomImageView) view.findViewById(R.id.productImg);
+        CustomImageView productIV = (CustomImageView) view.findViewById(R.id.productImg);
         String imgName = cursor.getString(cursor.getColumnIndex("imgName"));
         String imgPath = cursor.getString(cursor.getColumnIndex("imgPath"));
 
         // Load bitmap.
-        Bitmap imgBitmap;
-        FileInputStream fis;
+        // Bitmap imgBitmap;
 
-        try {
+        // Load file into ImageView
+        Picasso.get().load(new File(imgPath, imgName)).into(productIV);
 
-            File file = new File(imgPath, imgName);
-            imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-
-            // Set image.
-            productImg.setImageBitmap(imgBitmap);
-        }
-        catch (FileNotFoundException e) {
-            Log.d("Error: ", "file not found");
-            e.printStackTrace();
-        }
+//        try {
+//
+//            File file = new File(imgPath, imgName);
+//            imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+//
+//            // Set image.
+//            productImg.setImageBitmap(imgBitmap);
+//        }
+//        catch (FileNotFoundException e) {
+//            Log.d("Error: ", "file not found");
+//            e.printStackTrace();
+//        }
     }
 
 }

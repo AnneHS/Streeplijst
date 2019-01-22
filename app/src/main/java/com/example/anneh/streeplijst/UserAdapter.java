@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -67,21 +69,23 @@ public class UserAdapter extends ResourceCursorAdapter {
         String imgName = cursor.getString(cursor.getColumnIndex("imgName"));
         String imgPath = cursor.getString(cursor.getColumnIndex("imgPath"));
 
-        // Load bitmap.
-        Bitmap imgBitmap;
+        // Load file into ImageView
+        Picasso.get().load(new File(imgPath, imgName)).into(userIV);
 
-        try {
+        // TODO: Catch?
 
-            // Create new file for bitmap.
-            File file = new File(imgPath, imgName);
-            imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-
-            // Set image.
-            userIV.setImageBitmap(imgBitmap);
-        }
-        catch (FileNotFoundException e) {
-            Log.d("Error: ", "file not found");
-            e.printStackTrace();
-        }
+//        try {
+//
+//            // Create new file for bitmap.
+//            // File file = new File(imgPath, imgName);
+//            // imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
+//            Picasso.get().load(new File(imgPath, imgName)).into(userIV);
+//            // Set image.
+//            // userIV.setImageBitmap(imgBitmap);
+//        }
+//        catch (FileNotFoundException e) {
+//            Log.d("Error: ", "file not found");
+//            e.printStackTrace();
+//        }
     }
 }

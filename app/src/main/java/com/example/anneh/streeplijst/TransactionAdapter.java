@@ -20,6 +20,16 @@ public class TransactionAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
+        // Set alternating background colors for ListView rows.
+        // TODO: lichter grijs.
+        int position = cursor.getPosition();
+        if (position % 2 == 1){
+            view.setBackgroundColor(Color.GRAY);
+        }
+        else {
+            view.setBackgroundColor(Color.WHITE);
+        }
+
         // Get reference to TextViews.
         TextView nameTV = (TextView) view.findViewById(R.id.productName);
         TextView priceTV = (TextView) view.findViewById(R.id.productPrice);

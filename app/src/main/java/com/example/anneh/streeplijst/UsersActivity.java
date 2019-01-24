@@ -45,7 +45,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         actionbar.setHomeButtonEnabled(true);
 
         // TODO:  home icon veranderen
-        // actionbar.setNavigationIcon(R.drawable.home);
+        // actionbar.setNavigationIcon(R.drawable.home_icon);
 
         // Get cursor for users table from StreepDatabase.
         db = StreepDatabase.getInstance(getApplicationContext());

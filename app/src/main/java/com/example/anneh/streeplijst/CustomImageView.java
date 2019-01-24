@@ -38,5 +38,12 @@ public class CustomImageView extends android.support.v7.widget.AppCompatImageVie
 
         super.onDraw(canvas);
     }
+
+    // https://rogcg.github.io/articles/2013-11/gridview-and-auto-resized-images-android
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        setMeasuredDimension(getMeasuredWidth(), getMeasuredWidth());
+    }
 }
 

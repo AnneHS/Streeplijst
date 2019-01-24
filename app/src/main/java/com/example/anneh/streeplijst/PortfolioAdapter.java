@@ -2,6 +2,7 @@ package com.example.anneh.streeplijst;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
@@ -20,6 +21,16 @@ public class PortfolioAdapter extends ResourceCursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
+
+        // Set alternating background colors for ListView rows.
+        int position = cursor.getPosition();
+        if (position % 2 == 1){
+            view.setBackgroundColor(Color.parseColor("#4f83cc"));
+        }
+        else {
+            view.setBackgroundColor(Color.WHITE);
+        }
+
 
         // Get reference to TextViews from portfolio_product.xml.
         TextView nameTV = (TextView) view.findViewById(R.id.productName);

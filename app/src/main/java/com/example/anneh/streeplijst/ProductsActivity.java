@@ -74,6 +74,10 @@ public class ProductsActivity extends AppCompatActivity {
             Intent intent = new Intent(ProductsActivity.this, ExportActivity.class);
             startActivity(intent);
         }
+        else if (id == R.id.pin) {
+            Intent intent = new Intent(ProductsActivity.this, PinActivity.class);
+            startActivity(intent);
+        }
 
         return true;
     }

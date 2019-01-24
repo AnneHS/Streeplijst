@@ -14,4 +14,7 @@
     <item
         android:id="@+id/export"
         android:title="Streeplijst legen" />
+    <item
+        android:id="@+id/pin"
+        android:title="Pin instellen" />
 </menu>

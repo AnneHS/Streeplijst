@@ -21,11 +21,13 @@
 
     <com.example.anneh.streeplijst.CustomImageView
         android:id="@+id/productImg"
-        android:layout_width="114dp"
-        android:layout_height="114dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:srcCompat="@mipmap/streep_icon" />
 </LinearLayout>

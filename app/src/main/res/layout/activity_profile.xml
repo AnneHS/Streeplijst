@@ -46,30 +46,11 @@
 
     <com.example.anneh.streeplijst.CustomImageView
         android:id="@+id/userImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_margin="30dp"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:srcCompat="@drawable/upload" />
-
-    <Button
-        android:id="@+id/portfolioBtn"
-
-        android:layout_width="270dp"
-        android:layout_height="wrap_content"
-        android:background="@drawable/buttonshape"
-
-        android:shadowColor="#c79400"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-        android:text="Streep overzicht"
-        android:textAllCaps="false"
-
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:onClick="portfolioClicked" />
 
     <TextView
         android:id="@+id/transactions"
@@ -133,13 +114,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/portfolioFloat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="portfolioClicked"
+            app:srcCompat="@drawable/portfolio_float" />
+
         <ListView
             android:id="@+id/transactionsLV"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:divider="#FF01579B"
-            android:dividerHeight="2px" />
+            android:dividerHeight="2px" >
+
+        </ListView>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/removeFloat"

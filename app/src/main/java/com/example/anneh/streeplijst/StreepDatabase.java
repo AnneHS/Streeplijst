@@ -46,12 +46,16 @@ public class StreepDatabase extends SQLiteOpenHelper {
         // Create e-mail table.
         String createMail = "CREATE TABLE mail(_id INTEGER PRIMARY KEY, address TEXT)";
         db.execSQL(createMail);
+
+        String createPin = "CREATE TABLE pin(_id INTEGER PRIMARY KEY, pinNumber INTEGER)";
+        db.execSQL(createPin);
     }
 
     // TODO: ???
     // If you make changes to the schema of your database (like adding columns), you need to force a call to onUpgrade().
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         // Drop and reload tables
         db.execSQL("DROP TABLE products");
         onCreate(db);
@@ -277,6 +281,36 @@ public class StreepDatabase extends SQLiteOpenHelper {
         else {
             return address;
         }
+    }
+
+    // Insert pin into pin table.
+    public void insertPin(Integer pin) {
+
+        // Get db & cursor for mail table.
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor mailCursor = db.rawQuery("SELECT pinNumber FROM pin WHERE _id = ?", new String[] {"1"});
+
+        // Add mail address to ContentValues.
+        ContentValues cv = new ContentValues();
+        cv.put("pinNumber", pin);
+
+        // TODO: "1" ????
+        // Insert e-mail address if not yet given, else overwrite current address.
+        if (mailCursor == null || !mailCursor.moveToFirst()) {
+            db.insert("pin", null, cv);
+        }
+        else {
+            db.update("pin", cv, "_id = ?", new String[] {"1"});
+        }
+    }
+
+
+    //
+    public Cursor getPin() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor pinCursor = db.rawQuery("SELECT pinNumber FROM pin WHERE _id = ?", new String[] {"1"});
+        return pinCursor;
     }
 
     // Get total costs from users table.

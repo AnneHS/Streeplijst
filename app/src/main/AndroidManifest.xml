@@ -26,8 +26,7 @@
             android:screenOrientation="portrait">
             <meta-data
                 android:name="android.app.searchable"
-                android:resource="@xml/searchable">
-            </meta-data>
+                android:resource="@xml/searchable"></meta-data>
         </activity>
         <activity
             android:name=".ProfileActivity"
@@ -48,7 +47,8 @@
             android:name=".ExportActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".MailActivity" />
-        <activity android:name=".PortfolioActivity"></activity>
+        <activity android:name=".PortfolioActivity" />
+        <activity android:name=".PinActivity"></activity>
     </application>
 
 </manifest>

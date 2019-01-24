@@ -22,11 +22,13 @@
 
     <com.example.anneh.streeplijst.CustomImageView
         android:id="@+id/userImg"
-        android:layout_width="114dp"
-        android:layout_height="114dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:scaleType="fitXY"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="centerCrop"
         app:srcCompat="@drawable/upload" />
 
     <TextView

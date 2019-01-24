@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,8 +27,8 @@ public class ProductActivity extends AppCompatActivity {
 
     StreepDatabase db;
     int productID;
-    Button removeBtn;
-    AlertDialog.Builder builder;
+    EditText pinET;
+    // AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,49 +74,74 @@ public class ProductActivity extends AppCompatActivity {
             Log.d("Error: ", "file not found");
             e.printStackTrace();
         }
+    }
 
+    public void removeClicked(View view) {
 
-        //TODO: Ask for pin
-        // Open AlertDialog when remove button is clicked
-        // https://www.javatpoint.com/android-alert-dialog-example
-        removeBtn = (Button) findViewById(R.id.remove);
-        builder = new AlertDialog.Builder(this);
-        removeBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
+        // Get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View promptView = layoutInflater.inflate(R.layout.prompts, null);
 
-                // Confirm removal.
-                builder.setMessage("Verwijder product?")
-                        .setCancelable(false)
-                        .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(promptView);
+
+        // Get reference to EditText
+        pinET = promptView.findViewById(R.id.pinET);
+
+        // Set dialog window.
+        builder.setMessage("Product verwijderen?")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // Check PIN
+                        Cursor pinCursor = db.getPin();
+                        if (pinCursor != null & pinCursor.moveToFirst()) {
+
+                            // If PIN.
+                            int PIN = pinCursor.getInt(0);
+
+                            // Get pin
+                            // TODO: *****
+                            int enteredPin = Integer.parseInt(pinET.getText().toString());
+
+                            // Compare
+                            if (enteredPin == PIN) {
 
                                 // Remove product from database.
                                 db.removeProduct(productID);
 
-                                // Confirm removal with toast.
+                                // Toast.
                                 Toast toast = Toast.makeText(getApplicationContext(), "Product verwijderd", Toast.LENGTH_SHORT);
                                 toast.show();
 
                                 // Return to ProductsActivity.
                                 Intent intent = new Intent(ProductActivity.this, ProductsActivity.class);
                                 startActivity(intent);
-
                             }
-                        })
-
-                        // Cancel if user does not want to remove product.
-                        .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
+                            else {
+                                Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+                                toast.show();
                                 dialog.cancel();
                             }
-                        }) ;
+                        }
+                        else {
 
-                // Create dialog box and show.
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
-        });
+                            // Toast.
+                            Toast toast = Toast.makeText(getApplicationContext(), "Nog geen PIN ingesteld", Toast.LENGTH_SHORT);
+                            toast.show();
+                            dialog.cancel();
+                        }
+                    }
+                })
+                .setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        //Create dialog box and show.
+        AlertDialog alert = builder.create();
+        alert.show();
     }
-
 }

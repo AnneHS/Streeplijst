@@ -58,7 +58,7 @@ public class MailActivity extends AppCompatActivity {
                                 Toast toast = Toast.makeText(getApplicationContext(), "E-mailadres toegevoegd", Toast.LENGTH_SHORT);
                                 toast.show();
 
-                                // Return to ProductsActivity.
+                                // Return to ExportActivity
                                 Intent intent = new Intent(MailActivity.this, ExportActivity.class);
                                 startActivity(intent);
                             }

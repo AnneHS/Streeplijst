@@ -90,12 +90,15 @@ Bij het toevoegen van een gebruiker kan nu ook een foto worden toegevoegd die wo
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/processDoc/searchbar.jpg" height="5%" width="25%"/> 
 </p>
 
-** Dag 14 (22-01-2019)**   
-Picasso gebruikt om de foto's te laden zodat de GridViews niet zo langzaam zijn. Bij het exporteren van de tabellen wordt nu niet enkel de gebruikerstabel maar ook de portfoliotabel verzonden.
+** Dag 14 (22-01-2019)**      
+Picasso gebruikt om de foto's te laden zodat de GridViews niet zo langzaam zijn. Bij het exporteren van de tabellen wordt nu niet enkel de gebruikerstabel maar ook de portfoliotabel verzonden.   
+
 
 ** Dag 15 (23-01-2019)**
-Dingen aan de layout veranderd. Foto's vervormen niet meer, en aantal normale knoppen vervangen door floating action buttons.
+Dingen aan de layout veranderd. Foto's vervormen niet meer, en aantal normale knoppen vervangen door floating action buttons.    
+
 
 ** Dag 16 (24-01-2019)**
-Er kan nu een pin worden ingesteld, die nodig is om produc ten te verwijderen.
+Er kan nu een pin worden ingesteld, die nodig is om produc ten te verwijderen.   
+
 

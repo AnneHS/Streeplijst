@@ -10,11 +10,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -38,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     // AlertDialog
     AlertDialog.Builder builder;
+    EditText pinET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,49 +98,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         // Set listener for transactions.
         transactionLV.setOnItemLongClickListener(new ProfileActivity.ListViewLongClickListener());
-
-        //TODO: Ask for pin
-        // Open AlertDialog when remove button is clicked.
-        // https://www.javatpoint.com/android-alert-dialog-example
-        removeBtn = (FloatingActionButton) findViewById(R.id.removeFloat);
-        builder = new AlertDialog.Builder(this);
-        removeBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-                // Ask for confirmation,
-                builder.setMessage("Verwijder gebruiker?")
-                         .setCancelable(false)
-
-                         // Remove user when user confirms.
-                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-                             public void onClick(DialogInterface dialog, int id) {
-
-                                 // Remove user from database.
-                                 db.removeUser(userID);
-
-                                 // Confirm removal through toast
-                                 Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker verwijderd", Toast.LENGTH_SHORT);
-                                 toast.show();
-
-                                 // Return to ProductsActivity
-                                 Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
-                                 startActivity(intent);
-                             }
-                         })
-
-                        // Cancel if user does not want to remove user.
-                        .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
-                             public void onClick(DialogInterface dialog, int id) {
-                                 dialog.cancel();
-                             }
-                         }) ;
-
-                 // Create dialog box & show.
-                 AlertDialog alert = builder.create();
-                 alert.show();
-            }
-        });
     }
 
     // Go to PortfolioActivity when portfolioBtn clicked.
@@ -205,6 +165,86 @@ public class ProfileActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    // AlertDialog: open when remove clicked
+    public void removeClicked(View view) {
+
+        // Get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View promptView = layoutInflater.inflate(R.layout.prompts, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(promptView);
+
+        // Get reference to EditText
+        pinET = promptView.findViewById(R.id.pinET);
+
+        // Set dialog window.
+        builder.setMessage("Gebruiker verwijderen?")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // Check PIN
+                        Cursor pinCursor = db.getPin();
+                        if (pinCursor != null & pinCursor.moveToFirst()) {
+
+                            // If PIN.
+                            int PIN = pinCursor.getInt(0);
+
+                            // Get pin
+                            // TODO: exception???
+                            try {
+                                int enteredPin = Integer.parseInt(pinET.getText().toString());
+
+                                // Compare
+                                if (enteredPin == PIN) {
+
+                                    // Remove user from database.
+                                    db.removeUser(userID);
+
+                                    // Toast.
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker verwijderd", Toast.LENGTH_SHORT);
+                                    toast.show();
+
+                                    // Return to ProductsActivity.
+                                    Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
+                                    startActivity(intent);
+                                }
+                                else {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    dialog.cancel();
+                                }
+                            }
+                            catch (Exception e) {
+
+                                e.printStackTrace();
+
+                                // Toast.
+                                Toast toast = Toast.makeText(getApplicationContext(), "Voer PIN in", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                        else {
+
+                            // Toast.
+                            Toast toast = Toast.makeText(getApplicationContext(), "Nog geen PIN ingesteld", Toast.LENGTH_SHORT);
+                            toast.show();
+                            dialog.cancel();
+                        }
+                    }
+                })
+                .setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        //Create dialog box and show.
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override

@@ -58,14 +58,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         // Drop and reload tables
         db.execSQL("DROP TABLE products");
-        onCreate(db);
-
         db.execSQL("DROP TABLE users");
-        onCreate(db);
-
         db.execSQL("DROP TABLE transactions");
-        onCreate(db);
-
         db.execSQL("DROP TABLE mail");
         onCreate(db);
     }

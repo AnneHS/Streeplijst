@@ -145,6 +145,7 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
+            android:onClick="removeClicked"
             app:srcCompat="@drawable/remove_float" />
     </FrameLayout>
 

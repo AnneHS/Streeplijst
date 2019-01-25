@@ -102,27 +102,35 @@ public class ProductActivity extends AppCompatActivity {
                             int PIN = pinCursor.getInt(0);
 
                             // Get pin
-                            // TODO: *****
-                            int enteredPin = Integer.parseInt(pinET.getText().toString());
+                            // TODO: exception???
+                            try {
+                                int enteredPin = Integer.parseInt(pinET.getText().toString());
 
-                            // Compare
-                            if (enteredPin == PIN) {
+                                // Compare
+                                if (enteredPin == PIN) {
 
-                                // Remove product from database.
-                                db.removeProduct(productID);
+                                    // Remove product from database.
+                                    db.removeProduct(productID);
 
-                                // Toast.
-                                Toast toast = Toast.makeText(getApplicationContext(), "Product verwijderd", Toast.LENGTH_SHORT);
-                                toast.show();
+                                    // Toast.
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Product verwijderd", Toast.LENGTH_SHORT);
+                                    toast.show();
 
-                                // Return to ProductsActivity.
-                                Intent intent = new Intent(ProductActivity.this, ProductsActivity.class);
-                                startActivity(intent);
+                                    // Return to ProductsActivity.
+                                    Intent intent = new Intent(ProductActivity.this, ProductsActivity.class);
+                                    startActivity(intent);
+                                }
+                                else {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    dialog.cancel();
+                                }
                             }
-                            else {
-                                Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+                            catch (Exception e) {
+                                e.printStackTrace();
+                                // Toast.
+                                Toast toast = Toast.makeText(getApplicationContext(), "Voer PIN in", Toast.LENGTH_SHORT);
                                 toast.show();
-                                dialog.cancel();
                             }
                         }
                         else {

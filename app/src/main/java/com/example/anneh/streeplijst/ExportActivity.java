@@ -1,6 +1,7 @@
 package com.example.anneh.streeplijst;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -9,21 +10,32 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ExportActivity extends AppCompatActivity {
 
     String mailAddress;
+    StreepDatabase db;
+    EditText pinET;
+    Button emptyBtn;
+
 
     // Storage Permissions
     // https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-external-storage
@@ -57,9 +69,84 @@ public class ExportActivity extends AppCompatActivity {
             toast.show();
         }
 
+        emptyBtn = (Button) findViewById(R.id.emptyBtn);
+        emptyBtn.setEnabled(false);
+
     }
 
     public void exportClicked(View view) {
+
+        // Get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View promptView = layoutInflater.inflate(R.layout.prompts, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(promptView);
+
+        // Get reference to EditText
+        pinET = promptView.findViewById(R.id.pinET);
+
+        // Set dialog window.
+        builder.setMessage("Streeplijst exporteren?")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // Check PIN
+                        StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
+                        Cursor pinCursor = db.getPin();
+                        if (pinCursor != null & pinCursor.moveToFirst()) {
+
+                            // If PIN.
+                            int PIN = pinCursor.getInt(0);
+
+                            // Get pin
+                            // TODO: exception???
+                            try {
+                                int enteredPin = Integer.parseInt(pinET.getText().toString());
+
+                                // Compare
+                                if (enteredPin == PIN) {
+
+                                    exportCSV();
+                                }
+                                else {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    dialog.cancel();
+                                }
+                            }
+                            catch (Exception e) {
+
+                                e.printStackTrace();
+
+                                // Toast.
+                                Toast toast = Toast.makeText(getApplicationContext(), "Geen PIN ingevoerd", Toast.LENGTH_SHORT);
+                                toast.show();
+                                return;
+                            }
+                        }
+                        else {
+
+                            // Toast.
+                            Toast toast = Toast.makeText(getApplicationContext(), "Nog geen PIN ingesteld", Toast.LENGTH_SHORT);
+                            toast.show();
+                            return;
+                        }
+                    }
+                })
+                .setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        //Create dialog box and show.
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    public void exportCSV() {
 
         // Prompt user for permission if not yet granted
         // https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-external-storage
@@ -83,7 +170,12 @@ public class ExportActivity extends AppCompatActivity {
             exportDir.mkdirs();
         }
 
-        File usersFile = new File(exportDir, "gebruikers.csv");
+        // Get current date
+        Date todayDate = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        String todayString = formatter.format(todayDate);
+
+        File usersFile = new File(exportDir, "gebruikers(" + todayString + ").csv");
 
         try {
             usersFile.createNewFile();
@@ -102,9 +194,8 @@ public class ExportActivity extends AppCompatActivity {
             writer.close();
             usersDB.close();
 
-
             // WRITE CSV FILE PORTFOLIO
-            File portfolioFile = new File(exportDir, "portfolio.csv");
+            File portfolioFile = new File(exportDir, "portfolio(" + todayString + ").csv");
 
             try {
                 portfolioFile.createNewFile();
@@ -149,6 +240,9 @@ public class ExportActivity extends AppCompatActivity {
                 // Open e-mail
                 startActivity(Intent.createChooser(emailIntent, "Send Mail"));
 
+                // Enable empty button.
+                emptyBtn.setEnabled(true);
+
             }
             catch(Exception sqlEx) {
 
@@ -168,6 +262,81 @@ public class ExportActivity extends AppCompatActivity {
         }
     }
 
+    public void emptyClicked(View view) {
+
+        // Get prompts.xml view
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+        View promptView = layoutInflater.inflate(R.layout.prompts, null);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(promptView);
+
+        // Get reference to EditText
+        pinET = promptView.findViewById(R.id.pinET);
+
+        // Set dialog window.
+        builder.setMessage("Streeplijst legen?")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        // Check PIN
+                        StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
+                        Cursor pinCursor = db.getPin();
+                        if (pinCursor != null & pinCursor.moveToFirst()) {
+
+                            // If PIN.
+                            int PIN = pinCursor.getInt(0);
+
+                            // Get pin
+                            // TODO: exception???
+                            try {
+                                int enteredPin = Integer.parseInt(pinET.getText().toString());
+
+                                // Compare
+                                if (enteredPin == PIN) {
+
+                                    // Empty transactions & portfolio table + reset users costs to 0.
+                                    db = StreepDatabase.getInstance(getApplicationContext());
+                                    db.emptyDB();
+
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Streeplijst geleegd.", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                                else {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                    dialog.cancel();
+                                }
+                            }
+                            catch (Exception e) {
+
+                                e.printStackTrace();
+
+                                // Toast.
+                                Toast toast = Toast.makeText(getApplicationContext(), "Geen PIN ingevoerd", Toast.LENGTH_SHORT);
+                                toast.show();
+                                return;
+                            }
+                        }
+                        else {
+
+                            // Toast.
+                            Toast toast = Toast.makeText(getApplicationContext(), "Nog geen PIN ingesteld", Toast.LENGTH_SHORT);
+                            toast.show();
+                            return;
+                        }
+                    }
+                })
+                .setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        //Create dialog box and show.
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     // Go to MailActivity
     public void mailClicked(View view) {

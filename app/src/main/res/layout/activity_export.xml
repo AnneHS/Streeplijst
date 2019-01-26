@@ -39,9 +39,16 @@
         android:text="e-mail instellen" />
 
     <Button
-        android:id="@+id/exportBtn"
+        android:id="@+id/mailBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="exportClicked"
         android:text="Mail streeplijst" />
+
+    <Button
+        android:id="@+id/emptyBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="emptyClicked"
+        android:text="Streeplijst legen" />
 </LinearLayout>

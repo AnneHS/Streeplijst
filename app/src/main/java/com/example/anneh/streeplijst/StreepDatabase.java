@@ -460,4 +460,26 @@ public class StreepDatabase extends SQLiteOpenHelper {
         String userID = Integer.toString(userId);
         db.delete("users", "_id=?", new String[] {userID});
     }
+
+
+    // Reset/empty
+    public void emptyDB() {
+
+        // Reset costs in users table.
+        SQLiteDatabase db = this.getReadableDatabase();
+        db.execSQL("UPDATE users SET costs = ?", new String[] {"0"});
+
+        // Drop & reload transactions table.
+        db.execSQL("DROP TABLE transactions");
+        String createTransactions = "CREATE TABLE transactions(_id INTEGER PRIMARY KEY, " +
+                "userID INTEGER, username TEXT, productName TEXT, productPrice REAL, amount INTEGER," +
+                " total REAL, removed BOOLEAN DEFAULT 0, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
+        db.execSQL(createTransactions);
+
+        // Drop & Reload portfolio table.
+        db.execSQL("DROP TABLE portfolio");
+        String createPortfolio = "CREATE TABLE portfolio(_id INTEGER PRIMARY KEY, userID INTEGER, productName text, " +
+                "productPrice REAL, amount INTEGER, total REAL)";
+        db.execSQL(createPortfolio);
+    }
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/overview"
+        android:title="Kostenoverzicht" />
+    <item
+        android:id="@+id/addProduct"
+        android:title="Product toevoegen" />
+    <item
+        android:id="@+id/addUser"
+        android:title="Gebruiker toevoegen" />
+    <item
+        android:id="@+id/export"
+        android:title="Streeplijst legen" />
+    <item
+        android:id="@+id/pin"
+        android:title="Pin instellen" />
+</menu>

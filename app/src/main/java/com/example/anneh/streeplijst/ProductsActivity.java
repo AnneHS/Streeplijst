@@ -142,6 +142,10 @@ public class ProductsActivity extends AppCompatActivity {
                     clickedProduct.getString(clickedProduct.getColumnIndex("name")));
             intent.putExtra("product_price",
                     clickedProduct.getFloat(clickedProduct.getColumnIndex("price")));
+            intent.putExtra("product_strepen",
+                    clickedProduct.getInt(clickedProduct.getColumnIndex("strepen")));
+            intent.putExtra("product_total",
+                    clickedProduct.getFloat(clickedProduct.getColumnIndex("total")));
             intent.putExtra("img_path",
                     clickedProduct.getString(clickedProduct.getColumnIndex("imgPath")));
             intent.putExtra("img_name",

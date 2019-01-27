@@ -43,12 +43,16 @@ public class ProductActivity extends AppCompatActivity {
         productID = (int) intent.getSerializableExtra("product_id");
         String productName = (String) intent.getSerializableExtra("product_name");
         float productPrice = (float) intent.getSerializableExtra("product_price");
+        int productStrepen = (int) intent.getSerializableExtra("product_strepen");
+        float productTotal = (float) intent.getSerializableExtra("product_total");
         String imgPath = (String) intent.getSerializableExtra("img_path");
         String imgName = (String) intent.getSerializableExtra("img_name");
 
         // Get reference to views.
         TextView nameTV = (TextView) findViewById(R.id.productName);
         TextView priceTV = (TextView) findViewById(R.id.price);
+        TextView strepenTV = (TextView) findViewById(R.id.streepTV);
+        TextView totalTV = (TextView) findViewById(R.id.totalTV);
         CustomImageView productIV = (CustomImageView) findViewById(R.id.productImg);
 
         // Get formatter for devices default currency.
@@ -57,6 +61,8 @@ public class ProductActivity extends AppCompatActivity {
         // Set text for TextViews.
         nameTV.setText(productName);
         priceTV.setText(format.format(productPrice));
+        strepenTV.setText(Integer.toString(productStrepen));
+        totalTV.setText(format.format(productTotal));
 
         // Load bitmap & set image.
         Bitmap imgBitmap;

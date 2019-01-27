@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -29,6 +33,10 @@ import java.util.Map;
 
 public class UsersActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+    private NavigationView navigationView;
+
     private StreepDatabase db;
     Cursor usersCursor;
     private UserAdapter adapter;
@@ -39,13 +47,17 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-        // Enable home button
-        android.support.v7.app.ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeButtonEnabled(true);
+        // Set navigation drawer.
+        // https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
+        drawer = (DrawerLayout)findViewById(R.id.activity_users);
+        toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.Close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // TODO:  home icon veranderen
-        // actionbar.setNavigationIcon(R.drawable.home_icon);
+        // Set listener for Navigation Drawer.
+        navigationView = (NavigationView)findViewById(R.id.nv);
+        navigationView.setNavigationItemSelectedListener(new UsersActivity.NavigationViewClickListener());
 
         // Get cursor for users table from StreepDatabase.
         db = StreepDatabase.getInstance(getApplicationContext());
@@ -88,7 +100,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
                 else {
                     SQLiteDatabase SQLdb = db.getWritableDatabase();
                     userCursor = SQLdb.rawQuery("SELECT * FROM users WHERE name LIKE ?",
-                            new String[] {constraint.toString() + "%"});
+                            new String[] {"%" + constraint.toString() + "%"});
                 }
 
                 return userCursor;
@@ -101,6 +113,50 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         userGrid.setOnItemLongClickListener(new GridViewLongClickListener());
     }
 
+
+    private class NavigationViewClickListener implements NavigationView.OnNavigationItemSelectedListener {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+            // TODO: Case.
+            // Handle action bar item clicks: go to corresponding activity.
+            int id = item.getItemId();
+
+            if (id == R.id.overview) {
+                Intent intent = new Intent(UsersActivity.this, OverviewActivity.class);
+                startActivity(intent);
+            }
+            else if (id == R.id.addProduct) {
+                Intent intent = new Intent(UsersActivity.this, NewProductActivity.class);
+                startActivity(intent);
+            }
+            else if (id == R.id.addUser) {
+                Intent intent = new Intent(UsersActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+            else if (id == R.id.export) {
+                Intent intent = new Intent(UsersActivity.this, ExportActivity.class);
+                startActivity(intent);
+            }
+            else if (id == R.id.pin) {
+                Intent intent = new Intent(UsersActivity.this, PinActivity.class);
+                startActivity(intent);
+            }
+
+            return true;
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -115,32 +171,6 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
-
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        // Handle action bar item clicks: go to corresponding activity.
-        int id = item.getItemId();
-        if (id == R.id.overview) {
-            Intent intent = new Intent(UsersActivity.this, OverviewActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.addProduct) {
-            Intent intent = new Intent(UsersActivity.this, NewProductActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.addUser) {
-            Intent intent = new Intent(UsersActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        }
-        else if (id == android.R.id.home) {
-            Intent intent = new Intent(UsersActivity.this, ProductsActivity.class);
-            startActivity(intent);
-        }
 
         return true;
     }
@@ -238,14 +268,16 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
                     userCursor.close();
 
                     // Update transactions table.
-                    Transaction transaction = new Transaction(userID, username, productName, productPrice, amount);
+                    Transaction transaction = new Transaction(userID, username, productID,
+                            productName, productPrice, amount);
                     db.insertTransaction(transaction);
 
                     // Update portfolio table.
                     db.updatePortfolio(transaction);
 
-                    // Update users table.
-                    db.streep(userID, transaction.getTotal());
+                    // Update users & products table.
+                    db.streep(userID, transaction.getTotal(), productID, amount);
+
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Er gaat iets fout", Toast.LENGTH_SHORT);
                     toast.show();

@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 public class StreepDatabase extends SQLiteOpenHelper {
 
@@ -22,7 +23,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         // Create products table.
         String createProducts = "CREATE TABLE products(_id INTEGER PRIMARY KEY, name TEXT, " +
-                "price REAL, imgPath TEXT, imgName TEXT)";
+                "price REAL, strepen INTEGER DEFAULT 0, total FLOAT DEFAULT 0," +
+                " imgPath TEXT, imgName TEXT)";
         db.execSQL(createProducts);
 
         // Create users table.
@@ -32,8 +34,9 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         // Create transactions table.
         String createTransactions = "CREATE TABLE transactions(_id INTEGER PRIMARY KEY, " +
-                "userID INTEGER, username TEXT, productName TEXT, productPrice REAL, amount INTEGER," +
-                " total REAL, removed BOOLEAN DEFAULT 0, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
+                "userID INTEGER, username TEXT, productID INTEGER, " +
+                "productName TEXT, productPrice REAL, amount INTEGER, total REAL, " +
+                "removed BOOLEAN DEFAULT 0, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
         db.execSQL(createTransactions);
 
         // Create portfolio table.
@@ -76,11 +79,12 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
     }
 
-    // Return cursor for products table.
+    // Return cursor for products table (sort by streep amount).
     public Cursor selectProducts() {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor productsCursor = db.rawQuery("SELECT * FROM products", null);
+        Cursor productsCursor = db.rawQuery("SELECT * FROM products ORDER BY strepen DESC",
+                null);
         return productsCursor;
     }
 
@@ -179,6 +183,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("userID", transaction.getUserID());
         cv.put("username", transaction.getUsername());
+        cv.put("productID", transaction.getProductID());
         cv.put("productName", transaction.getProductName());
         cv.put("productPrice", transaction.getPrice());
         cv.put("amount", transaction.getAmount());
@@ -325,8 +330,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
         }
     }
 
-    // Update costs in users table.
-    public void streep(int userId, float total) {
+    // Update costs in users table & strepen and total in products table.
+    public void streep(int userId, float total, int productId, int amount) {
         //TODO: op handigere manier
 
         // Convert given id to string.
@@ -353,6 +358,32 @@ public class StreepDatabase extends SQLiteOpenHelper {
             System.out.println("Er gaat iets fout");
         }
 
+        // Update products table/
+        Cursor productCursor = db.rawQuery("SELECT * FROM products WHERE _id = ?",
+                new String[] {Integer.toString(productId)});
+
+        // Update total & strepen.
+        if (productCursor != null & productCursor.moveToFirst()) {
+
+            // Calculate updated total.
+            float formerTotal = productCursor.getFloat(productCursor.getColumnIndex("total"));
+            float updatedTotal = formerTotal + total;
+
+            // Calculate updated amount of orders/strepen.
+            int formerStrepen = productCursor.getInt(productCursor.getColumnIndex("strepen"));
+            int updatedStrepen = formerStrepen + amount;
+
+            // Update table.
+            // Update costs in users table.
+            ContentValues cv = new ContentValues();
+            cv.put("strepen", updatedStrepen);
+            cv.put("total", updatedTotal);
+            db.update("products", cv, "_id = ?",
+                    new String[] {Integer.toString(productId)});
+        }
+        else {
+            System.out.println("Er gaat iets fout");
+        }
     }
 
 
@@ -392,7 +423,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.delete("products", "_id=?", new String[] {productID});
     }
 
-    // Remove transaction.
+    // Remove transaction & adjust portfolio, users & products table.
     public void removeTransaction(int transactionId) {
 
         // Get db.
@@ -411,6 +442,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
             // Get transaction info (userID, productName, productPrice, amount, price).
             int userId = cursor.getInt(cursor.getColumnIndex("userID"));
             String userID = Integer.toString(userId);
+            String productID = cursor.getString(cursor.getColumnIndex("productID"));
             String productName = cursor.getString(cursor.getColumnIndex("productName"));
             int amount = cursor.getInt(cursor.getColumnIndex("amount"));
             float transactionTotal = cursor.getFloat(cursor.getColumnIndex("total"));
@@ -436,9 +468,14 @@ public class StreepDatabase extends SQLiteOpenHelper {
                         new String[] {userID, productName});
 
             }
+            else{
+                // TODO: Error messages
+                Log.d("StreepDatabase","Er is iets fout gegaan.");
+            }
 
             // Update users table.
-            Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id =?", new String[] {userID});
+            Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id =?",
+                    new String[] {userID});
             if (userCursor != null & userCursor.moveToFirst()) {
 
                 // Calculate updated costs for user.
@@ -449,6 +486,36 @@ public class StreepDatabase extends SQLiteOpenHelper {
                 ContentValues usersCV = new ContentValues();
                 usersCV.put("costs", updatedCosts);
                 db.update("users", usersCV, "_id = ?", new String[] {userID});
+            }
+            else {
+                // TODO: Error messages
+                Log.d("StreepDatabase","Er is iets fout gegaan.");
+            }
+
+            // Update products table.
+            Cursor productCursor = db.rawQuery("SELECT * FROM products WHERE _id =?",
+                    new String[] {productID});
+            if (productCursor != null & productCursor .moveToFirst()) {
+
+
+                // Calculate updated total.
+                float formerTotal = productCursor.getFloat(productCursor.getColumnIndex("total"));
+                float updatedTotal = formerTotal - transactionTotal;
+
+                // Calculate updated amount of orders/strepen.
+                int formerStrepen = productCursor.getInt(productCursor.getColumnIndex("strepen"));
+                int updatedStrepen = formerStrepen - amount;
+
+                // Update table.
+                // Update costs in users table.
+                cv = new ContentValues();
+                cv.put("strepen", updatedStrepen);
+                cv.put("total", updatedTotal);
+                db.update("products", cv, "_id = ?",
+                        new String[] {productID});
+            }
+            else {
+                System.out.println("Er gaat iets fout");
             }
         }
     }
@@ -468,6 +535,10 @@ public class StreepDatabase extends SQLiteOpenHelper {
         // Reset costs in users table.
         SQLiteDatabase db = this.getReadableDatabase();
         db.execSQL("UPDATE users SET costs = ?", new String[] {"0"});
+
+        // Reset strepen & total in products table.
+        db.execSQL("UPDATE products SET strepen = ?", new String[] {"0"});
+        db.execSQL("UPDATE products SET total = ?", new String[] {"0"});
 
         // Drop & reload transactions table.
         db.execSQL("DROP TABLE transactions");

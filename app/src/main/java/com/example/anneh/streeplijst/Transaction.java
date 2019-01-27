@@ -3,14 +3,16 @@ package com.example.anneh.streeplijst;
 public class Transaction {
     int userID;
     String username;
+    int productID;
     String productName;
     float price;
     int amount;
     float total;
 
-    public Transaction(int userID, String userName, String productName, float price, int amount) {
+    public Transaction(int userID, String userName, int productID, String productName, float price, int amount) {
         this.userID = userID;
         this.username = userName;
+        this.productID = productID;
         this.productName = productName;
         this.price = price;
         this.amount = amount;
@@ -23,6 +25,9 @@ public class Transaction {
     }
     public String getUsername() {
         return username;
+    }
+    public int getProductID() {
+        return productID;
     }
     public String getProductName() {
         return productName;
@@ -42,6 +47,7 @@ public class Transaction {
     public void setUsername(String username) {
         this.username = username;
     }
+    public void setProductID(int productID) { this.productID = productID; }
     public void setProductName(String productName) {
         this.productName = productName;
     }

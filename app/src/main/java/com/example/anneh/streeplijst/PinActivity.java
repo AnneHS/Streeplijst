@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,6 +25,9 @@ public class PinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pin);
+
+        // Enable home button in actionbar.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void submitClicked (View view) {
@@ -129,6 +133,19 @@ public class PinActivity extends AppCompatActivity {
                 alert.show();
             }
         }
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // TODO: overbodig met maar één optie?
+        // Handle action bar item clicks: go to corresponding activity.
+        int id = item.getItemId();
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(PinActivity.this, ProductsActivity.class);
+            startActivity(intent);
+        }
+
+        return true;
     }
 }

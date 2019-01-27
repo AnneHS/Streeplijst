@@ -22,32 +22,31 @@
         android:id="@+id/price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
         android:text="Prijs"
         android:textAlignment="center" />
 
     <com.example.anneh.streeplijst.CustomImageView
         android:id="@+id/productImg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|center_vertical|center_horizontal"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="top|center_horizontal"
         android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         app:srcCompat="@drawable/upload" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:orientation="horizontal"
-        android:paddingTop="5dp">
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/streepTitleTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Strepen: "
+            android:textAlignment="textEnd"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -56,6 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textAlignment="textStart"
             android:textSize="18sp" />
     </LinearLayout>
 
@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:text="Totaal: "
             android:textAlignment="textEnd"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -80,26 +81,120 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
+            android:textAlignment="textStart"
             android:textSize="18sp" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/remove"
-
-        android:text="Verwijder product"
-        android:textColor="#FFFFFF"
-        android:textSize="30sp"
-
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#c79400"
-        android:shadowDx="0"
-        android:shadowDy="0"
-        android:shadowRadius="5"
-
-        android:onClick="removeClicked"
-        android:textAllCaps="false"
+    <TextView
+        android:id="@+id/transactions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Transacties"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
         android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/userTitle"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            tools:text="HG" />
+
+        <TextView
+            android:id="@+id/productTitle"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Product"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/priceTitle"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Prijs"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/amountTitle"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Aantal"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/totalTitle"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Totaal"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateTitle"
+            android:layout_width="60dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            android:text="Datum"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <ListView
+            android:id="@+id/transactionsLV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:divider="#FF01579B"
+            android:dividerHeight="2px">
+
+        </ListView>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/removeFloat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="removeClicked"
+            app:srcCompat="@drawable/remove_float" />
+    </FrameLayout>
 
 </LinearLayout>

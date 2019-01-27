@@ -152,9 +152,20 @@ public class StreepDatabase extends SQLiteOpenHelper {
     public Cursor selectTransactions(){
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor transactionsCursor = db.rawQuery("SELECT * FROM transactions ORDER BY _id DESC;", null);
+        Cursor transactionsCursor = db.rawQuery("SELECT * FROM transactions ORDER BY _id DESC;",
+                null);
         return transactionsCursor;
     }
+
+    // Return cursor for transactions corresponding with given product ID.
+    public Cursor selectProductTransactions(int productID) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor transactionsCursor = db.rawQuery("SELECT * FROM transactions WHERE productID =?",
+                new String[] {Integer.toString(productID)});
+        return transactionsCursor;
+    }
+
 
     // return cursor for portfolio table
     public Cursor selectPortfolios() {

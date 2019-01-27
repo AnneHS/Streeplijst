@@ -8,6 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:paddingLeft="3dp"
         android:text="productName" />
 
     <TextView
@@ -15,20 +16,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="productPrice" />
+        android:text="productPrice"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/productAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="productAmount" />
+        android:text="productAmount"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/totalCosts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="totalCosts" />
+        android:text="totalCosts"
+        android:textAlignment="center" />
 
 </LinearLayout>

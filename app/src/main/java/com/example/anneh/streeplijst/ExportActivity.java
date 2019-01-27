@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,6 +55,9 @@ public class ExportActivity extends AppCompatActivity {
         // https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-exposed-beyond-app-through-clipdata-item-geturi
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+
+        // Enable home button in actionbar.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get e-mail address from db.
         StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
@@ -343,5 +347,19 @@ public class ExportActivity extends AppCompatActivity {
 
         Intent intent = new Intent(ExportActivity.this, MailActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle action bar clicks: return to ProductsActivity.
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(ExportActivity.this, ProductsActivity.class);
+            startActivity(intent);
+        }
+
+        return true;
     }
 }

@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,12 +30,16 @@ public class ProductActivity extends AppCompatActivity {
     StreepDatabase db;
     int productID;
     EditText pinET;
-    // AlertDialog.Builder builder;
+    Cursor transactionCursor;
+    OverviewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
+
+        // Enable home button in actionbar.
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Get db.
         db = StreepDatabase.getInstance(getApplicationContext());
@@ -80,6 +86,18 @@ public class ProductActivity extends AppCompatActivity {
             Log.d("Error: ", "file not found");
             e.printStackTrace();
         }
+
+
+        // Get cursor for transactions from given user.
+        transactionCursor = db.selectProductTransactions(productID);
+
+        // Set adapter to transaction ListView.
+        ListView transactionLV = (ListView) findViewById(R.id.transactionsLV);
+        adapter = new OverviewAdapter(this, transactionCursor);
+        transactionLV.setAdapter(adapter);
+
+        // Set listener for transactions.
+        // transactionLV.setOnItemLongClickListener(new ProductActivity.ListViewLongClickListener());
     }
 
     public void removeClicked(View view) {
@@ -157,5 +175,19 @@ public class ProductActivity extends AppCompatActivity {
         //Create dialog box and show.
         AlertDialog alert = builder.create();
         alert.show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle action bar item clicks: go to corresponding activity.
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            Intent intent = new Intent(ProductActivity.this, ProductsActivity.class);
+            startActivity(intent);
+        }
+
+        return true;
     }
 }

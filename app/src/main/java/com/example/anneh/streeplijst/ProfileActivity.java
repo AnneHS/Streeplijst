@@ -35,7 +35,6 @@ public class ProfileActivity extends AppCompatActivity {
     private TransactionAdapter adapter;
     Cursor transactionCursor;
     int userID;
-    FloatingActionButton removeBtn;
     int transactionID;
 
     // AlertDialog
@@ -253,19 +252,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Handle action bar item clicks: go to corresponding activity.
         int id = item.getItemId();
 
-        if (id == R.id.overview) {
-            Intent intent = new Intent(ProfileActivity.this, OverviewActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.addProduct) {
-            Intent intent = new Intent(ProfileActivity.this, NewProductActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.addUser) {
-            Intent intent = new Intent(ProfileActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        }
-        else if (id == android.R.id.home) {
+        if (id == android.R.id.home) {
             Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
             startActivity(intent);
         }

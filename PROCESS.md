@@ -99,6 +99,22 @@ Dingen aan de layout veranderd. Foto's vervormen niet meer, en aantal normale kn
 
 
 **Dag 16 (24-01-2019)**
-Er kan nu een pin worden ingesteld, die nodig is om produc ten te verwijderen.   
+Er kan nu een PIN worden ingesteld, die nodig is om product te verwijderen.   
+
+**Dag 17 (25-01-2019)**
+Er kan een PIN worden ingesteld om een gebruiker te verwijderen en het e-mail adres in te stellen. Daarnaast kan de PIN kan opnieuw worden ingesteld.   
+
+**Dag 18 (26-01-2019)**   
+De database kan nu worden geleegd nadat de Csv-bestanden zijn verstuurd. Daarnaast is het oorspronkelijke menu bij het productenoverzicht vervangen door een Navigation Drawer.   
+
+**Dag 19 (27-01-2019)**   
+Ook het menu bij het gebruikersoverzicht is vervangen door een Navigation Drawer. Er is een transactieoverzicht toegevoegd aan de product profiel pagina's. Daarnaast wordt nu bijgehouden hoevaak een product is gestreept. In het producten overzicht worden de producten hierop gesorteerd: producten die het vaakst zijn gestreept staan bovenaan.   
+
+**Dag 20 (27-01-2019)**   
+De transacties zijn nu ook verwijderbaar vanuit het productoverzicht. Er is een apart gebruikers/profiel overzicht gemaakt zodat de gebruiker zijn of haar profiel kan bekijken zonder dat er eerst een product moet worden uitgekozen.   
+
+
+
+
 
 

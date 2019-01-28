@@ -38,6 +38,10 @@ public class ProfileAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
+        // Change color
+        LinearLayout product = view.findViewById(R.id.userLL);
+        product.setBackgroundResource(R.color.colorPrimary);
+
         // Get reference to views from user.xml.
         TextView usernameTV = view.findViewById(R.id.user);
         ImageView userIV = view.findViewById(R.id.userImg);

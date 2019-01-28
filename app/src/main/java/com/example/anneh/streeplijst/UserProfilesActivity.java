@@ -204,4 +204,10 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
             startActivity(intent);
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
 }

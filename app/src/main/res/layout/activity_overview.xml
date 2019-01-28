@@ -44,9 +44,10 @@
             android:layout_width="60dp"
             android:layout_height="20dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="HG"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold"
             tools:text="HG" />
@@ -56,9 +57,10 @@
             android:layout_width="60dp"
             android:layout_height="20dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="Product"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -67,20 +69,22 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="Prijs"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/amountTitle"
-            android:layout_width="20dp"
+            android:layout_width="25dp"
             android:layout_height="20dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="Aantal"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -89,9 +93,10 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="Totaal"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -100,9 +105,10 @@
             android:layout_width="60dp"
             android:layout_height="20dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimaryDark"
             android:text="Datum"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>

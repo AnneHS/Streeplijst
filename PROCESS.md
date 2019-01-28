@@ -94,14 +94,14 @@ Bij het toevoegen van een gebruiker kan nu ook een foto worden toegevoegd die wo
 Picasso gebruikt om de foto's te laden zodat de GridViews niet zo langzaam zijn. Bij het exporteren van de tabellen wordt nu niet enkel de gebruikerstabel maar ook de portfoliotabel verzonden.   
 
 
-**Dag 15 (23-01-2019)**
+**Dag 15 (23-01-2019)**   
 Dingen aan de layout veranderd. Foto's vervormen niet meer, en aantal normale knoppen vervangen door floating action buttons.    
 
 
-**Dag 16 (24-01-2019)**
+**Dag 16 (24-01-2019)**   
 Er kan nu een PIN worden ingesteld, die nodig is om product te verwijderen.   
 
-**Dag 17 (25-01-2019)**
+**Dag 17 (25-01-2019)**   
 Er kan een PIN worden ingesteld om een gebruiker te verwijderen en het e-mail adres in te stellen. Daarnaast kan de PIN kan opnieuw worden ingesteld.   
 
 **Dag 18 (26-01-2019)**   
@@ -112,9 +112,3 @@ Ook het menu bij het gebruikersoverzicht is vervangen door een Navigation Drawer
 
 **Dag 20 (27-01-2019)**   
 De transacties zijn nu ook verwijderbaar vanuit het productoverzicht. Er is een apart gebruikers/profiel overzicht gemaakt zodat de gebruiker zijn of haar profiel kan bekijken zonder dat er eerst een product moet worden uitgekozen.   
-
-
-
-
-
-

@@ -166,10 +166,8 @@ public class ExportActivity extends AppCompatActivity {
         // Get db
         StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
 
-        // WRITE CSV FILE users
-        // https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel
-        File exportDir = new File(Environment.getExternalStorageDirectory(), "");
-
+        // Create "Streeplijst" Directory in phone storage, if not yet exists.
+        File exportDir = new File(Environment.getExternalStorageDirectory(), "Streeplijst");
         if (!exportDir.exists()) {
             exportDir.mkdirs();
         }
@@ -179,6 +177,8 @@ public class ExportActivity extends AppCompatActivity {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         String todayString = formatter.format(todayDate);
 
+        // WRITE CSV FILE users
+        // https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel
         File usersFile = new File(exportDir, "gebruikers(" + todayString + ").csv");
 
         try {

@@ -1,7 +1,10 @@
 package com.example.anneh.streeplijst;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +20,7 @@ import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ProductsActivity extends AppCompatActivity {
@@ -65,31 +69,83 @@ public class ProductsActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-            // Handle action bar item clicka: go to corresponding activity.
-            int id = item.getItemId();
+            Class nextActivity = null;
 
-            if (id == R.id.overview) {
-                Intent intent = new Intent(ProductsActivity.this, OverviewActivity.class);
+            switch(item.getItemId()) {
+                case R.id.overview:     nextActivity = OverviewActivity.class;
+                                        break;
+                case R.id.users:        nextActivity = UserProfilesActivity.class;
+                                        break;
+                case R.id.addProduct:   nextActivity = NewProductActivity.class;
+                                        break;
+                case R.id.addUser:      nextActivity = RegisterActivity.class;
+                                        break;
+                case R.id.export:       nextActivity = ExportActivity.class;
+                                        break;
+                case R.id.pin:          nextActivity = PinActivity.class;
+                                        break;
+                case R.id.csv:          openCSVFolder();
+                                        break;
+            }
+
+            if (nextActivity != null){
+                Intent intent = new Intent(ProductsActivity.this, nextActivity);
                 startActivity(intent);
             }
-            else if (id == R.id.addProduct) {
-                Intent intent = new Intent(ProductsActivity.this, NewProductActivity.class);
-                startActivity(intent);
-            }
-            else if (id == R.id.addUser) {
-                Intent intent = new Intent(ProductsActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-            else if (id == R.id.export) {
-                Intent intent = new Intent(ProductsActivity.this, ExportActivity.class);
-                startActivity(intent);
-            }
-            else if (id == R.id.pin) {
-                Intent intent = new Intent(ProductsActivity.this, PinActivity.class);
-                startActivity(intent);
-            }
+
+
+//            // Handle action bar item clicka: go to corresponding activity.
+//            int id = item.getItemId();
+//
+//            if (id == R.id.overview) {
+//                Intent intent = new Intent(ProductsActivity.this, OverviewActivity.class);
+//                startActivity(intent);
+//            }
+//            else if (id == R.id.addProduct) {
+//                Intent intent = new Intent(ProductsActivity.this, NewProductActivity.class);
+//                startActivity(intent);
+//            }
+//            else if (id == R.id.addUser) {
+//                Intent intent = new Intent(ProductsActivity.this, RegisterActivity.class);
+//                startActivity(intent);
+//            }
+//            else if (id == R.id.export) {
+//                Intent intent = new Intent(ProductsActivity.this, ExportActivity.class);
+//                startActivity(intent);
+//            }
+//            else if (id == R.id.pin) {
+//                Intent intent = new Intent(ProductsActivity.this, PinActivity.class);
+//                startActivity(intent);
+//            }
+//            else if (id == R.id.csv) {
+//
+//
+//            }
 
             return true;
+        }
+    }
+
+    public void openCSVFolder() {
+
+        //https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
+
+        // Create URI for CSV-folder path.
+        Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() +
+                "/Streeplijst/");
+
+        // Open folder (file explorer needed).s
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(selectedUri, "resource/folder");
+        if (intent.resolveActivityInfo(getPackageManager(), 0) != null) {
+            startActivity(intent);
+        }
+        else {
+
+            // Display toast if user has not installed file explorer.
+            Toast toast = Toast.makeText(getApplicationContext(), "Installeer een " +
+                    "file explorer om verder te gaan.", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 
@@ -129,6 +185,10 @@ public class ProductsActivity extends AppCompatActivity {
     private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+            // Change color
+            LinearLayout product = view.findViewById(R.id.productLL);
+            product.setBackgroundResource(R.color.colorPrimaryDark);
 
             // Get selected product info and pass to ProductActivity
             Intent intent = new Intent(ProductsActivity.this, ProductActivity.class);

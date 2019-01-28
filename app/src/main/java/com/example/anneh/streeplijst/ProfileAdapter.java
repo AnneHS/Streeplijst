@@ -24,14 +24,14 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class UserAdapter extends ResourceCursorAdapter {
+public class ProfileAdapter extends ResourceCursorAdapter {
 
     private UserAdapter instance;
     HashMap<Integer,Integer> selectedMap;
 
     // Constructor
-    public UserAdapter(Context context, Cursor cursor, HashMap<Integer,Integer> selected) {
-        super(context, R.layout.user, cursor);
+    public ProfileAdapter(Context context, Cursor cursor, HashMap<Integer,Integer> selected) {
+        super(context, R.layout.profile, cursor);
         this.selectedMap = selected;
     }
 
@@ -40,26 +40,8 @@ public class UserAdapter extends ResourceCursorAdapter {
 
         // Get reference to views from user.xml.
         TextView usernameTV = view.findViewById(R.id.user);
-        TextView amountTV = view.findViewById(R.id.amount);
         ImageView userIV = view.findViewById(R.id.userImg);
         LinearLayout userLL = view.findViewById(R.id.userLL);
-
-        // Get id & selected count for current user.
-        int userID = cursor.getInt(cursor.getColumnIndex("_id"));
-        int selectedCount = selectedMap.get(userID);
-
-        // Set TextView & Background color for selected.
-        if (selectedCount == 0) {
-
-            //Set color & count for not selected
-            amountTV.setText("");
-            userLL.setBackgroundResource(R.color.colorPrimary);
-        }
-        else {
-
-            amountTV.setText(Integer.toString(selectedCount));
-            userLL.setBackgroundResource(R.color.colorPrimaryDark);
-        }
 
         // Get username from users table & set TextView.
         String userName = cursor.getString(cursor.getColumnIndex("name"));

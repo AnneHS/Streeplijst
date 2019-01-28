@@ -44,8 +44,6 @@ public class StreepDatabase extends SQLiteOpenHelper {
                 "productPrice REAL, amount INTEGER, total REAL)";
         db.execSQL(createPortfolio);
 
-        // innerjoin
-
         // Create e-mail table.
         String createMail = "CREATE TABLE mail(_id INTEGER PRIMARY KEY, address TEXT)";
         db.execSQL(createMail);
@@ -555,8 +553,9 @@ public class StreepDatabase extends SQLiteOpenHelper {
         // Drop & reload transactions table.
         db.execSQL("DROP TABLE transactions");
         String createTransactions = "CREATE TABLE transactions(_id INTEGER PRIMARY KEY, " +
-                "userID INTEGER, username TEXT, productName TEXT, productPrice REAL, amount INTEGER," +
-                " total REAL, removed BOOLEAN DEFAULT 0, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
+                "userID INTEGER, username TEXT, productID INTEGER, productName TEXT, " +
+                "productPrice REAL, amount INTEGER,total REAL, removed BOOLEAN DEFAULT 0, " +
+                "timestamp DATETIME DEFAULT CURRENT_TIMESTAMP)";
         db.execSQL(createTransactions);
 
         // Drop & Reload portfolio table.

@@ -5,6 +5,9 @@
         android:id="@+id/overview"
         android:title="Kostenoverzicht" />
     <item
+        android:id="@+id/users"
+        android:title="Gebruikersoverzicht" />
+    <item
         android:id="@+id/addProduct"
         android:title="Product toevoegen" />
     <item
@@ -16,4 +19,7 @@
     <item
         android:id="@+id/pin"
         android:title="Pin instellen" />
+    <item
+        android:id="@+id/csv"
+        android:title="Csv bestanden" />
 </menu>

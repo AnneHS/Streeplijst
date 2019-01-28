@@ -1,12 +1,10 @@
 package com.example.anneh.streeplijst;
 
-import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +20,6 @@ import android.widget.AdapterView;
 import android.widget.FilterQueryProvider;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UsersActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class UserProfilesActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
@@ -39,17 +35,17 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
 
     private StreepDatabase db;
     Cursor usersCursor;
-    private UserAdapter adapter;
+    private ProfileAdapter adapter;
     HashMap<Integer,Integer> selectedMap = new HashMap<Integer,Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_users);
+        setContentView(R.layout.activity_user_profiles);
 
         // Set navigation drawer.
         // https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
-        drawer = (DrawerLayout)findViewById(R.id.activity_users);
+        drawer = (DrawerLayout)findViewById(R.id.activity_user_profiles);
         toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.Close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -57,7 +53,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
 
         // Set listener for Navigation Drawer.
         navigationView = (NavigationView)findViewById(R.id.nv);
-        navigationView.setNavigationItemSelectedListener(new UsersActivity.NavigationViewClickListener());
+        navigationView.setNavigationItemSelectedListener(new UserProfilesActivity.NavigationViewClickListener());
 
         // Get cursor for users table from StreepDatabase.
         db = StreepDatabase.getInstance(getApplicationContext());
@@ -67,19 +63,13 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         // https://stackoverflow.com/questions/12481595/how-to-get-all-ids-from-a-sqlite-database
         ArrayList<Integer> users = new ArrayList<Integer>();
         if (usersCursor.moveToFirst()) {
-           do {
-               users.add(usersCursor.getInt(usersCursor.getColumnIndex("_id")));
-           } while (usersCursor.moveToNext());
-        }
-
-        // Put user id's in selectedMap to keep track of click count.
-        for (int i = 0; i < users.size(); i++) {
-            int id = users.get(i);
-            selectedMap.put(id, 0);
+            do {
+                users.add(usersCursor.getInt(usersCursor.getColumnIndex("_id")));
+            } while (usersCursor.moveToNext());
         }
 
         // Set UserAdapter to userGrid.
-        adapter = new UserAdapter(this, usersCursor, selectedMap);
+        adapter = new ProfileAdapter(this, usersCursor, selectedMap);
         GridView userGrid = (GridView) findViewById(R.id.userGrid);
         userGrid.setAdapter(adapter);
 
@@ -96,7 +86,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
                     userCursor = db.selectUsers();
                 }
 
-                // Else show users with searched name ("%" + "%" to search substring).
+                // Else show users with searched name (+ "%" to search substring).
                 else {
                     SQLiteDatabase SQLdb = db.getWritableDatabase();
                     userCursor = SQLdb.rawQuery("SELECT * FROM users WHERE name LIKE ?",
@@ -109,8 +99,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         });
 
         // Set listeners for userGrid.
-        userGrid.setOnItemClickListener(new UsersActivity.GridViewClickListener());
-        userGrid.setOnItemLongClickListener(new GridViewLongClickListener());
+        userGrid.setOnItemClickListener(new UserProfilesActivity.GridViewClickListener());
     }
 
 
@@ -124,23 +113,23 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
             int id = item.getItemId();
 
             if (id == R.id.overview) {
-                Intent intent = new Intent(UsersActivity.this, OverviewActivity.class);
+                Intent intent = new Intent(UserProfilesActivity.this, OverviewActivity.class);
                 startActivity(intent);
             }
             else if (id == R.id.addProduct) {
-                Intent intent = new Intent(UsersActivity.this, NewProductActivity.class);
+                Intent intent = new Intent(UserProfilesActivity.this, NewProductActivity.class);
                 startActivity(intent);
             }
             else if (id == R.id.addUser) {
-                Intent intent = new Intent(UsersActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(UserProfilesActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
             else if (id == R.id.export) {
-                Intent intent = new Intent(UsersActivity.this, ExportActivity.class);
+                Intent intent = new Intent(UserProfilesActivity.this, ExportActivity.class);
                 startActivity(intent);
             }
             else if (id == R.id.pin) {
-                Intent intent = new Intent(UsersActivity.this, PinActivity.class);
+                Intent intent = new Intent(UserProfilesActivity.this, PinActivity.class);
                 startActivity(intent);
             }
 
@@ -197,35 +186,12 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Get userID of clicked user.
-            Cursor clickedUser = (Cursor) parent.getItemAtPosition(position);
-            int userID =  clickedUser.getInt(clickedUser.getColumnIndex("_id"));
-
-            // Get current count for clicked user.
-            int count = selectedMap.get(userID);
-
-            // Update count.
-            int updatedCount = count + 1;
-            selectedMap.put(userID,updatedCount);
-
-            // Display count.
-            String amount = Integer.toString(updatedCount);
-            TextView amountTV = (TextView) view.findViewById(R.id.amount);
-            amountTV.setText(amount);
-
             // Change background color for clicked user.
             LinearLayout user = view.findViewById(R.id.userLL);
             user.setBackgroundResource(R.color.colorPrimaryDark);
-        }
-    }
-
-    // LongClick: Go to user profile (ProfileActivity).
-    private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
             // Get selected username & ID and pass to ProfileActivity
-            Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
+            Intent intent = new Intent(UserProfilesActivity.this, ProfileActivity.class);
             Cursor clickedUser = (Cursor) parent.getItemAtPosition(position);
             intent.putExtra("user_id",
                     clickedUser.getInt(clickedUser.getColumnIndex("_id")));
@@ -236,60 +202,6 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
             intent.putExtra("img_name",
                     clickedUser.getString(clickedUser.getColumnIndex("imgName")));
             startActivity(intent);
-            return true;
         }
-    }
-
-    // Add when streepBtn clicked.
-    public void streepClicked(View view) {
-
-        // Get product id, name & price from intent.
-        Intent intent = getIntent();
-        int productID = (int) intent.getSerializableExtra("product_id");
-        String productName = (String) intent.getSerializableExtra("product_name");
-        float productPrice = (float) intent.getSerializableExtra("product_price");
-
-        // Get userID('s) & selected count from selectedMap.
-        for (Map.Entry<Integer, Integer> entry : selectedMap.entrySet()) {
-            int userID = entry.getKey();
-            int amount = entry.getValue();
-
-            // If selected at least once, add transaction.
-            if (amount > 0) {
-                // Update tables for current userID.
-                // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
-                Cursor userCursor = db.selectUser(userID);
-                if (userCursor != null && userCursor.moveToFirst()) {
-
-                    // Get username from db.
-                    String username = userCursor.getString(userCursor.getColumnIndex("name"));
-                    userCursor.close();
-
-                    // Update transactions table.
-                    Transaction transaction = new Transaction(userID, username, productID,
-                            productName, productPrice, amount);
-                    db.insertTransaction(transaction);
-
-                    // Update portfolio table.
-                    db.updatePortfolio(transaction);
-
-                    // Update users & products table.
-                    db.streep(userID, transaction.getTotal(), productID, amount);
-
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Er gaat iets fout", Toast.LENGTH_SHORT);
-                    toast.show();
-
-                }
-            }
-        }
-
-        // Confirm success with toast.
-        Toast toast = Toast.makeText(getApplicationContext(), "Gestreept!", Toast.LENGTH_SHORT);
-        toast.show();
-
-        // Return to ProductsActivity.
-        Intent productsIntent = new Intent(UsersActivity.this, ProductsActivity.class);
-        startActivity(productsIntent);
     }
 }

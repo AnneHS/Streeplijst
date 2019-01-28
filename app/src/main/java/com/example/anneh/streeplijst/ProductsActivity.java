@@ -103,9 +103,6 @@ public class ProductsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    // TODO: Sorteer producten op meest gestreept.
     // Go to UsersActivity when product is clicked
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
         @Override
@@ -153,5 +150,11 @@ public class ProductsActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }

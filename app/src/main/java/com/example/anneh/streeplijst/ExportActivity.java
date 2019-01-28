@@ -65,7 +65,7 @@ public class ExportActivity extends AppCompatActivity {
 
         // Display address if given.
         if (mailAddress != "") {
-            TextView mailTV = findViewById(R.id.mail);
+            TextView mailTV = findViewById(R.id.mailTV);
             mailTV.setText(mailAddress);
         }
         else {

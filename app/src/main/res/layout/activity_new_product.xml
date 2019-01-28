@@ -16,7 +16,8 @@
         android:layout_marginRight="10dp"
         android:text="Product Toevoegen"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
@@ -27,7 +28,8 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="Naam product"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
 
     <EditText
         android:id="@+id/price"
@@ -37,7 +39,8 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="Prijs"
-        android:inputType="numberDecimal|numberSigned" />
+        android:inputType="numberDecimal|numberSigned"
+        android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/uploadPic"

@@ -180,7 +180,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
     public Cursor selectPortfolio(int userId) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor portfolioCursor = db.rawQuery("SELECT * FROM portfolio WHERE userID = ?",
+        Cursor portfolioCursor = db.rawQuery("SELECT * FROM portfolio WHERE userID = ?" +
+                        "ORDER BY total DESC",
                 new String[] {Integer.toString(userId)});
 
         return portfolioCursor;

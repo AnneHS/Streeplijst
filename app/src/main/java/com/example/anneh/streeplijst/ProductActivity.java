@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ public class ProductActivity extends AppCompatActivity {
 
     StreepDatabase db;
     int productID;
+    int transactionID;
     EditText pinET;
     Cursor transactionCursor;
     OverviewAdapter adapter;
@@ -97,8 +99,59 @@ public class ProductActivity extends AppCompatActivity {
         transactionLV.setAdapter(adapter);
 
         // Set listener for transactions.
-        // transactionLV.setOnItemLongClickListener(new ProductActivity.ListViewLongClickListener());
+        transactionLV.setOnItemLongClickListener(new ProductActivity.ListViewLongClickListener());
     }
+
+    // LongClick transaction: Remove transaction?
+    private class ListViewLongClickListener implements AdapterView.OnItemLongClickListener {
+        @Override
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+            // Get transaction ID
+            Cursor clickedTransaction = (Cursor) parent.getItemAtPosition(position);
+            transactionID = clickedTransaction.getInt(clickedTransaction.getColumnIndex("_id"));
+            int removed = clickedTransaction.getInt(clickedTransaction.getColumnIndex("removed"));
+
+            // Cancel if transaction already removed.
+            if (removed == 1) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Transactie is al verwijderd", Toast.LENGTH_SHORT);
+                toast.show();
+                return false;
+            }
+
+            // Confirm removal with AlertDialog.
+            AlertDialog.Builder builder = new AlertDialog.Builder(ProductActivity.this);
+            builder.setMessage("Transactie verwijderen?")
+                    .setCancelable(false)
+                    .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            // Remove transaction from database (users, portfolio, transactions).
+                            db.removeTransaction(transactionID);
+
+                            // Confirm removal through toast.
+                            Toast toast = Toast.makeText(getApplicationContext(), "Transactie verwijderd", Toast.LENGTH_SHORT);
+                            toast.show();
+
+                            // Return to ProductsActivity.
+                            Intent intent = new Intent(ProductActivity.this, ProductsActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("Nee", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    }) ;
+
+            // Create dialog box & show.
+            AlertDialog alert = builder.create();
+            alert.show();
+
+            return true;
+        }
+    }
+
 
     public void removeClicked(View view) {
 

@@ -16,7 +16,8 @@
         android:layout_marginRight="10dp"
         android:text="Nieuwe Gebruiker"
         android:textAlignment="center"
-        android:textSize="24sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="30sp"
         android:textStyle="bold" />
 
     <EditText
@@ -27,7 +28,8 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="Naam"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
 
     <ImageView
         android:id="@+id/uploadPic"

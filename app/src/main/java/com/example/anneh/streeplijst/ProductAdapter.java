@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -39,6 +40,10 @@ public class ProductAdapter extends ResourceCursorAdapter {
         // Get productName from database.
         String productName = cursor.getString(cursor.getColumnIndex("name"));
 
+        // Change color
+        LinearLayout product = view.findViewById(R.id.productLL);
+        product.setBackgroundResource(R.color.colorPrimary);
+
         // Set text for TextView from product.xml.
         TextView productTV = (TextView) view.findViewById(R.id.product);
         productTV.setText(productName);
@@ -48,24 +53,8 @@ public class ProductAdapter extends ResourceCursorAdapter {
         String imgName = cursor.getString(cursor.getColumnIndex("imgName"));
         String imgPath = cursor.getString(cursor.getColumnIndex("imgPath"));
 
-        // Load bitmap.
-        // Bitmap imgBitmap;
-
         // Load file into ImageView
         Picasso.get().load(new File(imgPath, imgName)).into(productIV);
-
-//        try {
-//
-//            File file = new File(imgPath, imgName);
-//            imgBitmap = BitmapFactory.decodeStream(new FileInputStream(file));
-//
-//            // Set image.
-//            productImg.setImageBitmap(imgBitmap);
-//        }
-//        catch (FileNotFoundException e) {
-//            Log.d("Error: ", "file not found");
-//            e.printStackTrace();
-//        }
     }
 
 }

@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PinActivity extends AppCompatActivity {
@@ -78,7 +80,14 @@ public class PinActivity extends AppCompatActivity {
                                     db.insertPin(newPIN);
 
                                     // Toast.
-                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN aangepast", Toast.LENGTH_SHORT);
+                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    toastTV.setText("Nieuwe PIN ingesteld.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
 
                                     // Return to ProductsActivity.
@@ -87,6 +96,17 @@ public class PinActivity extends AppCompatActivity {
                                 }
                                 else {
                                     Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+                                    toast.show();
+
+                                    // Toast.
+                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    toastTV.setText("PIN onjuist.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
                                 }
                             }
@@ -114,7 +134,14 @@ public class PinActivity extends AppCompatActivity {
 
                                 // TOAST
                                 // Confirm.
-                                Toast toast = Toast.makeText(getApplicationContext(), "PIN Toegevoegd", Toast.LENGTH_SHORT);
+                                // https://www.dev2qa.com/android-custom-toast-example/
+                                Toast toast = new Toast(getApplicationContext());
+                                View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                toastTV.setText("PIN Ingesteld.");
+                                toast.setView(customToastView);
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER, 0,0);
                                 toast.show();
 
                                 // Return to ProductsActivity.
@@ -128,7 +155,7 @@ public class PinActivity extends AppCompatActivity {
                             }
                         });
 
-                //Create dialog box and show.
+                // Create dialog box and show.
                 AlertDialog alert = builder.create();
                 alert.show();
             }

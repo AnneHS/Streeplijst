@@ -6,10 +6,12 @@ import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MailActivity extends AppCompatActivity {
@@ -34,7 +36,7 @@ public class MailActivity extends AppCompatActivity {
         db = StreepDatabase.getInstance(getApplicationContext());
     }
 
-    // AlertDialog: open when submit clicked
+    // OPen AlertDialog when 'Submit Button' clicked.
     public void submitClicked(View view) {
 
         // Get email if entered, else quit.
@@ -42,18 +44,19 @@ public class MailActivity extends AppCompatActivity {
             address = mailET.getText().toString();
         }
         else {
-            Toast.makeText(getApplicationContext(), "Geef e-mailadres", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Voer e-mailadres in.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Get prompts.xml view
+        // Get prompts.xml view (Custom AlertDialog).
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View promptView = layoutInflater.inflate(R.layout.prompts, null);
 
+        // Create builder for AlertDialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(promptView);
 
-        // Get reference to EditText
+        // Get reference to EditText.
         pinET = promptView.findViewById(R.id.pinET);
 
         // Set dialog window.
@@ -81,7 +84,14 @@ public class MailActivity extends AppCompatActivity {
                                     db.insertMail(address);
 
                                     // Toast.
-                                    Toast toast = Toast.makeText(getApplicationContext(), "E-mail ingesteld", Toast.LENGTH_SHORT);
+                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    toastTV.setText("E-mail ingesteld.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
 
                                     // Return to ProductsActivity.
@@ -89,8 +99,19 @@ public class MailActivity extends AppCompatActivity {
                                     startActivity(intent);
                                 }
                                 else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+
+                                    // Toast.
+                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    toastTV.setText("PIN onjuist.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
+
+                                    // Cancel Dialog.
                                     dialog.cancel();
                                 }
                             }
@@ -99,15 +120,30 @@ public class MailActivity extends AppCompatActivity {
                                 e.printStackTrace();
 
                                 // Toast.
-                                Toast toast = Toast.makeText(getApplicationContext(), "Voer PIN in", Toast.LENGTH_SHORT);
+                                // https://www.dev2qa.com/android-custom-toast-example/
+                                Toast toast = new Toast(getApplicationContext());
+                                View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                toastTV.setText("Voer PIN in.");
+                                toast.setView(customToastView);
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER, 0,0);
                                 toast.show();
                             }
                         }
                         else {
 
                             // Toast.
-                            Toast toast = Toast.makeText(getApplicationContext(), "Nog geen PIN ingesteld", Toast.LENGTH_SHORT);
+                            // https://www.dev2qa.com/android-custom-toast-example/
+                            Toast toast = new Toast(getApplicationContext());
+                            View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                            TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                            toastTV.setText("Stel eerst een PIN in.");
+                            toast.setView(customToastView);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0,0);
                             toast.show();
+
                             dialog.cancel();
                         }
                     }

@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,8 +74,17 @@ public class ExportActivity extends AppCompatActivity {
             mailTV.setText(mailAddress);
         }
         else {
-            Toast.makeText(getApplicationContext(), "Nog geen e-mailadres ingesteld.",
-                    Toast.LENGTH_SHORT).show();
+
+            // Toast.
+            // https://www.dev2qa.com/android-custom-toast-example/
+            Toast toast = new Toast(getApplicationContext());
+            View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+            TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+            toastTV.setText("Nog geen e-mailadres ingesteld.");
+            toast.setView(customToastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0,0);
+            toast.show();
         }
 
         // Disable button to empty database while CSV-files have not been e-mailed.
@@ -124,8 +134,18 @@ public class ExportActivity extends AppCompatActivity {
                                     exportCSV();
                                 }
                                 else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+
+                                    // Toast.
+                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    toastTV.setText("PIN onjuist.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
+
                                     dialog.cancel();
                                 }
                             }
@@ -134,7 +154,14 @@ public class ExportActivity extends AppCompatActivity {
                                 e.printStackTrace();
 
                                 // Toast.
-                                Toast toast = Toast.makeText(getApplicationContext(), "Geen PIN ingevoerd", Toast.LENGTH_SHORT);
+                                // https://www.dev2qa.com/android-custom-toast-example/
+                                Toast toast = new Toast(getApplicationContext());
+                                View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                toastTV.setText("Geen PIN ingevoerd.");
+                                toast.setView(customToastView);
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER, 0,0);
                                 toast.show();
                                 return;
                             }
@@ -142,8 +169,16 @@ public class ExportActivity extends AppCompatActivity {
                         else {
 
                             // Toast.
-                            Toast toast = Toast.makeText(getApplicationContext(), "Nog geen PIN ingesteld", Toast.LENGTH_SHORT);
+                            // https://www.dev2qa.com/android-custom-toast-example/
+                            Toast toast = new Toast(getApplicationContext());
+                            View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                            TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                            toastTV.setText("Nog geen PIN ingesteld.");
+                            toast.setView(customToastView);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0,0);
                             toast.show();
+
                             return;
                         }
                     }
@@ -262,7 +297,16 @@ public class ExportActivity extends AppCompatActivity {
 
                 //TODO: error in toast?
                 Log.e("Error: ", sqlEx.getMessage(), sqlEx);
-                Toast toast = Toast.makeText(getApplicationContext(), "Niet gelukt!", Toast.LENGTH_SHORT);
+
+                // Toast.
+                // https://www.dev2qa.com/android-custom-toast-example/
+                Toast toast = new Toast(getApplicationContext());
+                View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                toastTV.setText("ERROR");
+                toast.setView(customToastView);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0,0);
                 toast.show();
             }
 
@@ -271,7 +315,16 @@ public class ExportActivity extends AppCompatActivity {
 
             // TODO: error in toast?
             Log.e("Error: ", sqlEx.getMessage(), sqlEx);
-            Toast toast = Toast.makeText(getApplicationContext(), "Niet gelukt!", Toast.LENGTH_SHORT);
+
+            // Toast.
+            // https://www.dev2qa.com/android-custom-toast-example/
+            Toast toast = new Toast(getApplicationContext());
+            View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+            TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+            toastTV.setText("ERROR");
+            toast.setView(customToastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0,0);
             toast.show();
         }
     }
@@ -313,12 +366,30 @@ public class ExportActivity extends AppCompatActivity {
                                     db = StreepDatabase.getInstance(getApplicationContext());
                                     db.emptyDB();
 
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Streeplijst geleegd.", Toast.LENGTH_SHORT);
+                                    // Toast.
+                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    toastTV.setText("Streeplijst geleegd.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
                                 }
                                 else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+
+                                    // Toast.
+                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    toastTV.setText("PIN onjuist.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
+
                                     dialog.cancel();
                                 }
                             }
@@ -327,16 +398,32 @@ public class ExportActivity extends AppCompatActivity {
                                 e.printStackTrace();
 
                                 // Toast.
-                                Toast toast = Toast.makeText(getApplicationContext(), "Geen PIN ingevoerd", Toast.LENGTH_SHORT);
+                                // https://www.dev2qa.com/android-custom-toast-example/
+                                Toast toast = new Toast(getApplicationContext());
+                                View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                                TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                toastTV.setText("Geen PIN ingevoerd.");
+                                toast.setView(customToastView);
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER, 0,0);
                                 toast.show();
+
                                 return;
                             }
                         }
                         else {
 
                             // Toast.
-                            Toast toast = Toast.makeText(getApplicationContext(), "Nog geen PIN ingesteld", Toast.LENGTH_SHORT);
+                            // https://www.dev2qa.com/android-custom-toast-example/
+                            Toast toast = new Toast(getApplicationContext());
+                            View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
+                            TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                            toastTV.setText("Nog geen PIN ingesteld.");
+                            toast.setView(customToastView);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0,0);
                             toast.show();
+
                             return;
                         }
                     }

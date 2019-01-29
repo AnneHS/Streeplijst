@@ -362,7 +362,6 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
 
         // https://www.dev2qa.com/android-custom-toast-example/
         Toast toast = new Toast(getApplicationContext());
-
         View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_view, null);
         toast.setView(customToastView);
         toast.setDuration(Toast.LENGTH_SHORT);

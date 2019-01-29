@@ -24,7 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:ems="10"
-        android:inputType="numberPassword" />
+        android:hint="****"
+        android:inputType="numberPassword"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/submit"

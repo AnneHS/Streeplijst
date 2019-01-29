@@ -48,6 +48,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         String createMail = "CREATE TABLE mail(_id INTEGER PRIMARY KEY, address TEXT)";
         db.execSQL(createMail);
 
+        // Create PIN table.
         String createPin = "CREATE TABLE pin(_id INTEGER PRIMARY KEY, pinNumber INTEGER)";
         db.execSQL(createPin);
     }
@@ -65,7 +66,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // Getter: Returns instance of StreepDatabase if it exists, else creates one
+    // Getter: Returns instance of StreepDatabase if it exists, else creates one.
     public static StreepDatabase getInstance(Context context) {
 
         if (instance == null) {
@@ -77,7 +78,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
     }
 
-    // Return cursor for products table (sort by streep amount).
+    // Return cursor for products table (sort by amount of 'strepen').
     public Cursor selectProducts() {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -297,7 +298,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         // Get db & cursor for mail table.
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor mailCursor = db.rawQuery("SELECT pinNumber FROM pin WHERE _id = ?", new String[] {"1"});
+        Cursor mailCursor = db.rawQuery("SELECT pinNumber FROM pin WHERE _id = ?",
+                new String[] {"1"});
 
         // Add mail address to ContentValues.
         ContentValues cv = new ContentValues();
@@ -318,7 +320,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
     public Cursor getPin() {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor pinCursor = db.rawQuery("SELECT pinNumber FROM pin WHERE _id = ?", new String[] {"1"});
+        Cursor pinCursor = db.rawQuery("SELECT pinNumber FROM pin WHERE _id = ?",
+                new String[] {"1"});
         return pinCursor;
     }
 
@@ -349,14 +352,16 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         // Get db & cursor for costs from users table.
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor costsCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?", new String[] {userID});
+        Cursor costsCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?",
+                new String[] {userID});
 
         // Update costs.
         // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
         if (costsCursor != null & costsCursor.moveToFirst()) {
 
             // Add given total to former costs.
-            float formerCosts = costsCursor.getFloat(costsCursor.getColumnIndex("costs"));
+            float formerCosts = costsCursor.getFloat(
+                    costsCursor.getColumnIndex("costs"));
             float updatedCosts = formerCosts + total;
 
             // Update costs in users table.
@@ -376,11 +381,13 @@ public class StreepDatabase extends SQLiteOpenHelper {
         if (productCursor != null & productCursor.moveToFirst()) {
 
             // Calculate updated total.
-            float formerTotal = productCursor.getFloat(productCursor.getColumnIndex("total"));
+            float formerTotal = productCursor.getFloat(
+                    productCursor.getColumnIndex("total"));
             float updatedTotal = formerTotal + total;
 
             // Calculate updated amount of orders/strepen.
-            int formerStrepen = productCursor.getInt(productCursor.getColumnIndex("strepen"));
+            int formerStrepen = productCursor.getInt(
+                    productCursor.getColumnIndex("strepen"));
             int updatedStrepen = formerStrepen + amount;
 
             // Update table.
@@ -395,7 +402,6 @@ public class StreepDatabase extends SQLiteOpenHelper {
             System.out.println("Er gaat iets fout");
         }
     }
-
 
     // Insert product into products table.
     public void insertProduct(Product product) {
@@ -516,8 +522,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
                 int formerStrepen = productCursor.getInt(productCursor.getColumnIndex("strepen"));
                 int updatedStrepen = formerStrepen - amount;
 
-                // Update table.
-                // Update costs in users table.
+                // Update products table.
                 cv = new ContentValues();
                 cv.put("strepen", updatedStrepen);
                 cv.put("total", updatedTotal);
@@ -539,7 +544,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
     }
 
 
-    // Reset/empty
+    // Partly reset/empty database tables.
     public void emptyDB() {
 
         // Reset costs in users table.

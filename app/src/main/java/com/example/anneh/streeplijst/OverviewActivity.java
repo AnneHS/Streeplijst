@@ -109,35 +109,14 @@ public class OverviewActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar item clicks: go to corresponding activity.
-        int id = item.getItemId();
-        if (id == R.id.overview) {
-            Intent intent = new Intent(OverviewActivity.this, OverviewActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.addProduct) {
-            Intent intent = new Intent(OverviewActivity.this, NewProductActivity.class);
-            startActivity(intent);
-        }
-        else if (id == R.id.addUser) {
-            Intent intent = new Intent(OverviewActivity.this, RegisterActivity.class);
-            startActivity(intent);
-        }
-        else if (id == android.R.id.home) {
-            Intent intent = new Intent(OverviewActivity.this, ProductsActivity.class);
-            startActivity(intent);
-        }
+        // Return to main activity (ProductsActivity) when home button is pressed.
+        Intent intent = new Intent(OverviewActivity.this, ProductsActivity.class);
+        startActivity(intent);
+        finish();
 
         return true;
     }

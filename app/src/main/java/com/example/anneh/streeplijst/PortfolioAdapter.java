@@ -25,13 +25,12 @@ public class PortfolioAdapter extends ResourceCursorAdapter {
         // Set alternating background colors for ListView rows.
         int position = cursor.getPosition();
         if (position % 2 == 1){
-            view.setBackgroundColor(Color.parseColor("#4f83cc"));
+            view.setBackgroundColor(Color.parseColor("#e3f2fd"));
         }
         else {
             view.setBackgroundColor(Color.WHITE);
         }
-
-
+        
         // Get reference to TextViews from portfolio_product.xml.
         TextView nameTV = (TextView) view.findViewById(R.id.productName);
         TextView priceTV = (TextView) view.findViewById(R.id.productPrice);

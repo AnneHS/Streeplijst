@@ -158,14 +158,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
     // AlertDialog: open when remove clicked
     public void removeClicked(View view) {
 
@@ -255,6 +247,7 @@ public class ProfileActivity extends AppCompatActivity {
         if (id == android.R.id.home) {
             Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
             startActivity(intent);
+            finish();
         }
 
         return true;

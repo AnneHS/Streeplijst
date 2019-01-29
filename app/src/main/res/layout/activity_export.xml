@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -16,24 +15,27 @@
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="30sp"
-        android:textStyle="bold" />
+        android:textStyle="normal|bold" />
 
     <TextView
         android:id="@+id/mailTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="e-mailadres:"
         android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/mailTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="Nog geen mail adres opgegeven..."
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/mail"
@@ -45,55 +47,57 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/buttonshape"
+        android:onClick="mailClicked"
         android:shadowColor="#c79400"
         android:shadowDx="0"
+
         android:shadowDy="0"
         android:shadowRadius="5"
-
         android:text="Mail Instellen"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:onClick="mailClicked" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/mailBtn"
 
         android:layout_width="270dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
 
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/buttonshape"
+        android:onClick="exportClicked"
+        android:paddingLeft="5dp"
         android:shadowColor="#c79400"
+
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="5"
-
         android:text="Mail Streeplijst"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        android:textStyle="bold"
-        android:onClick="exportClicked" />
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/emptyBtn"
 
         android:layout_width="270dp"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
 
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/buttonshape"
+        android:onClick="emptyClicked"
         android:shadowColor="#c79400"
         android:shadowDx="0"
+
         android:shadowDy="0"
         android:shadowRadius="5"
-
         android:text="Streeplijst Legen"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
-        android:onClick="emptyClicked" />
+        android:textStyle="bold" />
 </LinearLayout>

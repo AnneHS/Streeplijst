@@ -38,8 +38,10 @@ public class ExportActivity extends AppCompatActivity {
     Button emptyBtn;
 
 
-    // Storage Permissions
-    // https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-external-storage
+    /* Storage Permissions
+    https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-
+    external-storage
+     */
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -51,8 +53,10 @@ public class ExportActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_export);
 
-        // TODO: FileProvider i.p.v. URI & dit verwijderen (exposed beyond app through ClipData.Item.getUri())
-        // https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-exposed-beyond-app-through-clipdata-item-geturi
+        /* Ignore 'file:// Uri' exposure.
+        https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-
+        exposed-beyond-app-through-clipdata-item-geturi
+         */
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
@@ -63,42 +67,47 @@ public class ExportActivity extends AppCompatActivity {
         StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
         mailAddress = db.getMail();
 
-        // Display address if given.
+        // Display e-mail address if given.
         if (mailAddress != "") {
             TextView mailTV = findViewById(R.id.mailTV);
             mailTV.setText(mailAddress);
         }
         else {
-            Toast toast = Toast.makeText(getApplicationContext(), "Geen mail gevonden", Toast.LENGTH_SHORT);
-            toast.show();
+            Toast.makeText(getApplicationContext(), "Nog geen e-mailadres ingesteld.",
+                    Toast.LENGTH_SHORT).show();
         }
 
+        // Disable button to empty database while CSV-files have not been e-mailed.
         emptyBtn = (Button) findViewById(R.id.emptyBtn);
+        emptyBtn.setBackground(getApplicationContext().getDrawable(R.drawable.unabled_btn));
         emptyBtn.setEnabled(false);
-
     }
 
+    // Ask for pin when export button clicked.
     public void exportClicked(View view) {
 
-        // Get prompts.xml view
+        // Get prompts.xml view (Custom AlertDialog).
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View promptView = layoutInflater.inflate(R.layout.prompts, null);
 
+        // Create builder for AlertDialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(promptView);
 
-        // Get reference to EditText
+        // Get reference to EditText in AlertDialog.
         pinET = promptView.findViewById(R.id.pinET);
 
         // Set dialog window.
-        builder.setMessage("Streeplijst exporteren?")
-                .setCancelable(false)
+        builder.setCancelable(false)
+
+                // Check PIN if user confirms export.
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        // Check PIN
+                        // Cancel if no PIN
                         StreepDatabase db = StreepDatabase.getInstance(getApplicationContext());
                         Cursor pinCursor = db.getPin();
+
                         if (pinCursor != null & pinCursor.moveToFirst()) {
 
                             // If PIN.
@@ -246,6 +255,7 @@ public class ExportActivity extends AppCompatActivity {
 
                 // Enable empty button.
                 emptyBtn.setEnabled(true);
+                emptyBtn.setBackground(getApplicationContext().getDrawable(R.drawable.buttonshape));
 
             }
             catch(Exception sqlEx) {
@@ -352,13 +362,10 @@ public class ExportActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // Handle action bar clicks: return to ProductsActivity.
-        int id = item.getItemId();
-
-        if (id == android.R.id.home) {
-            Intent intent = new Intent(ExportActivity.this, ProductsActivity.class);
-            startActivity(intent);
-        }
+        // Return to main activity (ProductsActivity) when home button is pressed.
+        Intent intent = new Intent(ExportActivity.this, ProductsActivity.class);
+        startActivity(intent);
+        finish();
 
         return true;
     }

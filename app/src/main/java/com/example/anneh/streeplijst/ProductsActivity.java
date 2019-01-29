@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,38 +90,14 @@ public class ProductsActivity extends AppCompatActivity {
             }
 
             if (nextActivity != null){
+
+                // Go to next activity.
                 Intent intent = new Intent(ProductsActivity.this, nextActivity);
                 startActivity(intent);
             }
 
-
-//            // Handle action bar item clicka: go to corresponding activity.
-//            int id = item.getItemId();
-//
-//            if (id == R.id.overview) {
-//                Intent intent = new Intent(ProductsActivity.this, OverviewActivity.class);
-//                startActivity(intent);
-//            }
-//            else if (id == R.id.addProduct) {
-//                Intent intent = new Intent(ProductsActivity.this, NewProductActivity.class);
-//                startActivity(intent);
-//            }
-//            else if (id == R.id.addUser) {
-//                Intent intent = new Intent(ProductsActivity.this, RegisterActivity.class);
-//                startActivity(intent);
-//            }
-//            else if (id == R.id.export) {
-//                Intent intent = new Intent(ProductsActivity.this, ExportActivity.class);
-//                startActivity(intent);
-//            }
-//            else if (id == R.id.pin) {
-//                Intent intent = new Intent(ProductsActivity.this, PinActivity.class);
-//                startActivity(intent);
-//            }
-//            else if (id == R.id.csv) {
-//
-//
-//            }
+            // Close drawer without animation.
+            drawer.closeDrawer(Gravity.START, false);
 
             return true;
         }

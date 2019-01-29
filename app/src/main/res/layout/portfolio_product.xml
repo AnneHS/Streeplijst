@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingLeft="3dp"
-        android:text="productName" />
+        android:text="productName"
+        android:textAlignment="center" />
 
     <TextView
         android:id="@+id/productPrice"

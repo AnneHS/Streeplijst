@@ -21,8 +21,10 @@
         android:id="@+id/totalCosts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:text="TextView"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/transactions"
@@ -41,7 +43,7 @@
 
         <TextView
             android:id="@+id/userTitle"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="20dp"
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
@@ -54,7 +56,7 @@
 
         <TextView
             android:id="@+id/productTitle"
-            android:layout_width="60dp"
+            android:layout_width="50dp"
             android:layout_height="20dp"
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
@@ -66,7 +68,7 @@
 
         <TextView
             android:id="@+id/priceTitle"
-            android:layout_width="20dp"
+            android:layout_width="25dp"
             android:layout_height="20dp"
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"
@@ -90,7 +92,7 @@
 
         <TextView
             android:id="@+id/totalTitle"
-            android:layout_width="20dp"
+            android:layout_width="25dp"
             android:layout_height="20dp"
             android:layout_weight="1"
             android:background="@color/colorPrimaryDark"

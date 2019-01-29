@@ -138,13 +138,10 @@ public class PinActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        // TODO: overbodig met maar één optie?
-        // Handle action bar item clicks: go to corresponding activity.
-        int id = item.getItemId();
-        if (id == android.R.id.home) {
-            Intent intent = new Intent(PinActivity.this, ProductsActivity.class);
-            startActivity(intent);
-        }
+        // Return to main activity (ProductsActivity) when home button is pressed.
+        Intent intent = new Intent(PinActivity.this, ProductsActivity.class);
+        startActivity(intent);
+        finish();
 
         return true;
     }

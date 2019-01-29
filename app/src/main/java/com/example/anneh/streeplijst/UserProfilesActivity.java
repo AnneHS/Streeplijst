@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -13,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -102,38 +105,65 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
         userGrid.setOnItemClickListener(new UserProfilesActivity.GridViewClickListener());
     }
 
-
     private class NavigationViewClickListener implements NavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+            Class nextActivity = null;
 
-            // TODO: Case.
-            // Handle action bar item clicks: go to corresponding activity.
-            int id = item.getItemId();
+            // Get next activity.
+            switch(item.getItemId()) {
+                case R.id.overview:     nextActivity = OverviewActivity.class;
+                                        break;
+                case R.id.users:        drawer.closeDrawers();
+                                        break;
+                case R.id.addProduct:   nextActivity = NewProductActivity.class;
+                                        break;
+                case R.id.addUser:      nextActivity = RegisterActivity.class;
+                                        break;
+                case R.id.export:       nextActivity = ExportActivity.class;
+                                        break;
+                case R.id.pin:          nextActivity = PinActivity.class;
+                                        break;
+                case R.id.csv:          openCSVFolder();
+                                        break;
+            }
 
-            if (id == R.id.overview) {
-                Intent intent = new Intent(UserProfilesActivity.this, OverviewActivity.class);
+            if (nextActivity != null){
+
+                // Go to next activity.
+                Intent intent = new Intent(UserProfilesActivity.this, nextActivity);
                 startActivity(intent);
             }
-            else if (id == R.id.addProduct) {
-                Intent intent = new Intent(UserProfilesActivity.this, NewProductActivity.class);
-                startActivity(intent);
-            }
-            else if (id == R.id.addUser) {
-                Intent intent = new Intent(UserProfilesActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-            else if (id == R.id.export) {
-                Intent intent = new Intent(UserProfilesActivity.this, ExportActivity.class);
-                startActivity(intent);
-            }
-            else if (id == R.id.pin) {
-                Intent intent = new Intent(UserProfilesActivity.this, PinActivity.class);
-                startActivity(intent);
-            }
+
+
+            // Close drawer without animation.
+            drawer.closeDrawer(Gravity.START, false);
 
             return true;
+        }
+    }
+
+    public void openCSVFolder() {
+
+        //https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
+
+        // Create URI for CSV-folder path.
+        Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() +
+                "/Streeplijst/");
+
+        // Open folder (file explorer needed).s
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(selectedUri, "resource/folder");
+        if (intent.resolveActivityInfo(getPackageManager(), 0) != null) {
+            startActivity(intent);
+        }
+        else {
+
+            // Display toast if user has not installed file explorer.
+            Toast toast = Toast.makeText(getApplicationContext(), "Installeer een " +
+                    "file explorer om verder te gaan.", Toast.LENGTH_SHORT);
+            toast.show();
         }
     }
 

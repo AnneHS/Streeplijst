@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -329,8 +330,13 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
             }
         }
 
-        // Confirm success with toast.
-        Toast toast = Toast.makeText(getApplicationContext(), "Gestreept!", Toast.LENGTH_SHORT);
+        // https://www.dev2qa.com/android-custom-toast-example/
+        Toast toast = new Toast(getApplicationContext());
+
+        View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_view, null);
+        toast.setView(customToastView);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0,0);
         toast.show();
 
         // Return to ProductsActivity.

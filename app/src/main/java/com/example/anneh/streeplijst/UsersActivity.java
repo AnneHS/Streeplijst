@@ -3,6 +3,7 @@ package com.example.anneh.streeplijst;
 import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -24,6 +26,7 @@ import android.widget.FilterQueryProvider;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -219,23 +222,65 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         }
     }
 
-    // LongClick: Go to user profile (ProfileActivity).
+    // LongClick: Open AlertDialog to change selected count.
     private class GridViewLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-            // Get selected username & ID and pass to ProfileActivity
-            Intent intent = new Intent(UsersActivity.this, ProfileActivity.class);
+            // Get reference to LinearLayout
+            final LinearLayout userLL = view.findViewById(R.id.userLL);
+
+            // Get current count for clicked user.
             Cursor clickedUser = (Cursor) parent.getItemAtPosition(position);
-            intent.putExtra("user_id",
-                    clickedUser.getInt(clickedUser.getColumnIndex("_id")));
-            intent.putExtra("user_name",
-                    clickedUser.getString(clickedUser.getColumnIndex("name")));
-            intent.putExtra("img_path",
-                    clickedUser.getString(clickedUser.getColumnIndex("imgPath")));
-            intent.putExtra("img_name",
-                    clickedUser.getString(clickedUser.getColumnIndex("imgName")));
-            startActivity(intent);
+            final int userID =  clickedUser.getInt(clickedUser.getColumnIndex("_id"));
+            int currentCount = selectedMap.get(userID);
+
+            // https://stackoverflow.com/questions/40162539/display-a-numberpicker-on-an-alertdialog
+            final NumberPicker numberPicker = new NumberPicker(getApplicationContext());
+            numberPicker.setMaxValue(100);
+            numberPicker.setMinValue(0);
+            numberPicker.setValue(currentCount);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(UsersActivity.this)
+                    .setTitle("Strepen")
+                    .setMessage("Kies het aantal strepen: ")
+                    .setView(numberPicker)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(DialogInterface dialog, int which) {
+
+                           // Get updated count and save in selectedMap.
+                           int updatedCount = numberPicker.getValue();
+                           selectedMap.put(userID,updatedCount);
+
+                           // Get reference to TextView.
+                           TextView amountTV = (TextView) userLL.findViewById(R.id.amount);
+
+                           // Display updated count.
+                           if (updatedCount > 0) {
+                               String amount = Integer.toString(updatedCount);
+                               amountTV.setText(amount);
+                           }
+
+                           // Return background color to normal and TextView to "" if 0.
+                           else {
+                               amountTV.setText("");
+                               userLL.setBackgroundResource(R.color.colorPrimary);
+                           }
+
+                       }
+                    })
+                    .setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+
+            // Create dialog box & show.
+            AlertDialog alert = builder.create();
+            alert.show();
+
             return true;
         }
     }

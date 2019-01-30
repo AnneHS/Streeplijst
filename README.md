@@ -17,10 +17,6 @@ Indien er in een huis gezamenlijk drank wordt ingekocht kan met deze app worden 
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/PortfolioActivity.jpg" height="5%" width="24%"/> <img
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/AlertDialog.jpg" height="5%" width="24%"/> <img
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/NewProductActivity.jpg" height="5%" width="24%"/>   
-   
-   <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/OveriewActivity.jpg" height="5%" width="24%"/>
-  
- 
 </p>
 # Sources
 https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html

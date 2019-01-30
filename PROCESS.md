@@ -111,4 +111,7 @@ De database kan nu worden geleegd nadat de Csv-bestanden zijn verstuurd. Daarnaa
 Ook het menu bij het gebruikersoverzicht is vervangen door een Navigation Drawer. Er is een transactieoverzicht toegevoegd aan de product profiel pagina's. Daarnaast wordt nu bijgehouden hoevaak een product is gestreept. In het producten overzicht worden de producten hierop gesorteerd: producten die het vaakst zijn gestreept staan bovenaan.   
 
 **Dag 20 (27-01-2019)**   
-De transacties zijn nu ook verwijderbaar vanuit het productoverzicht. Er is een apart gebruikers/profiel overzicht gemaakt zodat de gebruiker zijn of haar profiel kan bekijken zonder dat er eerst een product moet worden uitgekozen.   
+De transacties zijn nu ook verwijderbaar vanuit het productoverzicht. Er is een apart gebruikers/profiel overzicht gemaakt zodat de gebruiker zijn of haar profiel kan bekijken zonder dat er eerst een product moet worden uitgekozen.  
+
+**Dag 21 (28-01-2019)**  
+Besloten om een aparte activiteit aan te maken voor het gebruikersoverzicht, waar kan worden doorgeklikt naar de profielpagina's van gebruikers. Hiervoor kon dit alleen nadat er een oroduct was geselecteerd.

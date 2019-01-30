@@ -1,4 +1,4 @@
-# Eindproject: Automatische Streeplijst
+# Eindproject: Automatische Streeplijst (Android App)
 
 *Anne Hoogerduijn Strating*  
 *12441163*  

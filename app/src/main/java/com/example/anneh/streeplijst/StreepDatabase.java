@@ -321,7 +321,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
     }
 
 
-    //
+    // Get cursor for PIN.
     public Cursor getPin() {
 
         SQLiteDatabase db = this.getReadableDatabase();

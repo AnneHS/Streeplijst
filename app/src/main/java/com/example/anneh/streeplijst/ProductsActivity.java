@@ -109,7 +109,7 @@ public class ProductsActivity extends AppCompatActivity {
     }
 
     /* Open phone directory with the "Streeplijst" Csv files.
-    //https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
+    https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
      */
     public void openCSVFolder() {
 

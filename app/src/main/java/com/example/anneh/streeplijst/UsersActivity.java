@@ -158,7 +158,6 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
                 startActivity(intent);
             }
 
-
             // Close drawer without animation.
             drawer.closeDrawer(Gravity.START, false);
 
@@ -386,9 +385,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
             }
         }
 
-        /* Custom Toast: toast with image to confirm.
-        https://www.dev2qa.com/android-custom-toast-example/
-         */
+        // Custom Toast: toast with image to confirm.
         Toast toast = new Toast(getApplicationContext());
         View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_view, null);
         toast.setView(customToastView);

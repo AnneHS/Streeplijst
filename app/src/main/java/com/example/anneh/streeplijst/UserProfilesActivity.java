@@ -228,9 +228,7 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
         return true;
     }
 
-    /* Keep track of selected users.
-    https://stackoverflow.com/questions/18030384/get-listview-item-clicked-count-in-android
-     */
+    // Pas selected user info to ProfileActivity.
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
 
         @Override

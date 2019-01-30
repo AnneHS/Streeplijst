@@ -213,9 +213,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
-    /* Request for permission result.
-    https://stackoverflow.com/questions/39866869/how-to-ask-permission-to-access-gallery-on-android-m/39866945
-     */
+    // Request for permission result.
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
                                            @NonNull int[] grantResults)

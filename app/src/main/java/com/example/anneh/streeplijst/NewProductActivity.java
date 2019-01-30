@@ -52,9 +52,6 @@ public class NewProductActivity extends AppCompatActivity {
     private static int RESULT_LOAD_IMAGE = 1;
     private static final int PICK_FROM_GALLERY = 1;
 
-    // https://stackoverflow.com/questions/27810945/select-video-from-gallery-cannot-find-symbol-result-load-image
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

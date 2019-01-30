@@ -116,9 +116,7 @@ public class PinActivity extends AppCompatActivity {
                                 }
                                 else {
 
-                                    /* Custom Toast: wrong PIN.
-                                    https://www.dev2qa.com/android-custom-toast-example/
-                                     */
+                                    // Custom Toast: wrong PIN.
                                     Toast toast = new Toast(getApplicationContext());
                                     View customToastView = getLayoutInflater().inflate(
                                             R.layout.activity_toast_custom_simple, null);

@@ -19,14 +19,14 @@ Indien er in een huis gezamenlijk drank wordt ingekocht kan met deze app worden 
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/NewProductActivity.jpg" height="5%" width="24%"/>   
 </p>
 ##  Sources    
-https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html    
-https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android    
-https://www.dev2qa.com/android-custom-toast-example/     
-https://www.javatpoint.com/android-alert-dialog-example     
-https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f     
-https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file    
-https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-exposed-beyond-app-through-clipdata-item-geturi    
-https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel    
-https://stackoverflow.com/questions/18229358/bitmap-in-imageview-with-rounded-corners    
-https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-external-storage     
+https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html  
+https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android  
+https://www.dev2qa.com/android-custom-toast-example/  
+https://www.javatpoint.com/android-alert-dialog-example  
+https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f  
+https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file  
+https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-exposed-beyond-app-through-clipdata-item-geturi  
+https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel  
+https://stackoverflow.com/questions/18229358/bitmap-in-imageview-with-rounded-corners  
+https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-external-storage  
 http://viralpatel.net/blogs/pick-image-from-galary-android-app/

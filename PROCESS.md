@@ -114,4 +114,10 @@ Ook het menu bij het gebruikersoverzicht is vervangen door een Navigation Drawer
 De transacties zijn nu ook verwijderbaar vanuit het productoverzicht. Er is een apart gebruikers/profiel overzicht gemaakt zodat de gebruiker zijn of haar profiel kan bekijken zonder dat er eerst een product moet worden uitgekozen.  
 
 **Dag 21 (28-01-2019)**  
-Besloten om een aparte activiteit aan te maken voor het gebruikersoverzicht, waar kan worden doorgeklikt naar de profielpagina's van gebruikers. Hiervoor kon dit alleen nadat er een oroduct was geselecteerd.
+Besloten om een aparte activiteit aan te maken voor het gebruikersoverzicht, waar kan worden doorgeklikt naar de profielpagina's van gebruikers. Hiervoor kon dit alleen nadat er een product was geselecteerd. Nu kan dit zonder aan het "strepen" te beginnen.  
+
+**Dag 22 (29-01-2019)**  
+Na de app te laten testen door een aantal huisgenoten, besloten om een aantal dingen te verwijderen. Er kan nu enkel nog worden doorgeklikt naar de profielpagina van een gebruiker middels de apart hiervoor aangemaakte activiteit. Tijdens het strepen kan de gebruiker lang worden ingedrukt om vervolgens strepen te verwijderen. Daarnaast een Custom Toast aangemaakt waardoor heel groot in beeld komt dat er gestreept is zodat het duidelijk is dat het strepen gelukt is.  
+
+**Dag 23 (30-01-2019)**  
+Gewerkt aan comments, Git etc.

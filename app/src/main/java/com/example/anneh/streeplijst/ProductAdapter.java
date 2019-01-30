@@ -1,3 +1,10 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Adapter for product gridview in the ProductsActivity.
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.content.Context;

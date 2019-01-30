@@ -1,13 +1,18 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Activity that shows a GridView of the users.
+ */
+
 package com.example.anneh.streeplijst;
 
-import android.app.ActionBar;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -19,7 +24,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,7 +32,6 @@ import android.widget.AdapterView;
 import android.widget.FilterQueryProvider;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,8 +56,9 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
-        // Set navigation drawer.
-        // https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
+        /* Set navigation drawer.
+        https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
+         */
         drawer = (DrawerLayout)findViewById(R.id.activity_users);
         toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.Close);
         drawer.addDrawerListener(toggle);
@@ -63,14 +67,16 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
 
         // Set listener for Navigation Drawer.
         navigationView = (NavigationView)findViewById(R.id.nv);
-        navigationView.setNavigationItemSelectedListener(new UsersActivity.NavigationViewClickListener());
+        navigationView.setNavigationItemSelectedListener(
+                new UsersActivity.NavigationViewClickListener());
 
         // Get cursor for users table from StreepDatabase.
         db = StreepDatabase.getInstance(getApplicationContext());
         usersCursor = db.selectUsers();
 
-        // Get all user id's.
-        // https://stackoverflow.com/questions/12481595/how-to-get-all-ids-from-a-sqlite-database
+        /* Get all user id's.
+        https://stackoverflow.com/questions/12481595/how-to-get-all-ids-from-a-sqlite-database
+         */
         ArrayList<Integer> users = new ArrayList<Integer>();
         if (usersCursor.moveToFirst()) {
            do {
@@ -89,8 +95,9 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         GridView userGrid = (GridView) findViewById(R.id.userGrid);
         userGrid.setAdapter(adapter);
 
-        // Change GridView/Adapter based on search query.
-        // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+        /* Change GridView/Adapter based on search query.
+        https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+         */
         userGrid.setTextFilterEnabled(true);
         adapter.setFilterQueryProvider(new FilterQueryProvider() {
             @Override
@@ -161,13 +168,13 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
 
     public void openCSVFolder() {
 
-        //https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
-
         // Create URI for CSV-folder path.
         Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() +
                 "/Streeplijst/");
 
-        // Open folder (file explorer needed).s
+        /* Open folder (file explorer needed).
+        https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
+         */
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(selectedUri, "resource/folder");
         if (intent.resolveActivityInfo(getPackageManager(), 0) != null) {
@@ -195,7 +202,7 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-        // Inflate the menu; this adds a search menu to the action bar if it is present
+        // Inflate the menu; this adds a search menu to the action bar if it is present.
         getMenuInflater().inflate(R.menu.search_menu, menu);
 
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -209,12 +216,14 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         return true;
     }
 
-    // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
+    /* Notify UserAdapter when search function is used.
+    https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+     */
     @Override
     public boolean onQueryTextChange(String newText) {
 
@@ -224,8 +233,9 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
         return true;
     }
 
-    // Keep track of selected users.
-    // https://stackoverflow.com/questions/18030384/get-listview-item-clicked-count-in-android
+    /* Keep track of selected users.
+    https://stackoverflow.com/questions/18030384/get-listview-item-clicked-count-in-android
+     */
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
 
         @Override
@@ -266,12 +276,15 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
             final int userID =  clickedUser.getInt(clickedUser.getColumnIndex("_id"));
             int currentCount = selectedMap.get(userID);
 
-            // https://stackoverflow.com/questions/40162539/display-a-numberpicker-on-an-alertdialog
+            /* Set values for NumberPicker
+            https://stackoverflow.com/questions/40162539/display-a-numberpicker-on-an-alertdialog
+             */
             final NumberPicker numberPicker = new NumberPicker(getApplicationContext());
             numberPicker.setMaxValue(100);
             numberPicker.setMinValue(0);
             numberPicker.setValue(currentCount);
 
+            // AlertDialog with NumberPicker
             AlertDialog.Builder builder = new AlertDialog.Builder(UsersActivity.this)
                     .setTitle("Strepen")
                     .setMessage("Kies het aantal strepen: ")
@@ -332,8 +345,10 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
 
             // If selected at least once, add transaction.
             if (amount > 0) {
-                // Update tables for current userID.
-                // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
+
+                /* Update tables for current userID.
+                https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
+                 */
                 Cursor userCursor = db.selectUser(userID);
                 if (userCursor != null && userCursor.moveToFirst()) {
 
@@ -353,14 +368,27 @@ public class UsersActivity extends AppCompatActivity implements SearchView.OnQue
                     db.streep(userID, transaction.getTotal(), productID, amount);
 
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Er gaat iets fout", Toast.LENGTH_SHORT);
-                    toast.show();
 
+                    /* Custom Toast: something went wrong.
+                    https://www.dev2qa.com/android-custom-toast-example/
+                     */
+                    Toast toast = new Toast(getApplicationContext());
+                    View customToastView = getLayoutInflater().inflate(
+                            R.layout.activity_toast_custom_simple, null);
+                    TextView toastTV = (TextView) customToastView.findViewById(
+                            R.id.toastText);
+                    toastTV.setText("ERROR: er kon niet worden gestreept.");
+                    toast.setView(customToastView);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0,0);
+                    toast.show();
                 }
             }
         }
 
-        // https://www.dev2qa.com/android-custom-toast-example/
+        /* Custom Toast: toast with image to confirm.
+        https://www.dev2qa.com/android-custom-toast-example/
+         */
         Toast toast = new Toast(getApplicationContext());
         View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_view, null);
         toast.setView(customToastView);

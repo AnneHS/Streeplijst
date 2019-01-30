@@ -1,3 +1,10 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Activity that shows a GridView of the users. User can be selected to go to their profile page.
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.app.SearchManager;
@@ -46,8 +53,9 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profiles);
 
-        // Set navigation drawer.
-        // https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
+        /* Set navigation drawer.
+        https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
+         */
         drawer = (DrawerLayout)findViewById(R.id.activity_user_profiles);
         toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.Close);
         drawer.addDrawerListener(toggle);
@@ -56,7 +64,8 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
 
         // Set listener for Navigation Drawer.
         navigationView = (NavigationView)findViewById(R.id.nv);
-        navigationView.setNavigationItemSelectedListener(new UserProfilesActivity.NavigationViewClickListener());
+        navigationView.setNavigationItemSelectedListener(
+                new UserProfilesActivity.NavigationViewClickListener());
 
         // Get cursor for users table from StreepDatabase.
         db = StreepDatabase.getInstance(getApplicationContext());
@@ -76,8 +85,9 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
         GridView userGrid = (GridView) findViewById(R.id.userGrid);
         userGrid.setAdapter(adapter);
 
-        // Change GridView/Adapter based on search query.
-        // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+        /* Change GridView/Adapter based on search query.
+        https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+         */
         userGrid.setTextFilterEnabled(true);
         adapter.setFilterQueryProvider(new FilterQueryProvider() {
             @Override
@@ -136,7 +146,6 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
                 startActivity(intent);
             }
 
-
             // Close drawer without animation.
             drawer.closeDrawer(Gravity.START, false);
 
@@ -146,13 +155,13 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
 
     public void openCSVFolder() {
 
-        //https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
-
         // Create URI for CSV-folder path.
         Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() +
                 "/Streeplijst/");
 
-        // Open folder (file explorer needed).s
+        /* Open folder (file explorer needed).
+        https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
+         */
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(selectedUri, "resource/folder");
         if (intent.resolveActivityInfo(getPackageManager(), 0) != null) {
@@ -160,9 +169,16 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
         }
         else {
 
-            // Display toast if user has not installed file explorer.
-            Toast toast = Toast.makeText(getApplicationContext(), "Installeer een " +
-                    "file explorer om verder te gaan.", Toast.LENGTH_SHORT);
+            // Custom Toast: Install file explorer to continue.
+            Toast toast = new Toast(getApplicationContext());
+            View customToastView = getLayoutInflater().inflate(
+                    R.layout.activity_toast_custom_simple, null);
+            TextView toastTV = (TextView) customToastView.findViewById(
+                    R.id.toastText);
+            toastTV.setText("Installeer file explorer om Csv bestanden te bekijken.");
+            toast.setView(customToastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0,0);
             toast.show();
         }
     }
@@ -194,12 +210,15 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
         return true;
     }
 
-    // https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+
     @Override
     public boolean onQueryTextSubmit(String query) {
         return false;
     }
 
+    /* Notify adapter when search function is used.
+    https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
+    */
     @Override
     public boolean onQueryTextChange(String newText) {
 
@@ -209,8 +228,9 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
         return true;
     }
 
-    // Keep track of selected users.
-    // https://stackoverflow.com/questions/18030384/get-listview-item-clicked-count-in-android
+    /* Keep track of selected users.
+    https://stackoverflow.com/questions/18030384/get-listview-item-clicked-count-in-android
+     */
     private class GridViewClickListener implements AdapterView.OnItemClickListener {
 
         @Override
@@ -220,8 +240,9 @@ public class UserProfilesActivity extends AppCompatActivity implements SearchVie
             LinearLayout user = view.findViewById(R.id.userLL);
             user.setBackgroundResource(R.color.colorPrimaryDark);
 
-            // Get selected username & ID and pass to ProfileActivity
-            Intent intent = new Intent(UserProfilesActivity.this, ProfileActivity.class);
+            // Get selected username & ID and pass to ProfileActivity.
+            Intent intent = new Intent(UserProfilesActivity.this,
+                    ProfileActivity.class);
             Cursor clickedUser = (Cursor) parent.getItemAtPosition(position);
             intent.putExtra("user_id",
                     clickedUser.getInt(clickedUser.getColumnIndex("_id")));

@@ -1,3 +1,9 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Adapter for the users GridView in UsersActivity.
+ */
 package com.example.anneh.streeplijst;
 
 import android.content.Context;
@@ -26,7 +32,6 @@ import java.util.HashMap;
 
 public class UserAdapter extends ResourceCursorAdapter {
 
-    private UserAdapter instance;
     HashMap<Integer,Integer> selectedMap;
 
     // Constructor

@@ -1,3 +1,9 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Adapter for the transactins ListView in profileActivity.
+ */
 package com.example.anneh.streeplijst;
 
 import android.content.Context;
@@ -44,8 +50,9 @@ public class TransactionAdapter extends ResourceCursorAdapter {
         String date = cursor.getString(cursor.getColumnIndex("timestamp"));
         int removed = cursor.getInt(cursor.getColumnIndex("removed"));
 
-        // Get formatter for devices default currency.
-        // https://stackoverflow.com/questions/7131922/how-to-format-a-float-value-with-the-device-currency-format
+        /* Get formatter for devices default currency.
+        https://stackoverflow.com/questions/7131922/how-to-format-a-float-value-with-the-device-currency-format
+         */
         Format format = NumberFormat.getCurrencyInstance();
 
         // Set text color to black.

@@ -1,3 +1,10 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+User class.
+ */
+
 package com.example.anneh.streeplijst;
 
 public class User {

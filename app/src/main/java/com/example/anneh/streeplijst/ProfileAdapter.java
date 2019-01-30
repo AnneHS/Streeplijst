@@ -1,3 +1,9 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Adapter for the profile GridView in the UserProfilesActivity.
+ */
 package com.example.anneh.streeplijst;
 
 import android.content.Context;
@@ -38,11 +44,11 @@ public class ProfileAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
 
-        // Change color
+        // Change color.
         LinearLayout product = view.findViewById(R.id.userLL);
         product.setBackgroundResource(R.color.colorPrimary);
 
-        // Get reference to views from user.xml.
+        // Get reference to views from user.xml.s
         TextView usernameTV = view.findViewById(R.id.user);
         ImageView userIV = view.findViewById(R.id.userImg);
         LinearLayout userLL = view.findViewById(R.id.userLL);

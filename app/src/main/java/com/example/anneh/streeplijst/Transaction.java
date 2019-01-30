@@ -1,3 +1,9 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Transaction class.
+ */
 package com.example.anneh.streeplijst;
 
 public class Transaction {

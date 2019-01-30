@@ -1,3 +1,10 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.Manifest;
@@ -16,12 +23,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
@@ -33,19 +42,18 @@ import java.io.OutputStream;
 public class NewProductActivity extends AppCompatActivity {
 
     StreepDatabase db;
-
-
     EditText nameET;
     EditText priceET;
     String productName;
     float productPrice;
     Button addBtn;
     AlertDialog.Builder builder;
-
-    // https://stackoverflow.com/questions/27810945/select-video-from-gallery-cannot-find-symbol-result-load-image
+    Bitmap bitmap;
     private static int RESULT_LOAD_IMAGE = 1;
     private static final int PICK_FROM_GALLERY = 1;
-    Bitmap bitmap;
+
+    // https://stackoverflow.com/questions/27810945/select-video-from-gallery-cannot-find-symbol-result-load-image
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +70,9 @@ public class NewProductActivity extends AppCompatActivity {
         nameET = (EditText) findViewById(R.id.name);
         priceET = (EditText) findViewById(R.id.price);
 
-        // TODO: Ask for pin
-        // Open AlertDialog when add button is clicked.
-        // https://www.javatpoint.com/android-alert-dialog-example
+        /* Open AlertDialog when add button is clicked.
+        https://www.javatpoint.com/android-alert-dialog-example
+         */
         addBtn = (Button) findViewById(R.id.addProduct);
         builder = new AlertDialog.Builder(this);
         addBtn.setOnClickListener(new View.OnClickListener(){
@@ -72,26 +80,53 @@ public class NewProductActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 // Get product name if entered, else return.
-                if (!nameET.getText().toString().equals("") && nameET.getText().toString().length() > 0) {
+                if (!nameET.getText().toString().equals("") &&
+                        nameET.getText().toString().length() > 0) {
                     productName = nameET.getText().toString();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Geef productnaam", Toast.LENGTH_SHORT).show();
+
+                    // Custom Toast: Enter product name.
+                    Toast toast = new Toast(getApplicationContext());
+                    View customToastView = getLayoutInflater().inflate(
+                            R.layout.activity_toast_custom_simple, null);
+                    TextView toastTV = (TextView) customToastView.findViewById(
+                            R.id.toastText);
+                    toastTV.setText("Voer productnaam in.");
+                    toast.setView(customToastView);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0,0);
+                    toast.show();
+
                     return;
                 }
 
                 // Get price if entered, else return.
-                if(!nameET.getText().toString().equals("") && nameET.getText().toString().length() > 0) {
+                if(!nameET.getText().toString().equals("") && nameET.getText().toString().length()
+                        > 0) {
                     productPrice = Float.valueOf(priceET.getText().toString());
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Geef prijs", Toast.LENGTH_SHORT).show();
+
+                    // Custom Toast: Enter product price.
+                    Toast toast = new Toast(getApplicationContext());
+                    View customToastView = getLayoutInflater().inflate(
+                            R.layout.activity_toast_custom_simple, null);
+                    TextView toastTV = (TextView) customToastView.findViewById(
+                            R.id.toastText);
+                    toastTV.setText("Voer prijs in.");
+                    toast.setView(customToastView);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0,0);
+                    toast.show();
+
                     return;
                 }
 
                 // Return if no image uploaded.
                 if(bitmap == null) {
-                    Toast.makeText(getApplicationContext(), "Upload afbeelding", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Upload afbeelding",
+                            Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -101,21 +136,23 @@ public class NewProductActivity extends AppCompatActivity {
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-                                // Save bitmap to internal storage.
-                                // https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html
-
                                 // Make image name.
                                 String imgName = productName + ".jpg";
 
                                 // Create a file to save the image.
-                                ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
-                                File directory = wrapper.getDir("Product_Images", MODE_PRIVATE);
+                                ContextWrapper wrapper = new ContextWrapper(
+                                        getApplicationContext());
+                                File directory = wrapper.getDir(
+                                        "Product_Images", MODE_PRIVATE);
                                 File mypath = new File(directory, imgName);
 
+                                /* Save bitmap to internal storage.
+                                https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html
+                                 */
                                 try {
 
                                     // Create OutputStream to write bytes to the file.
-                                    OutputStream stream = null;
+                                    OutputStream stream;
                                     stream = new FileOutputStream(mypath);
 
                                     // Write compressed version of the bitmap to the OutputStream.
@@ -123,23 +160,45 @@ public class NewProductActivity extends AppCompatActivity {
                                     stream.flush();
                                     stream.close();
 
-                                    // Path
+                                    // Path.
                                     String imgPath = directory.getAbsolutePath();
 
-                                    // Add product to products table (StreepDatabase)
-                                    Product newProduct = new Product(productName, productPrice, imgPath, imgName);
+                                    // Add product to products table (StreepDatabase).
+                                    Product newProduct = new Product(productName, productPrice,
+                                            imgPath, imgName);
                                     db.insertProduct(newProduct);
 
-                                    // Confirm with toast.
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Product toegevoegd", Toast.LENGTH_SHORT);
+                                    // Custom Toast: Product added.
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(
+                                            R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(
+                                            R.id.toastText);
+                                    toastTV.setText("Product toegevoegd.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
 
                                     // Return to ProductsActivity.
-                                    Intent intent = new Intent(NewProductActivity.this, ProductsActivity.class);
+                                    Intent intent = new Intent(NewProductActivity.this,
+                                            ProductsActivity.class);
                                     startActivity(intent);
 
-                                }catch (IOException e) {
+                                } catch (IOException e) {
                                     e.printStackTrace();
+
+                                    // Custom Toast: Error, could not save image.
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(
+                                            R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(
+                                            R.id.toastText);
+                                    toastTV.setText("ERROR: Kan afbeelding niet opslaan.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
+                                    toast.show();
                                 }
                             }
                         })
@@ -159,23 +218,25 @@ public class NewProductActivity extends AppCompatActivity {
     }
 
 
-    // Open Gallery when upload Button clicked.
-    // https://stackoverflow.com/questions/39866869/how-to-ask-permission-to-access-gallery-on-android-m/39866945
+    /* Open Gallery when upload Button clicked.
+    https://stackoverflow.com/questions/39866869/how-to-ask-permission-to-access-gallery-on-android-m/39866945
+     */
     public void uploadClicked (View view) {
 
-
         try {
-            // Ask for permission if not yet given.
-            if (ActivityCompat.checkSelfPermission(NewProductActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(NewProductActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
+
+            // Ask for permission to access storage if not yet given.
+            if (ActivityCompat.checkSelfPermission(NewProductActivity.this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(NewProductActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_FROM_GALLERY);
             } else {
 
-                // Intent to open Image Gallery.
+                // Open Image Gallery.
                 Intent uploadIntent = new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-                // Open Gallery.
                 startActivityForResult(uploadIntent, RESULT_LOAD_IMAGE);
             }
         } catch (Exception e) {
@@ -183,28 +244,48 @@ public class NewProductActivity extends AppCompatActivity {
         }
     }
 
-    // Request -->
-    // https://stackoverflow.com/questions/39866869/how-to-ask-permission-to-access-gallery-on-android-m/39866945
+    /* If user responds to permission request: check if permission has been granted.
+    https://stackoverflow.com/questions/39866869/how-to-ask-permission-to-access-gallery-on-android-m/39866945
+     */
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults)
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[],
+                                           @NonNull int[] grantResults)
     {
         switch (requestCode) {
             case PICK_FROM_GALLERY:
 
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                /* Open Image Gallery if permission granted. If request is cancelled,
+                the result arrays are empty.
+                 */
+                if (grantResults.length > 0 && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED) {
+
+                    Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(galleryIntent, PICK_FROM_GALLERY);
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Geef toestemming", Toast.LENGTH_SHORT);
+                }
+
+                else {
+
+                    // Custom Toast: Can't proceed without permission.
+                    Toast toast = new Toast(getApplicationContext());
+                    View customToastView = getLayoutInflater().inflate(
+                            R.layout.activity_toast_custom_simple, null);
+                    TextView toastTV = (TextView) customToastView.findViewById(
+                            R.id.toastText);
+                    toastTV.setText("Product kan niet worden toegevoegd zonder toestemming.");
+                    toast.setView(customToastView);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0,0);
                     toast.show();
                 }
                 break;
         }
     }
 
-    // Get bitmap for selected image.
-    // http://viralpatel.net/blogs/pick-image-from-galary-android-app/
+    /* Get bitmap for selected image.
+    http://viralpatel.net/blogs/pick-image-from-galary-android-app/
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

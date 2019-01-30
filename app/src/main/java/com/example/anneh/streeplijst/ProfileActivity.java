@@ -1,3 +1,10 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Activity that shows the Profile page of an user: Name, picture, related transactions.
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.content.DialogInterface;
@@ -10,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,8 +44,6 @@ public class ProfileActivity extends AppCompatActivity {
     Cursor transactionCursor;
     int userID;
     int transactionID;
-
-    // AlertDialog
     AlertDialog.Builder builder;
     EditText pinET;
 
@@ -74,8 +80,20 @@ public class ProfileActivity extends AppCompatActivity {
             userIV.setImageBitmap(imgBitmap);
         }
         catch (FileNotFoundException e) {
-            Log.d("Error: ", "file not found");
+
             e.printStackTrace();
+
+            // Custom Toast: File not found.
+            Toast toast = new Toast(getApplicationContext());
+            View customToastView = getLayoutInflater().inflate(
+                    R.layout.activity_toast_custom_simple, null);
+            TextView toastTV = (TextView) customToastView.findViewById(
+                    R.id.toastText);
+            toastTV.setText("Bestand niet gevonden.");
+            toast.setView(customToastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0,0);
+            toast.show();
         }
 
         // Get formatter for devices default currency.
@@ -103,7 +121,8 @@ public class ProfileActivity extends AppCompatActivity {
     public void portfolioClicked(View view) {
 
         // Pass user ID to PortfolioActivity
-        Intent portfolioIntent = new Intent(ProfileActivity.this, PortfolioActivity.class);
+        Intent portfolioIntent = new Intent(ProfileActivity.this,
+                PortfolioActivity.class);
         portfolioIntent.putExtra("user_id", userID);
         startActivity(portfolioIntent);
     }
@@ -115,13 +134,26 @@ public class ProfileActivity extends AppCompatActivity {
 
             // Get transaction ID
             Cursor clickedTransaction = (Cursor) parent.getItemAtPosition(position);
-            transactionID = clickedTransaction.getInt(clickedTransaction.getColumnIndex("_id"));
-            int removed = clickedTransaction.getInt(clickedTransaction.getColumnIndex("removed"));
+            transactionID = clickedTransaction.getInt(
+                    clickedTransaction.getColumnIndex("_id"));
+            int removed = clickedTransaction.getInt(
+                    clickedTransaction.getColumnIndex("removed"));
 
             // Cancel if transaction already removed.
             if (removed == 1) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Transactie is al verwijderd", Toast.LENGTH_SHORT);
+
+                // Custom Toast: Transaction already removed.
+                Toast toast = new Toast(getApplicationContext());
+                View customToastView = getLayoutInflater().inflate(
+                        R.layout.activity_toast_custom_simple, null);
+                TextView toastTV = (TextView) customToastView.findViewById(
+                        R.id.toastText);
+                toastTV.setText("Transactie is al verwijderd.");
+                toast.setView(customToastView);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0,0);
                 toast.show();
+
                 return false;
             }
 
@@ -135,12 +167,21 @@ public class ProfileActivity extends AppCompatActivity {
                             // Remove transaction from database (users, portfolio, transactions).
                             db.removeTransaction(transactionID);
 
-                            // Confirm removal through toast.
-                            Toast toast = Toast.makeText(getApplicationContext(), "Transactie verwijderd", Toast.LENGTH_SHORT);
+                            // Custom Toast: Transaction removed.
+                            Toast toast = new Toast(getApplicationContext());
+                            View customToastView = getLayoutInflater().inflate(
+                                    R.layout.activity_toast_custom_simple, null);
+                            TextView toastTV = (TextView) customToastView.findViewById(
+                                    R.id.toastText);
+                            toastTV.setText("Transactie verwijderd");
+                            toast.setView(customToastView);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0,0);
                             toast.show();
 
                             // Return to ProductsActivity.
-                            Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
+                            Intent intent = new Intent(ProfileActivity.this,
+                                    ProductsActivity.class);
                             startActivity(intent);
                         }
                     })
@@ -158,17 +199,17 @@ public class ProfileActivity extends AppCompatActivity {
         }
     }
 
-    // AlertDialog: open when remove clicked
+    // AlertDialog: open when remove clicked.
     public void removeClicked(View view) {
 
-        // Get prompts.xml view
+        // Get prompts.xml view (Custom AlertDialog).
         LayoutInflater layoutInflater = LayoutInflater.from(this);
         View promptView = layoutInflater.inflate(R.layout.prompts, null);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(promptView);
 
-        // Get reference to EditText
+        // Get reference to EditText.
         pinET = promptView.findViewById(R.id.pinET);
 
         // Set dialog window.
@@ -177,35 +218,52 @@ public class ProfileActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        // Check PIN
+                        // Check if PIN set yet.
                         Cursor pinCursor = db.getPin();
                         if (pinCursor != null & pinCursor.moveToFirst()) {
 
-                            // If PIN.
                             int PIN = pinCursor.getInt(0);
 
-                            // Get pin
-                            // TODO: exception???
                             try {
                                 int enteredPin = Integer.parseInt(pinET.getText().toString());
 
-                                // Compare
+                                // Compare entered PIN to set PIN.
                                 if (enteredPin == PIN) {
 
                                     // Remove user from database.
                                     db.removeUser(userID);
 
-                                    // Toast.
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Gebruiker verwijderd", Toast.LENGTH_SHORT);
+                                    // Custom Toast: User removed.
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(
+                                            R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(
+                                            R.id.toastText);
+                                    toastTV.setText("Gebruiker verwijderd.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
 
                                     // Return to ProductsActivity.
-                                    Intent intent = new Intent(ProfileActivity.this, ProductsActivity.class);
+                                    Intent intent = new Intent(ProfileActivity.this,
+                                            ProductsActivity.class);
                                     startActivity(intent);
                                 }
                                 else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
+
+                                    // Custom Toast: Wrong PIN.
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(
+                                            R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(
+                                            R.id.toastText);
+                                    toastTV.setText("PIN onjuist.");
+                                    toast.setView(customToastView);
+                                    toast.setDuration(Toast.LENGTH_SHORT);
+                                    toast.setGravity(Gravity.CENTER, 0,0);
                                     toast.show();
+
                                     dialog.cancel();
                                 }
                             }
@@ -213,16 +271,33 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 e.printStackTrace();
 
-                                // Toast.
-                                Toast toast = Toast.makeText(getApplicationContext(), "Voer PIN in", Toast.LENGTH_SHORT);
+                                // Custom Toast: Enter PIN.
+                                Toast toast = new Toast(getApplicationContext());
+                                View customToastView = getLayoutInflater().inflate(
+                                        R.layout.activity_toast_custom_simple, null);
+                                TextView toastTV = (TextView) customToastView.findViewById(
+                                        R.id.toastText);
+                                toastTV.setText("Voer PIN in.");
+                                toast.setView(customToastView);
+                                toast.setDuration(Toast.LENGTH_SHORT);
+                                toast.setGravity(Gravity.CENTER, 0,0);
                                 toast.show();
                             }
                         }
                         else {
 
-                            // Toast.
-                            Toast toast = Toast.makeText(getApplicationContext(), "Nog geen PIN ingesteld", Toast.LENGTH_SHORT);
+                            // Custom Toast: No PIN set yet.
+                            Toast toast = new Toast(getApplicationContext());
+                            View customToastView = getLayoutInflater().inflate(
+                                    R.layout.activity_toast_custom_simple, null);
+                            TextView toastTV = (TextView) customToastView.findViewById(
+                                    R.id.toastText);
+                            toastTV.setText("Nog geen PIN ingesteld.");
+                            toast.setView(customToastView);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0,0);
                             toast.show();
+
                             dialog.cancel();
                         }
                     }

@@ -1,3 +1,11 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Adapter for the portfolio ListView in the PortfolioActivity.
+
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.content.Context;

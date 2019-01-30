@@ -1,3 +1,11 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Activity to set a PIN for the app.
+
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.content.DialogInterface;
@@ -16,7 +24,6 @@ import android.widget.Toast;
 
 public class PinActivity extends AppCompatActivity {
 
-    String submittedPIN;
     StreepDatabase db;
     EditText pinET;
     int savedPIN;
@@ -40,7 +47,19 @@ public class PinActivity extends AppCompatActivity {
 
         // Check if (correct) PIN entered.
         if (submittedPIN.length() != 4) {
-            Toast toast = Toast.makeText(getApplicationContext(), "PIN moet bestaan uit 4 cijfers.", Toast.LENGTH_SHORT);
+
+            /* Custom Toast: PIN has to consist of 4 numbers.
+            https://www.dev2qa.com/android-custom-toast-example/
+             */
+            Toast toast = new Toast(getApplicationContext());
+            View customToastView = getLayoutInflater().inflate(
+                    R.layout.activity_toast_custom_simple, null);
+            TextView toastTV = (TextView) customToastView.findViewById(
+                    R.id.toastText);
+            toastTV.setText("PIN moet bestaan uit 4 cijfers.");
+            toast.setView(customToastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0,0);
             toast.show();
         }
         else {
@@ -70,7 +89,6 @@ public class PinActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
 
                                 // Get pin
-                                // TODO: *****
                                 int enteredPIN = Integer.parseInt(pinET.getText().toString());
 
                                 // Compare
@@ -79,11 +97,12 @@ public class PinActivity extends AppCompatActivity {
                                     // Remove product from database.
                                     db.insertPin(newPIN);
 
-                                    // Toast.
-                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    // Custom Toast: new PIN.
                                     Toast toast = new Toast(getApplicationContext());
-                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
-                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    View customToastView = getLayoutInflater().inflate(
+                                            R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(
+                                            R.id.toastText);
                                     toastTV.setText("Nieuwe PIN ingesteld.");
                                     toast.setView(customToastView);
                                     toast.setDuration(Toast.LENGTH_SHORT);
@@ -91,18 +110,20 @@ public class PinActivity extends AppCompatActivity {
                                     toast.show();
 
                                     // Return to ProductsActivity.
-                                    Intent intent = new Intent(PinActivity.this, ProductsActivity.class);
+                                    Intent intent = new Intent(PinActivity.this,
+                                            ProductsActivity.class);
                                     startActivity(intent);
                                 }
                                 else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "PIN onjuist", Toast.LENGTH_SHORT);
-                                    toast.show();
 
-                                    // Toast.
-                                    // https://www.dev2qa.com/android-custom-toast-example/
-                                    toast = new Toast(getApplicationContext());
-                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
-                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    /* Custom Toast: wrong PIN.
+                                    https://www.dev2qa.com/android-custom-toast-example/
+                                     */
+                                    Toast toast = new Toast(getApplicationContext());
+                                    View customToastView = getLayoutInflater().inflate(
+                                            R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(
+                                            R.id.toastText);
                                     toastTV.setText("PIN onjuist.");
                                     toast.setView(customToastView);
                                     toast.setDuration(Toast.LENGTH_SHORT);
@@ -117,13 +138,13 @@ public class PinActivity extends AppCompatActivity {
                             }
                         });
 
-                //Create dialog box and show.
+                // Create dialog box and show.
                 AlertDialog alert = builder.create();
                 alert.show();
             }
             else {
 
-                // If no PIN.
+                // If no PIN set yet.
                 builder.setMessage("PIN Instellen?")
                         .setCancelable(false)
                         .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
@@ -132,9 +153,7 @@ public class PinActivity extends AppCompatActivity {
                                 // Enter DB
                                 db.insertPin(newPIN);
 
-                                // TOAST
-                                // Confirm.
-                                // https://www.dev2qa.com/android-custom-toast-example/
+                                // Custom Toast: PIN set.
                                 Toast toast = new Toast(getApplicationContext());
                                 View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
                                 TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);

@@ -1,3 +1,11 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Activity that shows a users portfolio: the products the user has bought/"gestreept",
+the amount, and theprice.
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.content.Intent;
@@ -26,7 +34,6 @@ public class PortfolioActivity extends AppCompatActivity {
 
         // Get username and id.
         Intent intent = getIntent();
-        //String username = (String) intent.getSerializableExtra("user_name"); //TODO: in titel
         userID = (int) intent.getSerializableExtra("user_id");
 
         // Get formatter for devices default currency.

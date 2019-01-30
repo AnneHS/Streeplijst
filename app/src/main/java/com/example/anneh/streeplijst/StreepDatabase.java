@@ -1,3 +1,11 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Database to keep track of all the needed info: Products, users, transactions, portfolio, mail and
+PIN.
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.content.ContentValues;
@@ -14,7 +22,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
     SQLiteDatabase db;
 
     // Constructor
-    private StreepDatabase(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    private StreepDatabase(@Nullable Context context, @Nullable String name,
+                           @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
@@ -40,8 +49,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.execSQL(createTransactions);
 
         // Create portfolio table.
-        String createPortfolio = "CREATE TABLE portfolio(_id INTEGER PRIMARY KEY, userID INTEGER, productName text, " +
-                "productPrice REAL, amount INTEGER, total REAL)";
+        String createPortfolio = "CREATE TABLE portfolio(_id INTEGER PRIMARY KEY, " +
+                "userID INTEGER, productName text, productPrice REAL, amount INTEGER, total REAL)";
         db.execSQL(createPortfolio);
 
         // Create e-mail table.
@@ -53,8 +62,6 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.execSQL(createPin);
     }
 
-    // TODO: ???
-    // If you make changes to the schema of your database (like adding columns), you need to force a call to onUpgrade().
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
@@ -87,21 +94,19 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return productsCursor;
     }
 
-    // Return cursor for product with given id.
-    public Cursor selectProduct(int id) {
-
-        String productID = Integer.toString(id);
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor productCursor = db.rawQuery("SELECT * FROM products WHERE _id = ?", new String[] {productID});
-        return productCursor;
-
-    }
-
     // Return cursor for users table.
     public Cursor selectUsers() {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor usersCursor = db.rawQuery("SELECT * FROM users ORDER BY name ASC",
+                null);
+        return usersCursor;
+    }
+
+    public Cursor selectUsersCSV() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor usersCursor = db.rawQuery("SELECT _id, name, costs FROM users ORDER BY name ASC",
                 null);
         return usersCursor;
     }
@@ -135,7 +140,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         SQLiteDatabase db = this.getWritableDatabase();
         String userID = Integer.toString(userId);
-        Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?", new String[] {userID});
+        Cursor userCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?",
+                new String[] {userID});
 
         if (userCursor != null & userCursor.moveToFirst()) {
 
@@ -166,12 +172,12 @@ public class StreepDatabase extends SQLiteOpenHelper {
     }
 
 
-    // return cursor for portfolio table
+    // Return cursor for portfolio table.
     public Cursor selectPortfolios() {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor portfolioCursor = db.rawQuery("SELECT userID, productName, productPrice, amount," +
-                "total FROM portfolio ORDER BY userID ASC", null);
+        Cursor portfolioCursor = db.rawQuery("SELECT userID, productName, productPrice, " +
+                "amount,total FROM portfolio ORDER BY userID ASC", null);
         return portfolioCursor;
     }
 
@@ -204,7 +210,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
     }
 
-    // Update portfolio
+    // Update portfolio.
     public void updatePortfolio(Transaction transaction) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -257,13 +263,13 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         // Get db & cursor for mail table.
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?", new String[] {"1"});
+        Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?",
+                new String[] {"1"});
 
         // Add mail address to ContentValues.
         ContentValues cv = new ContentValues();
         cv.put("address", address);
 
-        // TODO: "1" ????
         // Insert e-mail address if not yet given, else overwrite current address.
         if (mailCursor == null || !mailCursor.moveToFirst()) {
             db.insert("mail", null, cv);
@@ -273,14 +279,14 @@ public class StreepDatabase extends SQLiteOpenHelper {
         }
     }
 
-    // Get mail address from db
+    // Get mail address from db.
     public String getMail() {
 
         // Get db & cursor for mail table.
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?", new String[] {"1"});
+        Cursor mailCursor = db.rawQuery("SELECT address FROM mail WHERE _id = ?",
+                new String[] {"1"});
 
-        //TODO: "" ????
         // Return address if given, else return "".
         String address = "";
         if (mailCursor != null & mailCursor.moveToFirst()) {
@@ -305,7 +311,6 @@ public class StreepDatabase extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("pinNumber", pin);
 
-        // TODO: "1" ????
         // Insert e-mail address if not yet given, else overwrite current address.
         if (mailCursor == null || !mailCursor.moveToFirst()) {
             db.insert("pin", null, cv);
@@ -325,8 +330,9 @@ public class StreepDatabase extends SQLiteOpenHelper {
         return pinCursor;
     }
 
-    // Get total costs from users table.
-    // https://stackoverflow.com/questions/20582320/android-get-sum-of-database-column/20582538
+    /* Get total costs from users table.
+    https://stackoverflow.com/questions/20582320/android-get-sum-of-database-column/20582538
+     */
     public float getTotalCosts() {
         float total = 0;
 
@@ -345,7 +351,6 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
     // Update costs in users table & strepen and total in products table.
     public void streep(int userId, float total, int productId, int amount) {
-        //TODO: op handigere manier
 
         // Convert given id to string.
         String userID = Integer.toString(userId);
@@ -355,8 +360,9 @@ public class StreepDatabase extends SQLiteOpenHelper {
         Cursor costsCursor = db.rawQuery("SELECT costs FROM users WHERE _id = ?",
                 new String[] {userID});
 
-        // Update costs.
-        // https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
+        /* Update costs.
+        https://stackoverflow.com/questions/10244222/android-database-cursorindexoutofboundsexception-index-0-requested-with-a-size
+         */
         if (costsCursor != null & costsCursor.moveToFirst()) {
 
             // Add given total to former costs.
@@ -452,7 +458,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
         db.update("transactions", cv, "_id = ?", new String[] {transactionID});
 
         // Adjust portfolio & users table.
-        Cursor cursor = db.rawQuery("SELECT * FROM transactions WHERE _id = ?", new String[] {transactionID});
+        Cursor cursor = db.rawQuery("SELECT * FROM transactions WHERE _id = ?",
+                new String[] {transactionID});
         if (cursor != null & cursor.moveToFirst()) {
 
             // Get transaction info (userID, productName, productPrice, amount, price).
@@ -469,8 +476,10 @@ public class StreepDatabase extends SQLiteOpenHelper {
             if (portfolioCursor != null & portfolioCursor.moveToFirst()) {
 
                 // Get former amount & total.
-                int formerAmount = portfolioCursor.getInt(portfolioCursor.getColumnIndex("amount"));
-                float formerTotal = portfolioCursor.getFloat(portfolioCursor.getColumnIndex("total"));
+                int formerAmount = portfolioCursor.getInt(
+                        portfolioCursor.getColumnIndex("amount"));
+                float formerTotal = portfolioCursor.getFloat(
+                        portfolioCursor.getColumnIndex("total"));
 
                 // Calculate updated amount & total.
                 int updatedAmount = formerAmount - amount;
@@ -485,7 +494,6 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
             }
             else{
-                // TODO: Error messages
                 Log.d("StreepDatabase","Er is iets fout gegaan.");
             }
 
@@ -504,7 +512,7 @@ public class StreepDatabase extends SQLiteOpenHelper {
                 db.update("users", usersCV, "_id = ?", new String[] {userID});
             }
             else {
-                // TODO: Error messages
+
                 Log.d("StreepDatabase","Er is iets fout gegaan.");
             }
 
@@ -515,11 +523,13 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
 
                 // Calculate updated total.
-                float formerTotal = productCursor.getFloat(productCursor.getColumnIndex("total"));
+                float formerTotal = productCursor.getFloat(
+                        productCursor.getColumnIndex("total"));
                 float updatedTotal = formerTotal - transactionTotal;
 
                 // Calculate updated amount of orders/strepen.
-                int formerStrepen = productCursor.getInt(productCursor.getColumnIndex("strepen"));
+                int formerStrepen = productCursor.getInt(
+                        productCursor.getColumnIndex("strepen"));
                 int updatedStrepen = formerStrepen - amount;
 
                 // Update products table.
@@ -565,8 +575,8 @@ public class StreepDatabase extends SQLiteOpenHelper {
 
         // Drop & Reload portfolio table.
         db.execSQL("DROP TABLE portfolio");
-        String createPortfolio = "CREATE TABLE portfolio(_id INTEGER PRIMARY KEY, userID INTEGER, productName text, " +
-                "productPrice REAL, amount INTEGER, total REAL)";
+        String createPortfolio = "CREATE TABLE portfolio(_id INTEGER PRIMARY KEY, userID INTEGER, " +
+                "productName text, productPrice REAL, amount INTEGER, total REAL)";
         db.execSQL(createPortfolio);
     }
 }

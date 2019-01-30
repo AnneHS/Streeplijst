@@ -1,3 +1,9 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Activity where mail address can be entered (to database).
+ */
 package com.example.anneh.streeplijst;
 
 import android.content.DialogInterface;
@@ -19,7 +25,6 @@ public class MailActivity extends AppCompatActivity {
     EditText mailET;
     Button submitBtn;
     StreepDatabase db;
-    AlertDialog.Builder builder;
     String address;
     EditText pinET;
 
@@ -36,7 +41,7 @@ public class MailActivity extends AppCompatActivity {
         db = StreepDatabase.getInstance(getApplicationContext());
     }
 
-    // OPen AlertDialog when 'Submit Button' clicked.
+    // Open AlertDialog when 'Submit Button' clicked.
     public void submitClicked(View view) {
 
         // Get email if entered, else quit.
@@ -44,7 +49,19 @@ public class MailActivity extends AppCompatActivity {
             address = mailET.getText().toString();
         }
         else {
-            Toast.makeText(getApplicationContext(), "Voer e-mailadres in.", Toast.LENGTH_SHORT).show();
+
+            // Custom Toast: Enter address.
+            Toast toast = new Toast(getApplicationContext());
+            View customToastView = getLayoutInflater().inflate(
+                    R.layout.activity_toast_custom_simple, null);
+            TextView toastTV = (TextView) customToastView.findViewById(
+                    R.id.toastText);
+            toastTV.setText("Voer e-mailadres in.");
+            toast.setView(customToastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0,0);
+            toast.show();
+
             return;
         }
 
@@ -65,29 +82,27 @@ public class MailActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
-                        // Check PIN
+                        // Check if PIN has been set yey.
                         Cursor pinCursor = db.getPin();
                         if (pinCursor != null & pinCursor.moveToFirst()) {
 
-                            // If PIN.
                             int PIN = pinCursor.getInt(0);
 
-                            // Get pin
-                            // TODO: exception???
                             try {
                                 int enteredPin = Integer.parseInt(pinET.getText().toString());
 
-                                // Compare
+                                // Compare entered PIN to set PIN.
                                 if (enteredPin == PIN) {
 
-                                    // Add address to db.
+                                    // Add address to db if PIN matches.
                                     db.insertMail(address);
 
-                                    // Toast.
-                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    // Custom Toast: E-mail address has been set.
                                     Toast toast = new Toast(getApplicationContext());
-                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
-                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    View customToastView = getLayoutInflater().inflate(
+                                            R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(
+                                            R.id.toastText);
                                     toastTV.setText("E-mail ingesteld.");
                                     toast.setView(customToastView);
                                     toast.setDuration(Toast.LENGTH_SHORT);
@@ -95,16 +110,18 @@ public class MailActivity extends AppCompatActivity {
                                     toast.show();
 
                                     // Return to ProductsActivity.
-                                    Intent intent = new Intent(MailActivity.this, ExportActivity.class);
+                                    Intent intent = new Intent(MailActivity.this,
+                                            ExportActivity.class);
                                     startActivity(intent);
                                 }
                                 else {
 
-                                    // Toast.
-                                    // https://www.dev2qa.com/android-custom-toast-example/
+                                    // Custom Toast: Wrong PIN entered.
                                     Toast toast = new Toast(getApplicationContext());
-                                    View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
-                                    TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                    View customToastView = getLayoutInflater().inflate(
+                                            R.layout.activity_toast_custom_simple, null);
+                                    TextView toastTV = (TextView) customToastView.findViewById(
+                                            R.id.toastText);
                                     toastTV.setText("PIN onjuist.");
                                     toast.setView(customToastView);
                                     toast.setDuration(Toast.LENGTH_SHORT);
@@ -119,11 +136,12 @@ public class MailActivity extends AppCompatActivity {
 
                                 e.printStackTrace();
 
-                                // Toast.
-                                // https://www.dev2qa.com/android-custom-toast-example/
+                                // Custom Toast: No PIN entered.
                                 Toast toast = new Toast(getApplicationContext());
-                                View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
-                                TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                                View customToastView = getLayoutInflater().inflate(
+                                        R.layout.activity_toast_custom_simple, null);
+                                TextView toastTV = (TextView) customToastView.findViewById(
+                                        R.id.toastText);
                                 toastTV.setText("Voer PIN in.");
                                 toast.setView(customToastView);
                                 toast.setDuration(Toast.LENGTH_SHORT);
@@ -133,11 +151,12 @@ public class MailActivity extends AppCompatActivity {
                         }
                         else {
 
-                            // Toast.
-                            // https://www.dev2qa.com/android-custom-toast-example/
+                            // Custom Toast: No PIN set yet.
                             Toast toast = new Toast(getApplicationContext());
-                            View customToastView = getLayoutInflater().inflate(R.layout.activity_toast_custom_simple, null);
-                            TextView toastTV = (TextView) customToastView.findViewById(R.id.toastText);
+                            View customToastView = getLayoutInflater().inflate(
+                                    R.layout.activity_toast_custom_simple, null);
+                            TextView toastTV = (TextView) customToastView.findViewById(
+                                    R.id.toastText);
                             toastTV.setText("Stel eerst een PIN in.");
                             toast.setView(customToastView);
                             toast.setDuration(Toast.LENGTH_SHORT);
@@ -148,13 +167,15 @@ public class MailActivity extends AppCompatActivity {
                         }
                     }
                 })
+
+                // Cancel Dialog when user clicks Cancel.
                 .setNegativeButton("Annuleren", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
                     }
                 });
 
-        //Create dialog box and show.
+        // Create dialog box and show.
         AlertDialog alert = builder.create();
         alert.show();
     }

@@ -1,3 +1,11 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Custom ImageView Class to create an ImageView with rounded corners.
+https://stackoverflow.com/questions/18229358/bitmap-in-imageview-with-rounded-corners
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.content.Context;
@@ -6,12 +14,9 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
-/* Custom ImageView Class to create an ImageView with rounded corners.
-https://stackoverflow.com/questions/18229358/bitmap-in-imageview-with-rounded-corners
- */
-
 public class CustomImageView extends android.support.v7.widget.AppCompatImageView {
 
+    // Radius for rounded corners.
     public static float radius = 18.0f;
 
     public CustomImageView(Context context) {
@@ -38,8 +43,9 @@ public class CustomImageView extends android.support.v7.widget.AppCompatImageVie
         super.onDraw(canvas);
     }
 
-    // Resize image.
-    // https://rogcg.github.io/articles/2013-11/gridview-and-auto-resized-images-android
+    /* Resize image.
+    https://rogcg.github.io/articles/2013-11/gridview-and-auto-resized-images-android
+     */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

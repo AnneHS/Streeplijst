@@ -1,3 +1,11 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+The product class.
+
+ */
+
 package com.example.anneh.streeplijst;
 
 import java.io.Serializable;

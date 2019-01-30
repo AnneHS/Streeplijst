@@ -1,6 +1,13 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Activity that shows a GridView of the available products. They can be selected and then passed to
+the users activity.
+ */
+
 package com.example.anneh.streeplijst;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -11,25 +18,21 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.ArrayList;
 
 public class ProductsActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     private NavigationView navigationView;
-
     private StreepDatabase db;
     Cursor productsCursor;
     private ProductAdapter adapter;
@@ -39,8 +42,9 @@ public class ProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
 
-        // Set navigation drawer.
-        // https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
+        /* Set navigation drawer.
+        https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
+         */
         drawer = (DrawerLayout)findViewById(R.id.activity_products);
         toggle = new ActionBarDrawerToggle(this, drawer, R.string.Open, R.string.Close);
         drawer.addDrawerListener(toggle);
@@ -60,13 +64,14 @@ public class ProductsActivity extends AppCompatActivity {
         GridView productGrid = (GridView) findViewById(R.id.productGrid);
         productGrid.setAdapter(adapter);
 
-        // Set listeners for producrGrid.
+        // Set listeners for productGrid.
         productGrid.setOnItemClickListener(new GridViewClickListener());
         productGrid.setOnItemLongClickListener(new ProductsActivity.GridViewLongClickListener());
     }
 
 
-    private class NavigationViewClickListener implements NavigationView.OnNavigationItemSelectedListener {
+    private class NavigationViewClickListener implements
+            NavigationView.OnNavigationItemSelectedListener {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -103,15 +108,16 @@ public class ProductsActivity extends AppCompatActivity {
         }
     }
 
+    /* Open phone directory with the "Streeplijst" Csv files.
+    //https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
+     */
     public void openCSVFolder() {
-
-        //https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
 
         // Create URI for CSV-folder path.
         Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() +
                 "/Streeplijst/");
 
-        // Open folder (file explorer needed).s
+        // Open folder (file explorer needed).
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(selectedUri, "resource/folder");
         if (intent.resolveActivityInfo(getPackageManager(), 0) != null) {
@@ -119,9 +125,16 @@ public class ProductsActivity extends AppCompatActivity {
         }
         else {
 
-            // Display toast if user has not installed file explorer.
-            Toast toast = Toast.makeText(getApplicationContext(), "Installeer een " +
-                    "file explorer om verder te gaan.", Toast.LENGTH_SHORT);
+            // Custom Toast: Install file explorer to show Csv files.
+            Toast toast = new Toast(getApplicationContext());
+            View customToastView = getLayoutInflater().inflate(
+                    R.layout.activity_toast_custom_simple, null);
+            TextView toastTV = (TextView) customToastView.findViewById(
+                    R.id.toastText);
+            toastTV.setText("Installeer een file explorer om Csv bestanden te bekijken.");
+            toast.setView(customToastView);
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0,0);
             toast.show();
         }
     }

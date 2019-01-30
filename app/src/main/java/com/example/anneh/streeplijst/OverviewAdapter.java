@@ -1,3 +1,11 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Adapter for the transactions ListView in the OverviewActivity.
+
+ */
+
 package com.example.anneh.streeplijst;
 
 import android.content.Context;

@@ -1,3 +1,10 @@
+/*
+Anne Hoogerduijn Strating
+12441163
+
+Activity to add a new product to the "Streeplijst" (database).
+
+ */
 package com.example.anneh.streeplijst;
 
 import android.content.DialogInterface;
@@ -6,6 +13,7 @@ import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,14 +67,26 @@ public class OverviewActivity extends AppCompatActivity {
             Cursor clickedTransaction = (Cursor) parent.getItemAtPosition(position);
 
             // Check if transaction has already been removed.
-            transactionID = clickedTransaction.getInt(clickedTransaction.getColumnIndex("_id"));
-            int removed = clickedTransaction.getInt(clickedTransaction.getColumnIndex("removed"));
+            transactionID = clickedTransaction.getInt(
+                    clickedTransaction.getColumnIndex("_id"));
+            int removed = clickedTransaction.getInt(
+                    clickedTransaction.getColumnIndex("removed"));
 
             // Cancel if already removed and display toast.
             if (removed == 1) {
 
-                Toast toast = Toast.makeText(getApplicationContext(), "Transactie is al verwijderd", Toast.LENGTH_SHORT);
+                // Custom Toast: Transaction has already been removed.
+                Toast toast = new Toast(getApplicationContext());
+                View customToastView = getLayoutInflater().inflate(
+                        R.layout.activity_toast_custom_simple, null);
+                TextView toastTV = (TextView) customToastView.findViewById(
+                        R.id.toastText);
+                toastTV.setText("Transactie is al verwijderd.");
+                toast.setView(customToastView);
+                toast.setDuration(Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0,0);
                 toast.show();
+
                 return false;
             }
 
@@ -84,12 +104,21 @@ public class OverviewActivity extends AppCompatActivity {
                             // Remove transaction from database
                             db.removeTransaction(transactionID);
 
-                            // Confirm removal through toast
-                            Toast toast = Toast.makeText(getApplicationContext(), "Transactie verwijderd", Toast.LENGTH_SHORT);
+                            // Custom Toast: Transaction removed.
+                            Toast toast = new Toast(getApplicationContext());
+                            View customToastView = getLayoutInflater().inflate(
+                                    R.layout.activity_toast_custom_simple, null);
+                            TextView toastTV = (TextView) customToastView.findViewById(
+                                    R.id.toastText);
+                            toastTV.setText("Transactie verwijderd.");
+                            toast.setView(customToastView);
+                            toast.setDuration(Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0,0);
                             toast.show();
 
-                            // Return to ProductsActivity
-                            Intent intent = new Intent(OverviewActivity.this, ProductsActivity.class);
+                            // Return to ProductsActivity.
+                            Intent intent = new Intent(
+                                    OverviewActivity.this, ProductsActivity.class);
                             startActivity(intent);
                         }
                     })

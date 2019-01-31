@@ -99,7 +99,7 @@ public class NewProductActivity extends AppCompatActivity {
                 }
 
                 // Get price if entered, else return.
-                if(!nameET.getText().toString().equals("") && nameET.getText().toString().length()
+                if(!priceET.getText().toString().equals("") && priceET.getText().toString().length()
                         > 0) {
                     productPrice = Float.valueOf(priceET.getText().toString());
                 }
@@ -122,8 +122,19 @@ public class NewProductActivity extends AppCompatActivity {
 
                 // Return if no image uploaded.
                 if(bitmap == null) {
-                    Toast.makeText(getApplicationContext(), "Upload afbeelding",
-                            Toast.LENGTH_SHORT).show();
+
+                    // Custom Toast: Enter product name.
+                    Toast toast = new Toast(getApplicationContext());
+                    View customToastView = getLayoutInflater().inflate(
+                            R.layout.activity_toast_custom_simple, null);
+                    TextView toastTV = (TextView) customToastView.findViewById(
+                            R.id.toastText);
+                    toastTV.setText("Upload afbeelding");
+                    toast.setView(customToastView);
+                    toast.setDuration(Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0,0);
+                    toast.show();
+
                     return;
                 }
 

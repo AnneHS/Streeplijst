@@ -1,67 +1,43 @@
-# Eindproject: Automatische Streeplijst
+# Eindproject: Automatische Streeplijst (Android App)
 
 *Anne Hoogerduijn Strating*  
 *12441163*  
 
 **Samenvatting**  
-Indien in een (studenten)huis bier, fris of andere producten gezamenlijk worden ingekocht en aan het einde van de maand worden verrekend, kan een app de consumpties van iedere huisgenoot bijhouden en hier aan het einde van de maand een financieel overzicht van geven. 
+Indien een groep gezamenlijk drank ingekoopt kan met deze app worden bijgehouden wie wat heeft gedronken zodat de kosten aan het einde van een door gebruikter te bepalen termijn gemakkelijk kunnen worden verrekend.  
 
-**Probleem**  
-Ik woon in een groot studentenhuis (45 man) waar elke maand al het bier en fris wordt geleverd. Op de ijskasten hangen streeplijsten: één voor bier, één voor fris en één voor speciaal bier. Deze streeplijsten worden aan het eind van de maand met de hand geteld daarna wordt er voor iedere huisgenoot een factuur opgesteld. 
+## Probleem  
+Binnen groepen die gezamenlijk drank inkopen wordt regelmatig gebruik gemaakt van een streeplijst. Een streeplijst is een lijst waarop mensen kunnen aangeven wat ze drinken: wanneer je een drankje pakt zet je een streep achter je naam. Iedere maand wordt er een nieuwe lijst opgehangen. De strepen op de oude lijst worden handmatig geteld. Vervolgens worden de kosten verrekend, bijvoorbeeld door op basis van deze gegevens een factuur op te stellen of de kosten in te voeren op WieBetaaltWat. Zeker in grotere groepen, zoals studieverenigingen en de grotere studentenhuizen, kan het bijhouden van de streeplijsten een vermoeiend klusje zijn. Bovendien beperkt een streeplijst het aanbod. Iedere streep staat immers voor een vastgesteld bedrag. Daardoor kunnen enkel producten worden ingekocht die ongeveer dezelfde inkoopprijs hebben.  
 
-Dit 'streep-systeem' is om verschillende redenen niet optimaal. Het kost onnodige tijd en moeite om de streeplijsten iedere maand handmatig te tellen en elke keer nieuwe streeplijsten op te hangen. Daarnaast zijn de streeplijsten niet altijd duidelijk af te lezen. Bovendien kan er maar in beperkte mate onderscheid worden gemaakt tussen de prijzen van bepaalde producten (bier, speciaal bier en fris). Zo wordt al het speciaal bier onder dezelfde prijs geschaard omdat het onpraktisch is om voor elke soort een aparte streeplijst aan te maken. Hierdoor is ook het aanbod beperkt.
+## Oplossing
+Deze app vervangt de streeplijst. Het idee is dat alle benodigde informatie wordt bijgehouden op één tablet of telefoon. Binnen de app kunnen gebruikers en producten worden toegevoegd. Indien iemand een drankje pakt kan het het desbetreffende product worden geselecteerd in de app. Vervolgens kan worden aangegeven op welke gebruiker(s) het product moet worden gestreept. De app houdt alle transacties bij. Gebruikers kunnen op hun profielpagina inzien welke transacties er op hun naam staan en deze eventueel verwijderen indien er iets fout is gegaan. Ook hebben gebruikers elk een eigen overzicht waarin precies is weergegeven welke producten hij of zij de afgelopen periode heeft gestreept. De gebruiker  kan bepalen wanneer de streeplijstmoet wordeng geleegd. De app maakt Csv-bestanden aan die een overzicht geven van alle benodigde informatie. Deze kunnen vervolgens worden gemaild naar een door gebruiker te bepalen e-mailadres. De Csv bestanden blijven opgeslagen op het apparaat zodat men er later nog bij kan indien er bijvoorbeeld iets fout is gegaan met het mailen van de bestanden. De Csv-bestanden kunnen worden ingevoerd in boekhoudprogramma's zoals 'e-boekhouden.nl' zodat gemakkelijk een factuur kan worden opgesteld. Voor een aantal handelingen is een PIN vereist die binnen de app kan worden ingesteld. Denk hierbij bijvoorbeeld aan het verwijderen van gebruikers, verwijderen van producten en het legen van de streeplijst.
 
+<p align="center">
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/ProductsActivity.jpg" height="5%" width="24%"/> <img
+  src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/NavigationDrawer.jpg" height="5%" width="24%"/> <img 
+  src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/UsersActivity.jpg" height="5%" width="24%"/> <img 
+  src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/Gestreept.jpg" height="5%" width="24%"/>    
+  
+  
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/ProfileActivity.jpg" height="5%" width="24%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/PortfolioActivity.jpg" height="5%" width="24%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/AlertDialog.jpg" height="5%" width="24%"/> <img
+   src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/NewProductActivity.jpg" height="5%" width="24%"/>   
+</p>  
 
-**Idea**  
-Een app die deze streeplijsten vervangt en aan het eind van de maand automatisch een overzicht verstuurt naar de persoon die de facturen opstelt.
+## Product video
+https://www.youtube.com/watch?v=Y7Wtl3-JkHI
 
-**Project**  
-*Main features:*  
-* Het kunnen bijhouden van de consumptie (product, hoeveelheid, totale kosten) van minimaal 45 gebruikers.  
-* Aan het einde van de maand automatisch een overzichtsmail sturen naar de huisgenoot die de facturen opstelt.  
-* Hierna automatisch de database/streeplijst legen.
-* Strepen kunnen verwijderen indien er iets fout is gegaan
-* Transactieoverzicht bijhouden
+##  Sources  
 
-*Optioneel:*  
-* De mogelijkheid om in-app:  
-      * producten toe te voegen of te verwijderen (bij voorkeur pin vereist zodat niet iedere gek dit kan doen)  
-      * gebruikters te verwijderen en nieuwe toe te voegen (bij verhuizen, pin vereist)  
-      * in één keer meerdere consumpties strepen  
-      * persoonlijke date in te zien (hoeveel deze maand uitgegeven en waaraan etc.)  
-* Bijhouden wat er het meest wordt gedronken
-* App koppelen aan eboekhouden.nl indien mogelijk (excel kan je importeren).
-* Meerdere tablets op zelfde app aansluiten?
-
-**Doelgroep**  
-Studenten
-
-**Datasources**  
-Geen, alleen gebruikers input?
-
-**External components**  
-SQLite om gegevens van de gebruikers bij te houden
-
-**Similar**  
-Vergelijkbaar met de finance opdracht gezien het feit dat in een database voor elke gebruiker zal moeten worden bijgehouden welke producten de gebruiker heeft gekocht, hoeveel de gebruiker daaarvan heeft gekocht en wat de totale kosten/uitgaven zijn. Bovendien is één van de belangrijkste optionele features dat de gebruiker zijn of haar data in kan zien.
-
-**Hardest Parts**
-- Veel gebruikers input. Belangrijk om ervoor te zorgen dat dit de app niet in de war kan gooien. 
-- Ervoor zorgen dat elke maand een duidelijk overzicht wordt gemaild naar de persoon die de facturen opstelt.
-- Gebruiksvriendelijkheid. De app moet snel en overzichtelijk zijn, anders gebruikt iedereen liever een streeplijst.
-- Moet 100% betrouwbaar zijn omdat er maandelijkses facturen op worden gebaseerd.    
-
-
-
-# Sources
-https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html
-https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android
-https://www.dev2qa.com/android-custom-toast-example/
-https://www.javatpoint.com/android-alert-dialog-example
-https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f
-https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file
-https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-exposed-beyond-app-through-clipdata-item-geturi
-https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel
-https://stackoverflow.com/questions/18229358/bitmap-in-imageview-with-rounded-corners
-https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-external-storage
+https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html  
+https://coderwall.com/p/zpwrsg/add-search-function-to-list-view-in-android  
+https://www.dev2qa.com/android-custom-toast-example/  
+https://www.javatpoint.com/android-alert-dialog-example  
+https://medium.com/quick-code/android-navigation-drawer-e80f7fc2594f  
+https://stackoverflow.com/questions/17165972/android-how-to-open-a-specific-folder-via-intent-and-show-its-content-in-a-file  
+https://stackoverflow.com/questions/42251634/android-os-fileuriexposedexception-file-jpg-exposed-beyond-app-through-clipdata-item-geturi  
+https://stackoverflow.com/questions/14049323/android-program-to-convert-the-sqlite-database-to-excel  
+https://stackoverflow.com/questions/18229358/bitmap-in-imageview-with-rounded-corners  
+https://stackoverflow.com/questions/16360763/permission-denied-when-creating-new-file-on-external-storage  
 http://viralpatel.net/blogs/pick-image-from-galary-android-app/

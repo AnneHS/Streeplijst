@@ -25,6 +25,9 @@ Deze app vervangt de streeplijst. Het idee is dat alle benodigde informatie word
    src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/NewProductActivity.jpg" height="5%" width="24%"/>   
 </p>  
 
+## Product video
+https://www.youtube.com/watch?v=Y7Wtl3-JkHI
+
 ##  Sources  
 
 https://android--code.blogspot.com/2015/09/android-how-to-save-image-to-internal.html  

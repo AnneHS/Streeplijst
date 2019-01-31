@@ -14,7 +14,7 @@ Indien een groep gezamenlijk drank ingekoopt kan met deze app worden bijgehouden
 Het beginscherm van de app is het productenoverzicht. Hier selecteer je een product. Vervolgens selecteer je de gebruiker(s) waarop je het product wil strepen. Tot slot druk je op de 'Streep knop' en dan is het product gestreept. Wanneer je een product in het productenoverzicht langer ingedrukt houdt, ga je naar de profielpagina van het product.
 
 <p align="center">
-  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/DesignHoofd.PNG" height="5%" width="90%"/> 
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/DesignHoofd.PNG" height="5%" width="80%"/> 
 </p>   
 
 Via de Navigation Drawer kan er worden doorgeklikt naar alle andere benodigde activiteiten. De gebruiker kan het transactieoverzicht inzien. Hier kunnen transacties ook worden verwijderd. Daarnaast kunnen er nieuwe producten en gebruikers worden toegevoegd. Ook kan er een PIN ingesteld die nodig is om gebruikers en/of producten te verwijderen en om de streeplijst te legen en te mailen. Tot slot kan er worden doorgeklikt naar de "Streeplijst Folder" die wordt aangemaakt op de telefoon of tablet zodra de Streeplijst wordt geleegd. Hier worden alle gebruikers en portfoliotabellen als Csv bestand opgeslagen.

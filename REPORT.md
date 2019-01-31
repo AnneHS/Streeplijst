@@ -11,3 +11,7 @@ Indien een groep gezamenlijk drank ingekoopt kan met deze app worden bijgehouden
 </p>  
 
 ## Design
+<p align="center">
+  <img src="https://github.com/AnneHS/Streeplijst/blob/master/app/doc/UML.png" height="5%" width="80%"/> 
+</p>  
+
